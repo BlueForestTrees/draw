@@ -6,7 +6,7 @@ export const debug = (...obj) => {
 
 export const xor = (left, right) => !!(!!left ^ !!right);
 
-export const endChrono = chrono => {
-    chrono.end = _.now();
-    chrono.duration = chrono.end - chrono.start;
+export const endChrono = ({chrono}) => {
+    chrono.drawEnd = _.now();
+    chrono.duration = chrono.drawEnd - chrono.start;
 };

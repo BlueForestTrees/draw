@@ -27,7 +27,7 @@ export const createConfig = () => ({
 export const createChrono = () => ({
     start: _.now(),
     duration: 0,
-    end: 0
+    drawEnd: 0
 });
 
 export const createElement = start => ({

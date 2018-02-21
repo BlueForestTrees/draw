@@ -25,8 +25,7 @@
 
     import {createElement} from "../vuex/state";
     import {mapState} from 'vuex';
-    import {path, polyline, elementPosition, globalToLocal} from "../util/geo";
-    import _ from 'lodash';
+    import {elementPosition, globalToLocal, path, polyline} from "../util/geo";
     import {endChrono} from "../util/common";
 
     export default {
@@ -36,7 +35,9 @@
             return {
                 currentElement: null,
                 svg: null,
-                svgPoint: null
+                svgPoint: null,
+                drawing: null,
+                drawDelay: 20
             }
         },
         computed: {
@@ -44,34 +45,45 @@
         },
         methods: {
             down: function (e) {
+                this.move(e);
                 window.addEventListener("mousemove", this.move);
                 window.addEventListener("mouseup", this.up);
-                this.initAt(globalToLocal(e, this.svgPoint, this.svg));
+                this.drawInit();
             },
             move: function (e) {
-                this.lineTo(globalToLocal(e, this.svgPoint, this.svg));
+                this.e = e;
+            },
+            tick: function () {
+                this.drawPoint(globalToLocal(this.e, this.svgPoint, this.svg));
+                if (this.drawing) {
+                    setTimeout(() => this.tick, this.drawDelay)
+                } else {
+                    window.removeEventListener("mousemove", this.move);
+                    window.removeEventListener("mouseup", this.up);
+                    this.drawEnd();
+                }
             },
             up: function () {
-                window.removeEventListener("mousemove", this.move);
-                window.removeEventListener("mouseup", this.up);
-                this.end();
+                this.drawing = false;
             },
 
-            initAt: function (point) {
+
+            drawInit: function () {
                 this.currentElement = createElement(this.film.position);
                 this.film.elements.push(this.currentElement);
-
-                this.lineTo(point);
+                this.drawing = true;
+                this.tick();
             },
-            lineTo: function (point) {
+            drawPoint: function (point) {
                 this.film.position++;
                 if (this.film.position > this.film.length) {
                     this.film.length = this.film.position;
                 }
                 this.currentElement.points.push(point);
             },
-            end: function () {
-                endChrono(this.currentElement.chrono);
+            drawEnd: function () {
+                this.drawing = false;
+                endChrono(this.currentElement);
             },
 
             globalToLocal,
