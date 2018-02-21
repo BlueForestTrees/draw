@@ -24,9 +24,16 @@ export const createConfig = () => ({
     color: '#1CA085'
 });
 
+export const createChrono = () => ({
+    start: _.now(),
+    duration: 0,
+    end: 0
+});
+
 export const createElement = start => ({
     _id: Math.random() + "",
-    start,
+    start,//filmPosition
+    chrono: createChrono(),
     points: []
 });
 

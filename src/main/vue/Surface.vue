@@ -25,25 +25,41 @@
 
     import {createElement} from "../vuex/state";
     import {mapState} from 'vuex';
-    import {path, polyline, elementPosition} from "../util/geo";
+    import {path, polyline, elementPosition, globalToLocal} from "../util/geo";
+    import _ from 'lodash';
+    import {endChrono} from "../util/common";
 
     export default {
         name: "surface",
         props: ['config', 'film'],
         data: function () {
             return {
-                current: null,
+                currentElement: null,
                 svg: null,
-                pt: null
+                svgPoint: null
             }
         },
         computed: {
             ...mapState(['nav'])
         },
         methods: {
+            down: function (e) {
+                window.addEventListener("mousemove", this.move);
+                window.addEventListener("mouseup", this.up);
+                this.initAt(globalToLocal(e, this.svgPoint, this.svg));
+            },
+            move: function (e) {
+                this.lineTo(globalToLocal(e, this.svgPoint, this.svg));
+            },
+            up: function () {
+                window.removeEventListener("mousemove", this.move);
+                window.removeEventListener("mouseup", this.up);
+                this.end();
+            },
+
             initAt: function (point) {
-                this.current = createElement(this.film.position);
-                this.film.elements.push(this.current);
+                this.currentElement = createElement(this.film.position);
+                this.film.elements.push(this.currentElement);
 
                 this.lineTo(point);
             },
@@ -52,34 +68,21 @@
                 if (this.film.position > this.film.length) {
                     this.film.length = this.film.position;
                 }
-                this.current.points.push(point);
+                this.currentElement.points.push(point);
+            },
+            end: function () {
+                endChrono(this.currentElement.chrono);
             },
 
-
-            down: function (e) {
-                window.addEventListener("mousemove", this.move);
-                window.addEventListener("mouseup", this.up);
-                this.initAt(this.coords(e));
-            },
-            move: function (e) {
-                this.lineTo(this.coords(e));
-            },
-            up: function () {
-                window.removeEventListener("mousemove", this.move);
-                window.removeEventListener("mouseup", this.up);
-            },
-
-            coords: e => {
-                const svg = document.getElementById("surface");
-                const pt = svg.createSVGPoint();
-                pt.x = e.clientX;
-                pt.y = e.clientY;
-                return pt.matrixTransform(svg.getScreenCTM().inverse());
-            },
+            globalToLocal,
             elementPosition,
             path,
             polyline
-        }
+        },
+        mounted: function () {
+            this.svg = document.getElementById("surface");
+            this.svgPoint = document.getElementById("surface").createSVGPoint();
+        },
     }
 </script>
 
