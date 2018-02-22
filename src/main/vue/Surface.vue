@@ -6,16 +6,16 @@
                   style="fill:none;stroke:black;stroke-width:3;stroke-opacity:0.1"/>
 
         <g v-if="config.smooth">
-            <path v-for="e in film.elements" v-if="elementPosition(e,film.position) > 0"
-                  :key="`${e._id}@${elementPosition(e,film.position)}`"
-                  :d="path(e.points, config, elementPosition(e,film.position))"
-                  style="fill:none;stroke:black;stroke-width:3;stroke-linecap:round"/>
+            <path v-for="e in film.elements" v-if="elementIndex(e,film.index) > 0"
+                  :key="`${e._id}@${elementIndex(e,film.index)}`"
+                  :d="path(e.points, config, elementIndex(e,film.index))"
+                  style="fill:none;stroke:black;stroke-width:6;stroke-linecap:round"/>
         </g>
         <g v-else>
-            <polyline v-for="e in film.elements" v-if="elementPosition(e,film.position) > 0"
-                      :key="`${e._id}@${elementPosition(e,film.position)}`"
-                      :points="polyline(e.points, config, elementPosition(e,film.position))"
-                      style="fill:none;stroke:black;stroke-width:3;stroke-linecap:round"/>
+            <polyline v-for="e in film.elements" v-if="elementIndex(e,film.index) > 0"
+                      :key="`${e._id}@${elementIndex(e,film.index)}`"
+                      :points="polyline(e.points, config, elementIndex(e,film.index))"
+                      style="fill:none;stroke:black;stroke-width:6;stroke-linecap:round"/>
         </g>
 
     </svg>
@@ -23,63 +23,71 @@
 
 <script>
 
-    import {createElement} from "../vuex/state";
+    import {createChrono, createElement} from "../vuex/state";
     import {mapState} from 'vuex';
-    import {path, polyline, elementPosition} from "../util/geo";
+    import {elementIndex, globalToLocal, path, polyline} from "../util/geo";
+    import {endChrono} from "../util/common";
 
     export default {
         name: "surface",
         props: ['config', 'film'],
         data: function () {
             return {
-                current: null,
+                currentElement: null,
+                chrono: null,
                 svg: null,
-                pt: null
+                svgPoint: null
             }
         },
         computed: {
             ...mapState(['nav'])
         },
         methods: {
-            initAt: function (point) {
-                this.current = createElement(this.film.position);
-                this.film.elements.push(this.current);
-
-                this.lineTo(point);
-            },
-            lineTo: function (point) {
-                this.film.position++;
-                if (this.film.position > this.film.length) {
-                    this.film.length = this.film.position;
-                }
-                this.current.points.push(point);
-            },
-
-
             down: function (e) {
                 window.addEventListener("mousemove", this.move);
                 window.addEventListener("mouseup", this.up);
-                this.initAt(this.coords(e));
+                this.drawInit(this.toPoint(e));
             },
             move: function (e) {
-                this.lineTo(this.coords(e));
+                this.drawPoint(this.toPoint(e));
             },
             up: function () {
                 window.removeEventListener("mousemove", this.move);
                 window.removeEventListener("mouseup", this.up);
+                this.drawEnd();
             },
 
-            coords: e => {
-                const svg = document.getElementById("surface");
-                const pt = svg.createSVGPoint();
-                pt.x = e.clientX;
-                pt.y = e.clientY;
-                return pt.matrixTransform(svg.getScreenCTM().inverse());
+
+            drawInit: function (point) {
+                this.currentElement = createElement(this.film.index);
+                this.chrono = createChrono();
+                this.film.elements.push(this.currentElement);
+                this.drawPoint(point);
             },
-            elementPosition,
+            drawPoint: function (point) {
+                this.film.index++;
+                if (this.film.index > this.film.length) {
+                    this.film.length = this.film.index;
+                }
+                this.currentElement.points.push(point);
+            },
+            drawEnd: function () {
+                this.currentElement.duration = endChrono(this.chrono);
+            },
+
+
+            toPoint: function (e) {
+                return this.globalToLocal(e, this.svgPoint, this.svg);
+            },
+            globalToLocal,
+            elementIndex,
             path,
             polyline
-        }
+        },
+        mounted: function () {
+            this.svg = document.getElementById("surface");
+            this.svgPoint = document.getElementById("surface").createSVGPoint();
+        },
     }
 </script>
 
