@@ -7,7 +7,7 @@
                     <v-flex style="height:900px">
                         <v-card class="elevation-12" style="height:900px">
                             <surface :config="config" :film="film"/>
-                            <bar :film="film" :config="config" />
+                            <player :film="film" :config="config" />
                         </v-card>
                     </v-flex>
                 </v-layout>
@@ -18,17 +18,17 @@
 
 <script>
     import Surface from "./Surface";
-    import Bar from "./Bar";
     import LeftMenu from "./LeftMenu";
     import {createConfig, createFilm} from "../vuex/state";
+    import Player from "./Player";
 
-    //TODO menus OK, temps, viewBox, symbole, tools
+    //TODO menus OK, temps OK, viewBox, symbole, tools
 
     export default {
         components: {
+            Player,
             LeftMenu,
-            Surface,
-            Bar
+            Surface
         },
         data: function () {
             return {

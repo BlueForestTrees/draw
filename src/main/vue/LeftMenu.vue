@@ -17,20 +17,22 @@
                           label="Algo"
                           class="input-group--focused"
                 ></v-select>
-                <v-slider v-if="config.simplify" v-model="config.simpleCoef" label="coef" min="1" step="1"
-                          max="200" thumb-label/>
+                <v-slider v-if="config.simplify" v-model="config.simpleCoef" label="coef" min="1" step="1" max="200"
+                          thumb-label/>
                 <v-btn v-if="config.simplify" @click="applySimplification">apply</v-btn>
                 <v-divider/>
 
                 <v-switch label="Phantom" v-model="film.showPhantom"/>
-
-                <v-slider v-model="config.delay" label="speed" min="1" step="1" max="100" thumb-label/>
-
-                <swatches v-model="config.color" colors="text-advanced" popover-to="left"/>
-
                 <v-btn icon @click="clear">
                     <v-icon>delete</v-icon>
                 </v-btn>
+                <swatches v-model="config.color" colors="text-advanced" popover-to="left"/>
+                <v-divider/>
+
+                <v-slider v-model="config.durationCoef" label="speed" min="0.25" step="0.05" max="4" thumb-label/>
+                <v-divider/>
+
+
             </v-layout>
         </v-container>
     </v-navigation-drawer>
