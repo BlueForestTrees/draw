@@ -4,7 +4,7 @@ export const createNav = () => ({
 
 export const createFilm = () => ({
     elements: [],
-    position: 0,
+    index: 0,
     length: 0,
     keep: 0
 });
@@ -19,7 +19,9 @@ export const createConfig = () => ({
     simpleMode: "visvalingam",
     simpleCoef: 10,
 
-    delay: 1,
+    imageDuration: 25,
+    durationCoef: 1,
+
 
     color: '#1CA085'
 });
@@ -32,8 +34,8 @@ export const createChrono = () => ({
 
 export const createElement = start => ({
     _id: Math.random() + "",
-    start,//filmPosition
-    chrono: createChrono(),
+    start,
+    duration: 0,
     points: []
 });
 

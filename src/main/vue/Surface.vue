@@ -6,16 +6,16 @@
                   style="fill:none;stroke:black;stroke-width:3;stroke-opacity:0.1"/>
 
         <g v-if="config.smooth">
-            <path v-for="e in film.elements" v-if="elementPosition(e,film.position) > 0"
-                  :key="`${e._id}@${elementPosition(e,film.position)}`"
-                  :d="path(e.points, config, elementPosition(e,film.position))"
-                  style="fill:none;stroke:black;stroke-width:3;stroke-linecap:round"/>
+            <path v-for="e in film.elements" v-if="elementIndex(e,film.index) > 0"
+                  :key="`${e._id}@${elementIndex(e,film.index)}`"
+                  :d="path(e.points, config, elementIndex(e,film.index))"
+                  style="fill:none;stroke:black;stroke-width:6;stroke-linecap:round"/>
         </g>
         <g v-else>
-            <polyline v-for="e in film.elements" v-if="elementPosition(e,film.position) > 0"
-                      :key="`${e._id}@${elementPosition(e,film.position)}`"
-                      :points="polyline(e.points, config, elementPosition(e,film.position))"
-                      style="fill:none;stroke:black;stroke-width:3;stroke-linecap:round"/>
+            <polyline v-for="e in film.elements" v-if="elementIndex(e,film.index) > 0"
+                      :key="`${e._id}@${elementIndex(e,film.index)}`"
+                      :points="polyline(e.points, config, elementIndex(e,film.index))"
+                      style="fill:none;stroke:black;stroke-width:6;stroke-linecap:round"/>
         </g>
 
     </svg>
@@ -23,9 +23,9 @@
 
 <script>
 
-    import {createElement} from "../vuex/state";
+    import {createChrono, createElement} from "../vuex/state";
     import {mapState} from 'vuex';
-    import {elementPosition, globalToLocal, path, polyline} from "../util/geo";
+    import {elementIndex, globalToLocal, path, polyline} from "../util/geo";
     import {endChrono} from "../util/common";
 
     export default {
@@ -34,10 +34,9 @@
         data: function () {
             return {
                 currentElement: null,
+                chrono: null,
                 svg: null,
-                svgPoint: null,
-                drawing: null,
-                drawDelay: 20
+                svgPoint: null
             }
         },
         computed: {
@@ -45,49 +44,43 @@
         },
         methods: {
             down: function (e) {
-                this.move(e);
                 window.addEventListener("mousemove", this.move);
                 window.addEventListener("mouseup", this.up);
-                this.drawInit();
+                this.drawInit(this.toPoint(e));
             },
             move: function (e) {
-                this.e = e;
-            },
-            tick: function () {
-                this.drawPoint(globalToLocal(this.e, this.svgPoint, this.svg));
-                if (this.drawing) {
-                    setTimeout(() => this.tick, this.drawDelay)
-                } else {
-                    window.removeEventListener("mousemove", this.move);
-                    window.removeEventListener("mouseup", this.up);
-                    this.drawEnd();
-                }
+                this.drawPoint(this.toPoint(e));
             },
             up: function () {
-                this.drawing = false;
+                window.removeEventListener("mousemove", this.move);
+                window.removeEventListener("mouseup", this.up);
+                this.drawEnd();
             },
 
 
-            drawInit: function () {
-                this.currentElement = createElement(this.film.position);
+            drawInit: function (point) {
+                this.currentElement = createElement(this.film.index);
+                this.chrono = createChrono();
                 this.film.elements.push(this.currentElement);
-                this.drawing = true;
-                this.tick();
+                this.drawPoint(point);
             },
             drawPoint: function (point) {
-                this.film.position++;
-                if (this.film.position > this.film.length) {
-                    this.film.length = this.film.position;
+                this.film.index++;
+                if (this.film.index > this.film.length) {
+                    this.film.length = this.film.index;
                 }
                 this.currentElement.points.push(point);
             },
             drawEnd: function () {
-                this.drawing = false;
-                endChrono(this.currentElement);
+                this.currentElement.duration = endChrono(this.chrono);
             },
 
+
+            toPoint: function (e) {
+                return this.globalToLocal(e, this.svgPoint, this.svg);
+            },
             globalToLocal,
-            elementPosition,
+            elementIndex,
             path,
             polyline
         },

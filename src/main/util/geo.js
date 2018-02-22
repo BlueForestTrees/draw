@@ -8,7 +8,7 @@ export const globalToLocal = (e, svgPoint, svg) => {
     return svgPoint.matrixTransform(svg.getScreenCTM().inverse());
 };
 
-export const elementPosition = (e, position) => Math.min(position - e.start, e.points.length);
+export const elementIndex = (e, index) => Math.min(index - e.start, e.points.length);
 
 export const polyline = (points, config, length) => {
     const simplePoints = applyConfig(points, config, length || points.length);
