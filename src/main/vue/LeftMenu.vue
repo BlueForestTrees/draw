@@ -32,6 +32,16 @@
                 <v-slider v-model="config.durationCoef" label="speed" min="0.25" step="0.05" max="4" thumb-label/>
                 <v-divider/>
 
+                <v-btn-toggle mandatory v-model="config.tool">
+                    <v-btn flat>
+                        <v-icon>brush</v-icon>
+                    </v-btn>
+                    <v-btn flat>
+                        <v-icon>pan_tool</v-icon>
+                    </v-btn>
+                </v-btn-toggle>
+                <v-divider/>
+
 
             </v-layout>
         </v-container>

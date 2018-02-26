@@ -22,8 +22,9 @@ export const createConfig = () => ({
     imageDuration: 25,
     durationCoef: 1,
 
+    color: '#1CA085',
 
-    color: '#1CA085'
+    tool:0
 });
 
 export const createChrono = () => ({
