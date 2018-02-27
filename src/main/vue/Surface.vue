@@ -1,9 +1,10 @@
 <template>
     <svg @mousedown="downOfTool(config.tool,$event)" id="surface" width="100%" height="100%" class="surface">
 
-        <rect v-if="selectedBox" :x="selectedBox.x" :y="selectedBox.y" :width="selectedBox.width"
-              :height="selectedBox.height"
-              style="fill:none;stroke:blue;stroke-width:1;stroke-opacity:0.8"/>
+        <rect v-if="currentBBox" :x="currentBBox.x" :y="currentBBox.y" :width="currentBBox.width"
+              :height="currentBBox.height"
+              style="fill:none;stroke:blue;stroke-width:1;stroke-opacity:0.8"
+              :transform="`translate(${currentBBox.tx} ${currentBBox.ty})`"
         />
 
         <polyline v-for="e in film.elements" :key="e._id" v-if="film.showPhantom"
@@ -22,7 +23,7 @@
                       :key="`${e._id}@${elementIndex(e,film.index)}`"
                       :points="polyline(e.points, config, elementIndex(e,film.index))"
                       style="fill:none;stroke:black;stroke-width:6;stroke-linecap:round"
-                      transform="translate(0 0)"
+                      :transform="`translate(${e.tx} ${e.ty})`"
             />
         </g>
 
@@ -33,7 +34,7 @@
 
     import {createChrono, createElement} from "../vuex/state";
     import {mapState} from 'vuex';
-    import {elementIndex, globalToLocal, path, polyline} from "../util/geo";
+    import {elementIndex, globalToLocal, minus, path, polyline} from "../util/geo";
     import {endChrono} from "../util/common";
 
     export default {
@@ -42,9 +43,9 @@
         data: function () {
             return {
                 currentElement: null,
-                selectedBox: null,
-                selectedInitialPoint: null,
-                selectedTarget:null,
+                currentBBox: null,
+                initialCTM: null,
+                downPoint: null,
                 chrono: null,
                 svg: null,
                 svgPoint: null,
@@ -59,42 +60,33 @@
                 return this.tools[toolId](e);
             },
             selectDown: function (e) {
-                if (e.target.id !== "surface") {
+                const currentElementSvg = e.target;
 
-                    this.selectedTarget = e.target;
-                    this.selectedInitialPoint = this.toPoint(e);
-                    const ctm = e.target.getCTM();
-                    this.selectedInitialPoint.x -= ctm.e;
-                    this.selectedInitialPoint.y -= ctm.f;
+                if (currentElementSvg.id !== "surface") {
 
+                    this.downPoint = this.toPoint(e);
+                    this.currentElement = this.film.elements[currentElementSvg.id];
+                    this.initialCTM = currentElementSvg.getCTM();
+                    this.currentBBox = currentElementSvg.getBBox();
+
+                    this.moveSelection(e);
 
                     window.addEventListener("mousemove", this.moveSelection);
                     window.addEventListener("mouseup", this.upSelection);
                 } else {
-                    this.selectedBox = null;
+                    this.currentBBox = null;
                 }
             },
 
             moveSelection: function (e) {
-                const currentPoint = this.toPoint(e);
-                const move = {
-                    x: currentPoint.x - this.selectedInitialPoint.x,
-                    y: currentPoint.y - this.selectedInitialPoint.y
-                };
-
-                this.selectedTarget.transform.baseVal.getItem(0).matrix.e = move.x;
-                this.selectedTarget.transform.baseVal.getItem(0).matrix.f = move.y;
-
-                this.selectedBox = this.selectedTarget.getBBox();
-                this.selectedBox.x += move.x;
-                this.selectedBox.y += move.y;
-
+                const move = minus(this.toPoint(e), this.downPoint);
+                this.currentBBox.tx = this.currentElement.tx = this.initialCTM.e + move.x;
+                this.currentBBox.ty = this.currentElement.ty = this.initialCTM.f + move.y;
             },
             upSelection: function (e) {
                 window.removeEventListener("mousemove", this.moveSelection);
                 window.removeEventListener("mouseup", this.upSelection);
             },
-
 
             drawDown: function (e) {
                 window.addEventListener("mousemove", this.move);

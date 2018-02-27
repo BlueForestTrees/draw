@@ -37,7 +37,8 @@ export const createElement = start => ({
     _id: Math.random() + "",
     start,
     duration: 0,
-    points: []
+    points: [],
+    tx:0,ty:0
 });
 
 export default {
