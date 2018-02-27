@@ -24,7 +24,9 @@ export const createConfig = () => ({
 
     color: '#1CA085',
 
-    tool:0
+    tool: 0,
+
+    selection: null
 });
 
 export const createChrono = () => ({
@@ -33,12 +35,29 @@ export const createChrono = () => ({
     drawEnd: 0
 });
 
-export const createElement = start => ({
-    _id: Math.random() + "",
-    start,
+const id = () => Math.random() + "";
+const cloneOffset = 10;
+
+export const createElement = () => ({
+    _id: id(),
     duration: 0,
-    points: [],
-    tx:0,ty:0
+    points: []
+});
+
+export const createElementInstance = e => ({
+    e,
+    _id: id(),
+    position: 0,
+    tx: 0,
+    ty: 0
+});
+
+export const cloneElementInstance = ei => ({
+    e: ei.e,
+    _id: id(),
+    position: ei.position,
+    tx: ei.tx + cloneOffset,
+    ty: ei.ty + cloneOffset
 });
 
 export default {

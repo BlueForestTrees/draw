@@ -23,9 +23,14 @@
                 <v-divider/>
 
                 <v-switch label="Phantom" v-model="film.showPhantom"/>
-                <v-btn icon @click="clear">
-                    <v-icon>delete</v-icon>
-                </v-btn>
+                <div>
+                    <v-btn flat icon @click="clone" :disabled="!config.selection">
+                        <v-icon>toll</v-icon>
+                    </v-btn>
+                    <v-btn flat icon @click="clear">
+                        <v-icon>delete</v-icon>
+                    </v-btn>
+                </div>
                 <swatches v-model="config.color" colors="text-advanced" popover-to="left"/>
                 <v-divider/>
 
@@ -54,7 +59,7 @@
     import Do from "../const/do";
     import Swatches from 'vue-swatches'
     import {simplifyFilm} from "../util/geo";
-    import {createFilm} from "../vuex/state";
+    import {cloneElementInstance, createElementInstance, createFilm} from "../vuex/state";
 
     export default {
         name: 'left-menu',
@@ -79,6 +84,9 @@
             }),
             clear: function () {
                 Object.assign(this.film, createFilm());
+            },
+            clone: function () {
+                this.film.elements.push(cloneElementInstance(this.config.selection));
             },
             applySimplification: function () {
                 simplifyFilm(this.film, this.config);

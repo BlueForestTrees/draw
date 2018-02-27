@@ -6,7 +6,7 @@
                 <v-layout align-center justify-center>
                     <v-flex style="height:900px">
                         <v-card class="elevation-12" style="height:900px">
-                            <surface :config="config" :film="film"/>
+                            <surface :config="config" :film="film" @select=""/>
                             <player :film="film" :config="config" />
                         </v-card>
                     </v-flex>

@@ -7,23 +7,26 @@
               :transform="`translate(${currentBBox.tx} ${currentBBox.ty})`"
         />
 
-        <polyline v-for="e in film.elements" :key="e._id" v-if="film.showPhantom"
-                  :points="polyline(e.points, config)"
+        <polyline v-for="ei in film.elements" :key="ei._id" v-if="film.showPhantom"
+                  :points="polyline(ei.e.points, config)"
                   style="fill:none;stroke:black;stroke-width:3;stroke-opacity:0.1"/>
 
         <g v-if="config.smooth">
-            <path v-for="e in film.elements" v-if="elementIndex(e,film.index) > 0"
-                  :key="`${e._id}@${elementIndex(e,film.index)}`"
-                  :d="path(e.points, config, elementIndex(e,film.index))"
-                  style="fill:none;stroke:black;stroke-width:6;stroke-linecap:round"/>
+            <path v-for="(ei,i) in film.elements" v-if="elementIndex(ei,film.index) > 0"
+                  :id="i"
+                  :key="`${ei._id}@${elementIndex(ei,film.index)}`"
+                  :d="path(ei.e.points, config, elementIndex(ei,film.index))"
+                  style="fill:none;stroke:black;stroke-width:6;stroke-linecap:round"
+                  :transform="`translate(${ei.tx} ${ei.ty})`"
+            />
         </g>
         <g v-else>
-            <polyline v-for="(e,i) in film.elements" v-if="elementIndex(e,film.index) > 0"
+            <polyline v-for="(ei,i) in film.elements" v-if="elementIndex(ei,film.index) > 0"
                       :id="i"
-                      :key="`${e._id}@${elementIndex(e,film.index)}`"
-                      :points="polyline(e.points, config, elementIndex(e,film.index))"
+                      :key="`${ei._id}@${elementIndex(ei,film.index)}`"
+                      :points="polyline(ei.e.points, config, elementIndex(ei,film.index))"
                       style="fill:none;stroke:black;stroke-width:6;stroke-linecap:round"
-                      :transform="`translate(${e.tx} ${e.ty})`"
+                      :transform="`translate(${ei.tx} ${ei.ty})`"
             />
         </g>
 
@@ -32,7 +35,7 @@
 
 <script>
 
-    import {createChrono, createElement} from "../vuex/state";
+    import {createChrono, createElement, createElementInstance} from "../vuex/state";
     import {mapState} from 'vuex';
     import {elementIndex, globalToLocal, minus, path, polyline} from "../util/geo";
     import {endChrono} from "../util/common";
@@ -42,7 +45,7 @@
         props: ['config', 'film'],
         data: function () {
             return {
-                currentElement: null,
+                drawingElement: null,
                 currentBBox: null,
                 initialCTM: null,
                 downPoint: null,
@@ -59,63 +62,60 @@
             downOfTool: function (toolId, e) {
                 return this.tools[toolId](e);
             },
+
+
             selectDown: function (e) {
                 const currentElementSvg = e.target;
 
                 if (currentElementSvg.id !== "surface") {
 
                     this.downPoint = this.toPoint(e);
-                    this.currentElement = this.film.elements[currentElementSvg.id];
+                    this.config.selection = this.film.elements[currentElementSvg.id];
                     this.initialCTM = currentElementSvg.getCTM();
                     this.currentBBox = currentElementSvg.getBBox();
 
-                    this.moveSelection(e);
+                    this.selectMove(e);
 
-                    window.addEventListener("mousemove", this.moveSelection);
-                    window.addEventListener("mouseup", this.upSelection);
+                    window.addEventListener("mousemove", this.selectMove);
+                    window.addEventListener("mouseup", this.selectUp);
                 } else {
+                    this.downPoint = null;
+                    this.config.selection = null;
+                    this.initialCTM = null;
                     this.currentBBox = null;
                 }
             },
-
-            moveSelection: function (e) {
+            selectMove: function (e) {
                 const move = minus(this.toPoint(e), this.downPoint);
-                this.currentBBox.tx = this.currentElement.tx = this.initialCTM.e + move.x;
-                this.currentBBox.ty = this.currentElement.ty = this.initialCTM.f + move.y;
+                this.currentBBox.tx = this.config.selection.tx = this.initialCTM.e + move.x;
+                this.currentBBox.ty = this.config.selection.ty = this.initialCTM.f + move.y;
             },
-            upSelection: function (e) {
-                window.removeEventListener("mousemove", this.moveSelection);
-                window.removeEventListener("mouseup", this.upSelection);
+            selectUp: function (e) {
+                window.removeEventListener("mousemove", this.selectMove);
+                window.removeEventListener("mouseup", this.selectUp);
             },
+
 
             drawDown: function (e) {
-                window.addEventListener("mousemove", this.move);
-                window.addEventListener("mouseup", this.up);
-                this.drawInit(this.toPoint(e));
-            },
-            move: function (e) {
-                this.drawPoint(this.toPoint(e));
-            },
-            up: function () {
-                window.removeEventListener("mousemove", this.move);
-                window.removeEventListener("mouseup", this.up);
-                this.drawEnd();
-            },
-            drawInit: function (point) {
-                this.currentElement = createElement(this.film.index);
+                this.drawingElement = createElementInstance(createElement());
+                this.drawingElement.position = this.film.index;
                 this.chrono = createChrono();
-                this.film.elements.push(this.currentElement);
-                this.drawPoint(point);
+                this.film.elements.push(this.drawingElement);
+                this.drawMove(e);
+                window.addEventListener("mousemove", this.drawMove);
+                window.addEventListener("mouseup", this.drawUp);
             },
-            drawPoint: function (point) {
+            drawMove: function (e) {
+                this.drawingElement.e.points.push(this.toPoint(e));
                 this.film.index++;
                 if (this.film.index > this.film.length) {
                     this.film.length = this.film.index;
                 }
-                this.currentElement.points.push(point);
             },
-            drawEnd: function () {
-                this.currentElement.duration = endChrono(this.chrono);
+            drawUp: function () {
+                this.drawingElement.e.duration = endChrono(this.chrono);
+                window.removeEventListener("mousemove", this.drawMove);
+                window.removeEventListener("mouseup", this.drawUp);
             },
 
 

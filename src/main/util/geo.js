@@ -10,7 +10,7 @@ export const globalToLocal = (e, svgPoint, svg) => {
 
 export const minus = (p1, p2) => ({x: p1.x - p2.x, y: p1.y - p2.y});
 
-export const elementIndex = (e, index) => Math.min(index - e.start, e.points.length);
+export const elementIndex = (ei, index) => Math.min(index - ei.position, ei.e.points.length);
 
 export const polyline = (points, config, length) => {
     const simplePoints = applyConfig(points, config, length || points.length);
@@ -47,7 +47,7 @@ export const simplifyFilm = (film, config) => _.forEach(film.elements, e => e.po
 
 export const limit = (points, length) => points.slice(0, length);
 
-export const applyConfig = (points, config, length) => {
+const applyConfig = (points, config, length) => {
     return simplifyPoints(limit(points, length), config);
 };
 export const bezierCommand = (i, a, config) => {
