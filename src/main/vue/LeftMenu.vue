@@ -27,7 +27,10 @@
                     <v-btn flat icon @click="clone" :disabled="!config.selection">
                         <v-icon>toll</v-icon>
                     </v-btn>
-                    <v-btn flat icon @click="clear">
+                    <v-btn flat icon @click="clearFilm">
+                        <v-icon>delete_sweep</v-icon>
+                    </v-btn>
+                    <v-btn flat icon @click="clearSelection" :disabled="!config.selection">
                         <v-icon>delete</v-icon>
                     </v-btn>
                 </div>
@@ -83,8 +86,13 @@
             ...mapMutations({
                 setVisible: Do.SET_MENU_VISIBILITY
             }),
-            clear: function () {
+            clearFilm: function () {
                 Object.assign(this.film, createFilm());
+            },
+            clearSelection: function () {
+                const selectionIndex = _.findIndex(this.film.elements, {_id: this.config.selection._id});
+                this.config.selection = null;
+                this.film.elements.splice(selectionIndex, 1);
             },
             clone: function () {
                 let clone = cloneElementInstance(this.config.selection);
