@@ -37,7 +37,7 @@
 
 <script>
 
-    import {createChrono, createElement, createElementInstance} from "../vuex/state";
+    import {createChrono, createElement, createElementInstance} from "../vuex/state/state";
     import {mapState} from 'vuex';
     import {elementIndex, globalToLocal, minus, path, polyline} from "../util/geo";
     import {endChrono} from "../util/common";

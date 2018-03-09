@@ -62,7 +62,7 @@
     import Do from "../const/do";
     import Swatches from 'vue-swatches'
     import {simplifyFilm} from "../util/geo";
-    import {cloneElementInstance, createElementInstance, createFilm} from "../vuex/state";
+    import {cloneElementInstance, createElementInstance, createFilm} from "../vuex/state/state";
     import Vue from 'vue';
 
     export default {

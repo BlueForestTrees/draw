@@ -19,7 +19,7 @@
 <script>
     import Surface from "./Surface";
     import LeftMenu from "./LeftMenu";
-    import {createConfig, createFilm} from "../vuex/state";
+    import {createConfig, createFilm} from "../vuex/state/state";
     import Player from "./Player";
 
     export default {

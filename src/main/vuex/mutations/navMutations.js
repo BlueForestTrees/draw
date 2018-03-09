@@ -1,7 +1,6 @@
-import Do from "../const/do";
+import Do from "../../const/do";
 
 export default {
-
     [Do.TOGGLE_MENU_VISIBILITY]: (state) => {
         state.nav.menuVisible = !state.nav.menuVisible;
     },

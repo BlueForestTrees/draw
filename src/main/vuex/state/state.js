@@ -1,3 +1,5 @@
+import {cloneOffset} from "../../const/values";
+
 export const createNav = () => ({
     menuVisible: true
 });
@@ -6,7 +8,14 @@ export const createFilm = () => ({
     elements: [],
     index: 0,
     length: 0,
-    keep: 0
+    keep: 0,
+    player: createPlayer(),
+    config: createConfig()
+});
+
+export const createPlayer = () => ({
+    playing: false,
+    chrono: null
 });
 
 export const createConfig = () => ({
@@ -35,18 +44,17 @@ export const createChrono = () => ({
     drawEnd: 0
 });
 
-const id = () => Math.random() + "";
-const cloneOffset = 10;
+export const createId = () => Math.random() + "";
 
 export const createElement = () => ({
-    _id: id(),
+    _id: createId(),
     duration: 0,
     points: []
 });
 
 export const createElementInstance = e => ({
     e,
-    _id: id(),
+    _id: createId(),
     position: 0,
     tx: 0,
     ty: 0
@@ -54,12 +62,13 @@ export const createElementInstance = e => ({
 
 export const cloneElementInstance = ei => ({
     e: ei.e,
-    _id: id(),
+    _id: createId(),
     position: ei.position,
     tx: ei.tx + cloneOffset,
     ty: ei.ty + cloneOffset
 });
 
 export default {
-    nav: createNav()
+    nav: createNav(),
+    film: createFilm()
 };
