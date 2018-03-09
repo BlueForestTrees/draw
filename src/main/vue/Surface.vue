@@ -1,5 +1,7 @@
 <template>
-    <svg @mousedown="downOfTool(config.tool,$event)" id="surface" width="100%" height="100%" class="surface">
+    <svg @mousedown="downOfTool(config.tool,$event)" id="surface" width="100%" height="100%" class="surface"
+         ref="surface"
+         xmlns="http://www.w3.org/2000/svg">
 
         <rect v-if="currentBBox" :x="currentBBox.x" :y="currentBBox.y" :width="currentBBox.width"
               :height="currentBBox.height"
@@ -13,7 +15,7 @@
 
         <g v-if="config.smooth">
             <path v-for="(ei,i) in film.elements" v-if="elementIndex(ei,film.index) > 0"
-                  :id="i"
+                  :id="ei._id"
                   :key="`${ei._id}@${elementIndex(ei,film.index)}`"
                   :d="path(ei.e.points, config, elementIndex(ei,film.index))"
                   style="fill:none;stroke:black;stroke-width:6;stroke-linecap:round"
@@ -22,7 +24,7 @@
         </g>
         <g v-else>
             <polyline v-for="(ei,i) in film.elements" v-if="elementIndex(ei,film.index) > 0"
-                      :id="i"
+                      :id="ei._id"
                       :key="`${ei._id}@${elementIndex(ei,film.index)}`"
                       :points="polyline(ei.e.points, config, elementIndex(ei,film.index))"
                       style="fill:none;stroke:black;stroke-width:6;stroke-linecap:round"
@@ -39,6 +41,8 @@
     import {mapState} from 'vuex';
     import {elementIndex, globalToLocal, minus, path, polyline} from "../util/geo";
     import {endChrono} from "../util/common";
+    import _ from 'lodash';
+    import Vue from 'vue';
 
     export default {
         name: "surface",
@@ -62,20 +66,12 @@
             downOfTool: function (toolId, e) {
                 return this.tools[toolId](e);
             },
-
-
             selectDown: function (e) {
                 const currentElementSvg = e.target;
-
-                if (currentElementSvg.id !== "surface") {
-
-                    this.downPoint = this.toPoint(e);
-                    this.config.selection = this.film.elements[currentElementSvg.id];
-                    this.initialCTM = currentElementSvg.getCTM();
-                    this.currentBBox = currentElementSvg.getBBox();
-
-                    this.selectMove(e);
-
+                if (currentElementSvg.id && currentElementSvg.id !== "surface") {
+                    const selection = _.find(this.film.elements, {_id: currentElementSvg.id});
+                    this.config.selection = selection;
+                    this.select(this.config.selection);
                     window.addEventListener("mousemove", this.selectMove);
                     window.addEventListener("mouseup", this.selectUp);
                 } else {
@@ -85,14 +81,30 @@
                     this.currentBBox = null;
                 }
             },
+            select: function (element) {
+                if (element) {
+                    const currentElementSvg = this.$refs.surface.getElementById(element._id);
+                    this.initialCTM = currentElementSvg.getCTM();
+                    this.currentBBox = currentElementSvg.getBBox();
+                    this.currentBBox.tx = this.initialCTM.e;
+                    this.currentBBox.ty = this.initialCTM.f;
+                } else {
+                    this.initialCTM = null;
+                    this.currentBBox = null;
+                }
+            },
             selectMove: function (e) {
-                const move = minus(this.toPoint(e), this.downPoint);
+                const movePoint = this.toPoint(e);
+                this.downPoint = this.downPoint || movePoint;
+                const move = minus(movePoint, this.downPoint);
                 this.currentBBox.tx = this.config.selection.tx = this.initialCTM.e + move.x;
                 this.currentBBox.ty = this.config.selection.ty = this.initialCTM.f + move.y;
             },
             selectUp: function (e) {
                 window.removeEventListener("mousemove", this.selectMove);
                 window.removeEventListener("mouseup", this.selectUp);
+
+                this.downPoint = null;
             },
 
 
@@ -131,6 +143,11 @@
             this.svg = document.getElementById("surface");
             this.svgPoint = document.getElementById("surface").createSVGPoint();
         },
+        watch: {
+            "config.selection": function (n, o) {
+                this.select(n);
+            }
+        }
     }
 </script>
 

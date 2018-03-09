@@ -22,8 +22,6 @@
     import {createConfig, createFilm} from "../vuex/state";
     import Player from "./Player";
 
-    //TODO menus OK, temps OK, viewBox, symbole, tools
-
     export default {
         components: {
             Player,
@@ -38,4 +36,3 @@
         }
     }
 </script>
-

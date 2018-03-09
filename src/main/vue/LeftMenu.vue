@@ -60,6 +60,7 @@
     import Swatches from 'vue-swatches'
     import {simplifyFilm} from "../util/geo";
     import {cloneElementInstance, createElementInstance, createFilm} from "../vuex/state";
+    import Vue from 'vue';
 
     export default {
         name: 'left-menu',
@@ -86,7 +87,10 @@
                 Object.assign(this.film, createFilm());
             },
             clone: function () {
-                this.film.elements.push(cloneElementInstance(this.config.selection));
+                let clone = cloneElementInstance(this.config.selection);
+                this.film.elements.push(clone);
+                const that = this;
+                Vue.nextTick(() => that.config.selection = clone);
             },
             applySimplification: function () {
                 simplifyFilm(this.film, this.config);
