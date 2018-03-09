@@ -48,20 +48,16 @@
 
     export default {
         name: 'player',
-        props: ['config', 'film'],
+        props: ['film'],
         computed: {
             ...mapState(['nav']),
             currentSec: function () {
-                return formatShort(this.film.index * this.base / 1000);
+                const base = this.film.config.imageDuration * this.film.config.durationCoef;
+                return formatShort(this.film.index * base / 1000);
             },
             totalSec: function () {
-                return formatShort(this.film.length * this.base / 1000);
-            },
-            total: function () {
-                return this.film.length * this.base;
-            },
-            base: function () {
-                return this.config.imageDuration * this.config.durationCoef;
+                const base = this.film.config.imageDuration * this.film.config.durationCoef;
+                return formatShort(this.film.length * base / 1000);
             }
         },
         methods: {
@@ -78,15 +74,3 @@
         }
     }
 </script>
-
-<style>
-    .slider {
-        padding-top: 0;
-    }
-    .airText {
-        width: 5em;
-        text-align: center;
-        align-self: center;
-    }
-</style>
-

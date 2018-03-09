@@ -1,23 +1,22 @@
 <template>
-    <svg @mousedown="downOfTool(config.tool,$event)" id="surface" width="100%" height="100%" class="surface"
-         ref="surface"
-         xmlns="http://www.w3.org/2000/svg">
+    <svg @mousedown="downOfMode(film.config.tool,$event)" id="surface" width="100%" height="100%" class="surface"
+         ref="surface">
 
-        <rect v-if="currentBBox" :x="currentBBox.x" :y="currentBBox.y" :width="currentBBox.width"
-              :height="currentBBox.height"
-              style="fill:none;stroke:blue;stroke-width:1;stroke-opacity:0.8"
+        <rect v-if="currentBBox" :x="currentBBox.x-3" :y="currentBBox.y-3" :width="currentBBox.width+3"
+              :height="currentBBox.height+3"
+              style="fill:none;stroke:black;stroke-dasharray:5,5;stroke-width:1;stroke-opacity:0.8"
               :transform="`translate(${currentBBox.tx} ${currentBBox.ty})`"
         />
 
         <polyline v-for="ei in film.elements" :key="ei._id" v-if="film.showPhantom"
-                  :points="polyline(ei.e.points, config)"
+                  :points="polyline(ei.e.points, film.config)"
                   style="fill:none;stroke:black;stroke-width:3;stroke-opacity:0.1"/>
 
-        <g v-if="config.smooth">
+        <g v-if="film.config.smooth">
             <path v-for="(ei,i) in film.elements" v-if="elementIndex(ei,film.index) > 0"
                   :id="ei._id"
                   :key="`${ei._id}@${elementIndex(ei,film.index)}`"
-                  :d="path(ei.e.points, config, elementIndex(ei,film.index))"
+                  :d="path(ei.e.points, film.config, elementIndex(ei,film.index))"
                   style="fill:none;stroke:black;stroke-width:6;stroke-linecap:round"
                   :transform="`translate(${ei.tx} ${ei.ty})`"
             />
@@ -26,7 +25,7 @@
             <polyline v-for="(ei,i) in film.elements" v-if="elementIndex(ei,film.index) > 0"
                       :id="ei._id"
                       :key="`${ei._id}@${elementIndex(ei,film.index)}`"
-                      :points="polyline(ei.e.points, config, elementIndex(ei,film.index))"
+                      :points="polyline(ei.e.points, film.config, elementIndex(ei,film.index))"
                       style="fill:none;stroke:black;stroke-width:6;stroke-linecap:round"
                       :transform="`translate(${ei.tx} ${ei.ty})`"
             />
@@ -42,11 +41,10 @@
     import {elementIndex, globalToLocal, minus, path, polyline} from "../util/geo";
     import {endChrono} from "../util/common";
     import _ from 'lodash';
-    import Vue from 'vue';
 
     export default {
         name: "surface",
-        props: ['config', 'film'],
+        props: ['film'],
         data: function () {
             return {
                 drawingElement: null,
@@ -56,27 +54,27 @@
                 chrono: null,
                 svg: null,
                 svgPoint: null,
-                tools: [this.drawDown, this.selectDown]
+                modes: [this.drawDown, this.selectDown]
             }
         },
         computed: {
             ...mapState(['nav'])
         },
         methods: {
-            downOfTool: function (toolId, e) {
-                return this.tools[toolId](e);
+            downOfMode: function (modeIdx, e) {
+                return this.modes[modeIdx](e);
             },
             selectDown: function (e) {
                 const currentElementSvg = e.target;
                 if (currentElementSvg.id && currentElementSvg.id !== "surface") {
                     const selection = _.find(this.film.elements, {_id: currentElementSvg.id});
-                    this.config.selection = selection;
-                    this.select(this.config.selection);
+                    this.film.config.selection = selection;
+                    this.select(this.film.config.selection);
                     window.addEventListener("mousemove", this.selectMove);
                     window.addEventListener("mouseup", this.selectUp);
                 } else {
                     this.downPoint = null;
-                    this.config.selection = null;
+                    this.film.config.selection = null;
                     this.initialCTM = null;
                     this.currentBBox = null;
                 }
@@ -97,8 +95,8 @@
                 const movePoint = this.toPoint(e);
                 this.downPoint = this.downPoint || movePoint;
                 const move = minus(movePoint, this.downPoint);
-                this.currentBBox.tx = this.config.selection.tx = this.initialCTM.e + move.x;
-                this.currentBBox.ty = this.config.selection.ty = this.initialCTM.f + move.y;
+                this.currentBBox.tx = this.film.config.selection.tx = this.initialCTM.e + move.x;
+                this.currentBBox.ty = this.film.config.selection.ty = this.initialCTM.f + move.y;
             },
             selectUp: function (e) {
                 window.removeEventListener("mousemove", this.selectMove);
@@ -144,7 +142,7 @@
             this.svgPoint = document.getElementById("surface").createSVGPoint();
         },
         watch: {
-            "config.selection": function (n, o) {
+            "film.config.selection": function (n, o) {
                 this.select(n);
             }
         }

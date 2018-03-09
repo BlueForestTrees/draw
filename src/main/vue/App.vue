@@ -1,13 +1,13 @@
 <template>
     <v-app id="app" light>
-        <left-menu :config="config" :film="film"/>
+        <left-menu :film="film"/>
         <v-content>
             <v-container fluid fill-height>
                 <v-layout align-center justify-center>
                     <v-flex style="height:900px">
                         <v-card class="elevation-12" style="height:900px">
-                            <surface :config="config" :film="film" @select=""/>
-                            <player :film="film" :config="config" />
+                            <surface :film="film" @select=""/>
+                            <player :film="film" />
                         </v-card>
                     </v-flex>
                 </v-layout>
@@ -19,8 +19,8 @@
 <script>
     import Surface from "./Surface";
     import LeftMenu from "./LeftMenu";
-    import {createConfig, createFilm} from "../vuex/state/state";
     import Player from "./Player";
+    import {mapState} from "vuex";
 
     export default {
         components: {
@@ -28,11 +28,8 @@
             LeftMenu,
             Surface
         },
-        data: function () {
-            return {
-                config: createConfig(),
-                film: createFilm()
-            }
+        computed: {
+            ...mapState(["film"])
         }
     }
 </script>

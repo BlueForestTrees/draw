@@ -25,7 +25,7 @@ export default {
         rewindIfNeed(film);
         film.player.playing = true;
         film.player.chrono = createChrono();
-        playNext();      
+        playNext(film);
     }
 };
 
@@ -39,13 +39,15 @@ const rewind = film => film.index = 0;
 const playNext = film => {
     if (film.player.playing) {
         if (nextTick(film)) {
-            setTimeout(playNext, film.config.imageDuration);
+            setTimeout(playNext.bind(null, film), film.config.imageDuration);
         } else {
             film.player.playing = false;
         }
     }
 };
 const nextTick = film => {
+    const base = film.config.imageDuration * film.config.durationCoef;
+    const total = film.length * base;
     const elapsedRatio = endChrono(film.player.chrono) / total;
     const elapsedImage = Math.ceil(film.length * elapsedRatio);
     film.index = Math.min(film.length, elapsedImage);

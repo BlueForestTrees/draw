@@ -7,5 +7,9 @@ export default {
     KEEP: 'keep',
     UNKEEP: 'unkeep',
     PAUSE: 'pause',
-    PLAY: 'play'
+    PLAY: 'play',
+    CLONE_SELECTION: 'cloneSelection',
+    CLEAR_FILM: 'clearFilm',
+    DELETE_SELECTION: 'deleteSelection',
+    APPLY_SIMPLIFICATION: 'applySimplification'
 };
