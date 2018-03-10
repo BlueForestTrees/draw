@@ -32,6 +32,7 @@
     "webpack-dev-server": "^2.9.7"
   },
   "dependencies": {
+    "bson-objectid": "^1.2.2",
     "lodash": "^4.17.5",
     "simplify-polyline": "^0.0.6",
     "visvalingam-simplifier": "^0.1.4",

@@ -42,9 +42,9 @@
 <script>
 
     import Do from "../const/do";
-    import {mapState, mapMutations} from 'vuex';
-    import {endChrono, formatShort} from "../util/common";
-    import {createChrono} from "../vuex/state/state";
+    import {mapMutations, mapActions, mapState} from 'vuex';
+    import {formatShort} from "../util/common";
+    import On from "../const/on";
 
     export default {
         name: 'player',
@@ -69,7 +69,9 @@
                 keep: Do.KEEP,
                 unkeep: Do.UNKEEP,
                 pause: Do.PAUSE,
-                play: Do.PLAY
+            }),
+            ...mapActions({
+                play: On.PLAY
             })
         }
     }

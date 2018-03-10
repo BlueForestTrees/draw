@@ -4,6 +4,11 @@ import Vue from "vue"
 import {simplifyFilm} from "../../util/geo";
 
 export default {
+    [Do.ACTIVATE_NEW_FILM]: state => {
+        const newFilm = createFilm();
+        state.films.push(newFilm);
+        state.activeFilm = newFilm;
+    },
     [Do.CLONE_SELECTION]: ({}, film) => {
         let clone = cloneElementInstance(film.config.selection);
         film.elements.push(clone);

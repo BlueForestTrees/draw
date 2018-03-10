@@ -1,10 +1,16 @@
 import {cloneOffset} from "../../const/values";
+import {anagram} from "../../util/common";
 
 export const createNav = () => ({
     menuVisible: true
 });
 
+export const createFilms = () => ([]);
+
+export const createName = anagram;
+
 export const createFilm = () => ({
+    name: createName(),
     elements: [],
     index: 0,
     length: 0,
@@ -33,7 +39,7 @@ export const createConfig = () => ({
 
     color: '#1CA085',
 
-    tool: 0,
+    activeTool: 0,
 
     selection: null
 });
@@ -70,5 +76,6 @@ export const cloneElementInstance = ei => ({
 
 export default {
     nav: createNav(),
-    film: createFilm()
+    films: createFilms(),
+    activeFilm: null
 };

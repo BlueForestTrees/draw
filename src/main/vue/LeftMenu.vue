@@ -7,7 +7,6 @@
                           max="1" thumb-label/>
                 <v-slider v-if="film.config.smooth" v-model="film.config.flattening" label="flat" min="0" step="0.05"
                           max="1" thumb-label/>
-                <v-divider/>
 
 
                 <v-switch label="Simple" v-model="film.config.simplify"/>
@@ -21,7 +20,6 @@
                           max="200"
                           thumb-label/>
                 <v-btn v-if="film.config.simplify" @click="applySimplification(film)">apply</v-btn>
-                <v-divider/>
 
                 <v-switch label="Phantom" v-model="film.showPhantom"/>
                 <div>
@@ -35,13 +33,12 @@
                         <v-icon>delete</v-icon>
                     </v-btn>
                 </div>
-                <swatches v-model="film.config.color" colors="text-advanced" popover-to="left"/>
-                <v-divider/>
 
                 <v-slider v-model="film.config.durationCoef" label="speed" min="0.25" step="0.05" max="4" thumb-label/>
-                <v-divider/>
 
-                <v-btn-toggle mandatory v-model="film.config.tool">
+                <swatches v-model="film.config.color" colors="text-advanced" popover-to="left"/>
+
+                <v-btn-toggle mandatory v-model="film.config.activeTool">
                     <v-btn flat>
                         <v-icon>brush</v-icon>
                     </v-btn>
@@ -49,8 +46,17 @@
                         <v-icon>pan_tool</v-icon>
                     </v-btn>
                 </v-btn-toggle>
-                <v-divider/>
 
+                <v-layout row align-center>
+                    <v-select :items="films" v-model="film" item-text="name"
+                              prepend-icon="map" return-object persistent-hint
+                              :hint="`${film.name} - ${film.length}i`"
+                              @change="selectFilm"
+                    ></v-select>
+                    <v-btn flat icon @click="addNewFilm">
+                        <v-icon>add_box</v-icon>
+                    </v-btn>
+                </v-layout>
 
             </v-layout>
         </v-container>
@@ -65,12 +71,14 @@
 
     export default {
         name: 'left-menu',
-        props: ['film'],
         components: {
             Swatches
         },
         computed: {
-            ...mapState(['nav']),
+            ...mapState(['nav', 'activeFilm', 'films']),
+            film: function () {
+                return this.activeFilm;
+            },
             visible: {
                 get: function () {
                     return this.nav.menuVisible;
@@ -86,7 +94,9 @@
                 cloneSelection: Do.CLONE_SELECTION,
                 clearFilm: Do.CLEAR_FILM,
                 deleteSelection: Do.DELETE_SELECTION,
-                applySimplification: Do.APPLY_SIMPLIFICATION
+                applySimplification: Do.APPLY_SIMPLIFICATION,
+                selectFilm: Do.SELECT_FILM,
+                addNewFilm: Do.ACTIVATE_NEW_FILM
             })
         },
         data: () => ({})

@@ -1,6 +1,7 @@
 export default {
-    TOGGLE_MENU_VISIBILITY:'toggleMenuVisibility',
-    SET_MENU_VISIBILITY:'setMenuVisibility',
+    TOGGLE_MENU_VISIBILITY: 'toggleMenuVisibility',
+    SET_MENU_VISIBILITY: 'setMenuVisibility',
+    ACTIVATE_NEW_FILM: 'activateNewFilm',
     REWIND: 'rewind',
     PREV: 'prev',
     NEXT: 'next',
@@ -8,8 +9,10 @@ export default {
     UNKEEP: 'unkeep',
     PAUSE: 'pause',
     PLAY: 'play',
+    UNSELECT: 'unselect',
     CLONE_SELECTION: 'cloneSelection',
     CLEAR_FILM: 'clearFilm',
     DELETE_SELECTION: 'deleteSelection',
-    APPLY_SIMPLIFICATION: 'applySimplification'
+    APPLY_SIMPLIFICATION: 'applySimplification',
+    SELECT_FILM: 'selectFilm'
 };

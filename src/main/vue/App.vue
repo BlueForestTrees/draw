@@ -1,13 +1,13 @@
 <template>
     <v-app id="app" light>
-        <left-menu :film="film"/>
-        <v-content>
+        <left-menu v-if="activeFilm" :film="activeFilm"/>
+        <v-content v-if="activeFilm">
             <v-container fluid fill-height>
                 <v-layout align-center justify-center>
                     <v-flex style="height:900px">
                         <v-card class="elevation-12" style="height:900px">
-                            <surface :film="film" @select=""/>
-                            <player :film="film" />
+                            <surface :film="activeFilm" @select=""/>
+                            <player :film="activeFilm" />
                         </v-card>
                     </v-flex>
                 </v-layout>
@@ -21,6 +21,7 @@
     import LeftMenu from "./LeftMenu";
     import Player from "./Player";
     import {mapState} from "vuex";
+    import On from "../const/on";
 
     export default {
         components: {
@@ -29,7 +30,10 @@
             Surface
         },
         computed: {
-            ...mapState(["film"])
+            ...mapState(["activeFilm","films"])
+        },
+        mounted: async function () {
+            await this.$store.dispatch(On.MOUNT_APP);
         }
     }
 </script>

@@ -1,5 +1,5 @@
 <template>
-    <svg @mousedown="downOfMode(film.config.tool,$event)" id="surface" width="100%" height="100%" class="surface"
+    <svg @mousedown="downOfMode(film.config.activeTool,$event)" id="surface" width="100%" height="100%" class="surface"
          ref="surface">
 
         <rect v-if="currentBBox" :x="currentBBox.x-3" :y="currentBBox.y-3" :width="currentBBox.width+3"

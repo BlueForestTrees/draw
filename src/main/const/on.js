@@ -1,3 +1,4 @@
 export default {
-    MOUNT_APP: 'mountApp'
+    MOUNT_APP: 'mountApp',
+    PLAY: 'play'
 };
