@@ -1,4 +1,5 @@
 export default {
     MOUNT_APP: 'mountApp',
-    PLAY: 'play'
+    PLAY: 'play',
+    DELETE_SELECTED_ELEMENT: 'deleteSelectedElement',
 };

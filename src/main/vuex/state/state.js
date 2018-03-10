@@ -1,5 +1,7 @@
 import {cloneOffset} from "../../const/values";
 import {anagram} from "../../util/common";
+import {initDrawMode} from "../../modes/drawMode";
+import {initSelectMode} from "../../modes/selectMode";
 
 export const createNav = () => ({
     menuVisible: true
@@ -9,6 +11,13 @@ export const createFilms = () => ([]);
 
 export const createName = anagram;
 
+export const createSelection = () => ({
+    element: null,
+    initialOffset: null,
+    box: null,
+    downPoint: null
+});
+
 export const createFilm = () => ({
     name: createName(),
     elements: [],
@@ -16,7 +25,8 @@ export const createFilm = () => ({
     length: 0,
     keep: 0,
     player: createPlayer(),
-    config: createConfig()
+    config: createConfig(),
+    selection: createSelection()
 });
 
 export const createPlayer = () => ({
@@ -34,14 +44,12 @@ export const createConfig = () => ({
     simpleMode: "visvalingam",
     simpleCoef: 10,
 
-    imageDuration: 25,
+    imageDuration: 15,
     durationCoef: 1,
 
     color: '#1CA085',
 
-    activeTool: 0,
-
-    selection: null
+    activeModeIdx: 0
 });
 
 export const createChrono = () => ({
@@ -58,10 +66,10 @@ export const createElement = () => ({
     points: []
 });
 
-export const createElementInstance = e => ({
+export const createElementInstance = (e, position) => ({
     e,
     _id: createId(),
-    position: 0,
+    position,
     tx: 0,
     ty: 0
 });
@@ -74,11 +82,14 @@ export const cloneElementInstance = ei => ({
     ty: ei.ty + cloneOffset
 });
 
-export const createTools = () => (["brush", "pan_tool"]);
+export const createModes = () => ([
+    {name: "draw", icon: "brush", canColor: true, init: initDrawMode},
+    {name: "select", icon: "pan_tool", init: initSelectMode}
+]);
 
 export default {
     nav: createNav(),
     films: createFilms(),
     activeFilm: null,
-    tools: createTools()
+    modes: createModes()
 };

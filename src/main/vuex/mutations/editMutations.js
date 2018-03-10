@@ -2,6 +2,7 @@ import Do from "../../const/do";
 import {cloneElementInstance, createFilm} from "../state/state";
 import Vue from "vue"
 import {simplifyFilm} from "../../util/geo";
+import _ from 'lodash';
 
 export default {
     [Do.ACTIVATE_NEW_FILM]: state => {
@@ -10,17 +11,19 @@ export default {
         state.activeFilm = newFilm;
     },
     [Do.CLONE_SELECTION]: ({}, film) => {
-        let clone = cloneElementInstance(film.config.selection);
+        let clone = cloneElementInstance(film.selection.element);
         film.elements.push(clone);
-        Vue.nextTick(() => film.config.selection = clone);
+        Vue.nextTick(() => film.selection.element = clone);
     },
     [Do.CLEAR_FILM]: ({}, film) => {
         Object.assign(film, createFilm());
     },
-    [Do.DELETE_SELECTION]: ({}, film) => {
-        const selectionIndex = _.findIndex(film.elements, {_id: film.config.selection._id});
-        film.config.selection = null;
-        film.elements.splice(selectionIndex, 1);
+    [Do.DELETE_SELECTED_ELEMENT]: ({}, film) => {
+        film.elements.splice(
+            _.findIndex(
+                film.elements,
+                {_id: film.selection.element._id}),
+            1);
     },
     [Do.APPLY_SIMPLIFICATION]: ({}, film) => {
         simplifyFilm(film, film.config);

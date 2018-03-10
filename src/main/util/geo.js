@@ -2,7 +2,7 @@ import {simplify_line} from "visvalingam-simplifier";
 import {simplify} from "simplify-polyline";
 import _ from 'lodash';
 
-export const globalToLocal = (e, svgPoint, svg) => {
+export const globalToLocal = (e, {svgPoint, svg}) => {
     svgPoint.x = e.clientX;
     svgPoint.y = e.clientY;
     return svgPoint.matrixTransform(svg.getScreenCTM().inverse());

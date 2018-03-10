@@ -1,4 +1,5 @@
 import Do from "../../const/do";
+import {createSelection} from "../state/state";
 
 export default {
     [Do.TOGGLE_MENU_VISIBILITY]: (state) => {
@@ -11,6 +12,6 @@ export default {
         state.activeFilm = film;
     },
     [Do.UNSELECT]: (state, film) => {
-        film.config.selection = null;
+        Object.assign(film.selection, createSelection());
     }
 };

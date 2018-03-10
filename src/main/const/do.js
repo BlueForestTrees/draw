@@ -12,7 +12,7 @@ export default {
     UNSELECT: 'unselect',
     CLONE_SELECTION: 'cloneSelection',
     CLEAR_FILM: 'clearFilm',
-    DELETE_SELECTION: 'deleteSelection',
+    DELETE_SELECTED_ELEMENT: 'deleteSelectedElement',
     APPLY_SIMPLIFICATION: 'applySimplification',
     SELECT_FILM: 'selectFilm'
 };
