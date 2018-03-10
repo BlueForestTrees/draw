@@ -39,12 +39,11 @@
                 <swatches v-model="film.config.color" colors="text-advanced" popover-to="left"/>
 
                 <v-btn-toggle mandatory v-model="film.config.activeTool">
-                    <v-btn flat>
-                        <v-icon>brush</v-icon>
-                    </v-btn>
-                    <v-btn flat>
-                        <v-icon>pan_tool</v-icon>
-                    </v-btn>
+                    <template>
+                        <v-btn flat v-for="tool in tools" :key="tool">
+                            <v-icon>{{tool}}</v-icon>
+                        </v-btn>
+                    </template>
                 </v-btn-toggle>
 
                 <v-layout row align-center>
@@ -75,7 +74,7 @@
             Swatches
         },
         computed: {
-            ...mapState(['nav', 'activeFilm', 'films']),
+            ...mapState(['nav', 'activeFilm', 'films', 'tools']),
             film: function () {
                 return this.activeFilm;
             },

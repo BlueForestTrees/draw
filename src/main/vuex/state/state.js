@@ -74,8 +74,11 @@ export const cloneElementInstance = ei => ({
     ty: ei.ty + cloneOffset
 });
 
+export const createTools = () => (["brush", "pan_tool"]);
+
 export default {
     nav: createNav(),
     films: createFilms(),
-    activeFilm: null
+    activeFilm: null,
+    tools: createTools()
 };

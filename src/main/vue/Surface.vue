@@ -1,5 +1,5 @@
 <template>
-    <svg @mousedown="downOfMode(film.config.activeTool,$event)" id="surface" width="100%" height="100%" class="surface"
+    <svg @mousedown="downOfMode($event)" id="surface" width="100%" height="100%" class="surface"
          ref="surface">
 
         <rect v-if="currentBBox" :x="currentBBox.x-3" :y="currentBBox.y-3" :width="currentBBox.width+3"
@@ -61,8 +61,8 @@
             ...mapState(['nav'])
         },
         methods: {
-            downOfMode: function (modeIdx, e) {
-                return this.modes[modeIdx](e);
+            downOfMode: function (e) {
+                return this.modes[this.film.config.activeTool](e);
             },
             selectDown: function (e) {
                 const currentElementSvg = e.target;
