@@ -52,7 +52,7 @@ const nextImage = film => {
     const currentMs = elapsed(film.player.startMoment, _.now());
     const currentImage = Math.ceil(film.imageCount * currentMs / totalMs);
 
-    navTo(film, Math.min(film.imageCount, currentImage));
+    navTo(film, currentImage);
 };
 
 export const navTo = (film, to) => {
