@@ -31,7 +31,7 @@
                 </v-btn-toggle>
                 <swatches v-if="activeMode.canColor" v-model="film.config.color" colors="text-advanced" popover-to="left"/>
                 <v-layout row align-center>
-                    <v-select :items="films" v-model="film" item-text="name" prepend-icon="map" :hint="`${film.name} - ${film.length}i`" @change="selectFilm"></v-select>
+                    <v-select :items="films" v-model="film" item-text="name" prepend-icon="map" :hint="`${film.name} - ${film.imageCount}i`" @change="selectFilm"></v-select>
                     <v-btn flat icon @click="addNewFilm">
                         <v-icon>add_box</v-icon>
                     </v-btn>

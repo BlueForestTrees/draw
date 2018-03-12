@@ -10,7 +10,7 @@ export default {
         navTo(film, Math.max(0, film.index - 1));
     },
     [Do.NEXT]: ({}, film) => {
-        navTo(film, Math.min(film.length, film.index + 1));
+        navTo(film, Math.min(film.imageCount, film.index + 1));
     },
     [Do.KEEP]: ({}, film) => {
         film.keep = film.index;
@@ -32,9 +32,9 @@ const playFilm = film => {
     film.player.playing = true;
     film.player.startMoment = _.now();
 };
-const rewindIfNeeded = film => film.index === film.length && rewind(film);
+const rewindIfNeeded = film => film.index === film.imageCount && rewind(film);
 const rewind = film => navTo(film, 0);
-const endNotReached = film => film.index < film.length;
+const endNotReached = film => film.index < film.imageCount;
 
 const nextLoop = film => {
     if (film.player.playing) {
@@ -49,11 +49,11 @@ const nextLoop = film => {
 
 const nextImage = film => {
     const base = film.config.imageDuration * film.config.durationCoef;
-    const total = film.length * base;
+    const total = film.imageCount * base;
     const elapsedRatio = elapsed(film.player.startMoment, _.now()) / total;
-    const elapsedImage = Math.ceil(film.length * elapsedRatio);
+    const elapsedImage = Math.ceil(film.imageCount * elapsedRatio);
 
-    navTo(film, Math.min(film.length, elapsedImage));
+    navTo(film, Math.min(film.imageCount, elapsedImage));
 };
 
 export const navTo = (film, to) => {

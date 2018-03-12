@@ -16,7 +16,7 @@ export const createFilm = () => ({
     elements: [],
     children: [],
     index: 0,
-    length: 0,
+    imageCount: 0,
     keep: 0,
     player: createPlayer(),
     config: createConfig(),

@@ -15,7 +15,7 @@
             <v-btn icon v-if="film.player.playing" @click="pause(film)">
                 <v-icon>pause</v-icon>
             </v-btn>
-            <v-btn icon v-else @click="play(film)" :disabled="film.length === 0">
+            <v-btn icon v-else @click="play(film)" :disabled="film.imageCount === 0">
                 <v-icon>play_arrow</v-icon>
             </v-btn>
             <v-btn icon @click="next(film)">
@@ -24,10 +24,10 @@
             <span class="airText">{{`${currentSec}/${totalSec}s`}}</span>
         </v-toolbar-items>
 
-        <v-slider class="slider" v-model="film.index" step="1" :max="film.length" thumb-label/>
+        <v-slider class="slider" v-model="film.index" step="1" :max="film.imageCount" thumb-label/>
 
         <v-toolbar-items>
-            <span class="airText">{{`${film.index}/${film.length}`}}</span>
+            <span class="airText">{{`${film.index}/${film.imageCount}`}}</span>
             <v-btn icon @click="keep(film)">
                 <v-icon>get_app</v-icon>
             </v-btn>
@@ -57,7 +57,7 @@
             },
             totalSec: function () {
                 const base = this.film.config.imageDuration * this.film.config.durationCoef;
-                return formatShort(this.film.length * base / 1000);
+                return formatShort(this.film.imageCount * base / 1000);
             }
         },
         methods: {
