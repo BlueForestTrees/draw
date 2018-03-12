@@ -14,5 +14,6 @@ export default {
     CLEAR_FILM: 'clearFilm',
     DELETE_SELECTED_ELEMENT: 'deleteSelectedElement',
     APPLY_SIMPLIFICATION: 'applySimplification',
-    SELECT_FILM: 'selectFilm'
+    SELECT_FILM: 'selectFilm',
+    BOX_FROM_ELEMENT:'boxFromElement'
 };

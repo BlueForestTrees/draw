@@ -31,11 +31,13 @@
 </template>
 
 <script>
-    import {mapGetters, mapState} from 'vuex';
+    import {mapGetters, mapState, mapMutations} from 'vuex';
     import {elementIndex, path, polyline} from "../util/geo";
-    import {select} from "../modes/selectMode";
+    import Do from "../const/do";
+    import Selection from "./Selection";
 
     export default {
+        components: {Selection},
         name: "surface",
         props: ['film'],
         data: function () {
@@ -49,10 +51,12 @@
         },
         methods: {
             onMouseDown: function (e) {
-                console.log(this.activeMode);
-                this.activeMode.init({e, film: this.film, domRef: this.domRef});
+                this.$store.dispatch(this.activeMode.action, {e, film: this.film, domRef: this.domRef});
             },
-            elementIndex, path, polyline
+            elementIndex, path, polyline,
+            ...mapMutations({
+                commitSelect: Do.BOX_FROM_ELEMENT
+            })
         },
         mounted: function () {
             this.domRef = {
@@ -62,7 +66,8 @@
         },
         watch: {
             "film.selection.element": function (n) {
-                select({element: n, film: this.film, domRef: this.domRef});
+                if (n)
+                    this.commitSelect({element: n, film: this.film, domRef: this.domRef});
             }
         }
     }

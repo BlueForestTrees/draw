@@ -1,7 +1,6 @@
 import {cloneOffset} from "../../const/values";
 import {anagram} from "../../util/common";
-import {initDrawMode} from "../../modes/drawMode";
-import {initSelectMode} from "../../modes/selectMode";
+import On from "../../const/on";
 
 export const createNav = () => ({
     menuVisible: true
@@ -11,10 +10,7 @@ export const createName = anagram;
 export const createSelection = () => ({
     element: null,
     box: null,
-    drag: createDrag()
-});
-export const createDrag = () => ({
-    initialOffset: null,
+    offset: null,
     downPoint: null
 });
 export const createFilm = () => ({
@@ -46,7 +42,7 @@ export const createConfig = () => ({
 
     color: '#1CA085',
 
-    activeModeIdx: 1
+    activeModeIdx: 0
 });
 export const createChrono = () => ({
     start: _.now(),
@@ -74,8 +70,8 @@ export const cloneElementInstance = ei => ({
     ty: ei.ty + cloneOffset
 });
 export const createModes = () => ([
-    {name: "draw", icon: "brush", canColor: true, init: initDrawMode},
-    {name: "select", icon: "pan_tool", init: initSelectMode}
+    {name: "draw", icon: "brush", canColor: true, action: On.START_DRAW},
+    {name: "select", icon: "pan_tool", action: On.START_SELECT}
 ]);
 
 export default {
