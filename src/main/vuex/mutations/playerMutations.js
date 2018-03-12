@@ -7,16 +7,16 @@ export default {
         rewind(film);
     },
     [Do.PREV]: ({}, film) => {
-        navTo(film, Math.max(0, film.index - 1));
+        navTo(film, Math.max(0, film.currentImage - 1));
     },
     [Do.NEXT]: ({}, film) => {
-        navTo(film, Math.min(film.imageCount, film.index + 1));
+        navTo(film, Math.min(film.imageCount, film.currentImage + 1));
     },
     [Do.KEEP]: ({}, film) => {
-        film.keep = film.index;
+        film.keptImage = film.currentImage;
     },
     [Do.UNKEEP]: ({}, film) => {
-        navTo(film, film.keep);
+        navTo(film, film.keptImage);
     },
     [Do.PAUSE]: ({}, film) => {
         film.player.playing = false;
@@ -30,33 +30,32 @@ export default {
 
 const playFilm = film => {
     film.player.playing = true;
-    film.player.startMoment = _.now();
+    film.player.startMoment = _.now() - (film.currentImage * film.config.imageDuration * film.config.durationCoef);
 };
-const rewindIfNeeded = film => film.index === film.imageCount && rewind(film);
+const rewindIfNeeded = film => endReached(film) && rewind(film);
 const rewind = film => navTo(film, 0);
-const endNotReached = film => film.index < film.imageCount;
+const endReached = film => film.currentImage >= film.imageCount;
 
 const nextLoop = film => {
     if (film.player.playing) {
         nextImage(film);
-        if (endNotReached(film)) {
-            setTimeout(nextLoop.bind(null, film), film.config.imageDuration);
-        } else {
+        if (endReached(film)) {
             film.player.playing = false;
+        } else {
+            setTimeout(nextLoop.bind(null, film), film.config.imageDuration);
         }
     }
 };
 
 const nextImage = film => {
-    const base = film.config.imageDuration * film.config.durationCoef;
-    const total = film.imageCount * base;
-    const elapsedRatio = elapsed(film.player.startMoment, _.now()) / total;
-    const elapsedImage = Math.ceil(film.imageCount * elapsedRatio);
+    const totalMs = film.imageCount * film.config.imageDuration * film.config.durationCoef;
+    const currentMs = elapsed(film.player.startMoment, _.now());
+    const currentImage = Math.ceil(film.imageCount * currentMs / totalMs);
 
-    navTo(film, Math.min(film.imageCount, elapsedImage));
+    navTo(film, Math.min(film.imageCount, currentImage));
 };
 
 export const navTo = (film, to) => {
-    film.index = to;
+    film.currentImage = to;
     _.forEach(film.children, sfilm => navTo(sfilm, to));
 };

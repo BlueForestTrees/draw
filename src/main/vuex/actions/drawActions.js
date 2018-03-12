@@ -7,7 +7,7 @@ import {navTo} from "../mutations/playerMutations";
 export default {
     [On.START_DRAW]: ({commit}, {e, film, domRef}) => {
         const ctx = {
-            ei: createElementInstance(createElement(), film.index),
+            ei: createElementInstance(createElement(), film.currentImage),
             startMoment: _.now(),
             film,
             domRef
@@ -26,9 +26,9 @@ export default {
 
 const drawMove = (ctx, e) => {
     ctx.ei.e.points.push(globalToLocal(e, ctx.domRef));
-    navTo(ctx.film, ctx.film.index + 1);
-    if (ctx.film.index > ctx.film.imageCount) {
-        ctx.film.imageCount = ctx.film.index;
+    navTo(ctx.film, ctx.film.currentImage + 1);
+    if (ctx.film.currentImage > ctx.film.imageCount) {
+        ctx.film.imageCount = ctx.film.currentImage;
     }
 };
 

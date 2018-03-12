@@ -15,9 +15,9 @@ export const createFilm = () => ({
     name: createName(),
     elements: [],
     children: [],
-    index: 0,
+    currentImage: 0,
     imageCount: 0,
-    keep: 0,
+    keptImage: 0,
     player: createPlayer(),
     config: createConfig(),
     selection: createSelection()
