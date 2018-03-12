@@ -6,18 +6,17 @@ import {initSelectMode} from "../../modes/selectMode";
 export const createNav = () => ({
     menuVisible: true
 });
-
 export const createFilms = () => ([]);
-
 export const createName = anagram;
-
 export const createSelection = () => ({
     element: null,
-    initialOffset: null,
     box: null,
+    drag: createDrag()
+});
+export const createDrag = () => ({
+    initialOffset: null,
     downPoint: null
 });
-
 export const createFilm = () => ({
     name: createName(),
     elements: [],
@@ -28,12 +27,10 @@ export const createFilm = () => ({
     config: createConfig(),
     selection: createSelection()
 });
-
 export const createPlayer = () => ({
     playing: false,
     chrono: null
 });
-
 export const createConfig = () => ({
     showPhantom: false,
     smooth: false,
@@ -49,23 +46,19 @@ export const createConfig = () => ({
 
     color: '#1CA085',
 
-    activeModeIdx: 0
+    activeModeIdx: 1
 });
-
 export const createChrono = () => ({
     start: _.now(),
     duration: 0,
     drawEnd: 0
 });
-
 export const createId = () => Math.random() + "";
-
 export const createElement = () => ({
     _id: createId(),
     duration: 0,
     points: []
 });
-
 export const createElementInstance = (e, position) => ({
     e,
     _id: createId(),
@@ -73,7 +66,6 @@ export const createElementInstance = (e, position) => ({
     tx: 0,
     ty: 0
 });
-
 export const cloneElementInstance = ei => ({
     e: ei.e,
     _id: createId(),
@@ -81,7 +73,6 @@ export const cloneElementInstance = ei => ({
     tx: ei.tx + cloneOffset,
     ty: ei.ty + cloneOffset
 });
-
 export const createModes = () => ([
     {name: "draw", icon: "brush", canColor: true, init: initDrawMode},
     {name: "select", icon: "pan_tool", init: initSelectMode}

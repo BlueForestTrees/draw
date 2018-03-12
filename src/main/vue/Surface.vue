@@ -49,6 +49,7 @@
         },
         methods: {
             onMouseDown: function (e) {
+                console.log(this.activeMode);
                 this.activeMode.init({e, film: this.film, domRef: this.domRef});
             },
             elementIndex, path, polyline
@@ -60,7 +61,7 @@
             };
         },
         watch: {
-            "film.config.selection.element": function (n) {
+            "film.selection.element": function (n) {
                 select({element: n, film: this.film, domRef: this.domRef});
             }
         }
