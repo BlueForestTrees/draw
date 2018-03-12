@@ -55,7 +55,7 @@
             },
             elementIndex, path, polyline,
             ...mapMutations({
-                commitSelect: Do.BOX_FROM_ELEMENT
+                commitSelect: Do.SET_SELECTION_BOX
             })
         },
         mounted: function () {

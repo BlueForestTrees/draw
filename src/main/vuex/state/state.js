@@ -9,9 +9,7 @@ export const createFilms = () => ([]);
 export const createName = anagram;
 export const createSelection = () => ({
     element: null,
-    box: null,
-    offset: null,
-    downPoint: null
+    box: null
 });
 export const createFilm = () => ({
     name: createName(),

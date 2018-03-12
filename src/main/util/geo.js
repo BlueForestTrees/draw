@@ -75,3 +75,16 @@ export const line = (pointA, pointB) => {
         angle: Math.atan2(lengthY, lengthX)
     };
 };
+
+export const getTxTy = (parent, childId) => {
+    const ctm = parent.getElementById(childId).getCTM();
+    return {tx: ctm.e, ty: ctm.f};
+};
+
+export const getBox = (parent, childId) => {
+    const box = parent.getElementById(childId).getBBox();
+    return {
+        x: box.x, y: box.y,
+        width: box.width, height: box.height
+    };
+};

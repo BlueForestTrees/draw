@@ -1,19 +1,25 @@
 import On from "../../const/on";
-import {globalToLocal, minus} from "../../util/geo";
+import {getTxTy, globalToLocal, minus} from "../../util/geo";
 import Vue from 'vue';
 import {createSelection} from "../state/state";
 import _ from 'lodash';
+import Do from "../../const/do";
 
 export default {
     [On.START_SELECT]: ({commit}, {e, film, domRef}) => {
         const currentElementSvg = e.target;
         if (currentElementSvg.id && currentElementSvg.id !== "surface") {
             const element = _.find(film.elements, {_id: currentElementSvg.id});
-            const ctx = {film, domRef};
+            const ctx = {
+                domRef,
+                selection: film.selection,
+                downMouse: globalToLocal(e, domRef),
+                initialTxy: getTxTy(domRef.svg, element._id)
+            };
             ctx.onmousemove = selectMove.bind(null, ctx);
             ctx.onmouseup = selectUp.bind(null, ctx);
 
-            film.selection.element = element;
+            commit(Do.SET_SELECTION_ELEMENT, {film, element});
 
             Vue.nextTick(() => {
                 window.addEventListener("mousemove", ctx.onmousemove);
@@ -25,17 +31,13 @@ export default {
     }
 }
 
-const selectMove = (ctx, e) => {
-    const movePoint = globalToLocal(e, ctx.domRef);
-    ctx.film.selection.downPoint = ctx.film.selection.downPoint || movePoint;
-
-    const move = minus(movePoint, ctx.film.selection.downPoint);
-    ctx.film.selection.box.tx = ctx.film.selection.element.tx = ctx.film.selection.offset.tx + move.x;
-    ctx.film.selection.box.ty = ctx.film.selection.element.ty = ctx.film.selection.offset.ty + move.y;
+const selectMove = ({selection, domRef, downMouse, initialTxy}, e) => {
+    const move = minus(globalToLocal(e, domRef), downMouse);
+    selection.box.tx = selection.element.tx = initialTxy.tx + move.x;
+    selection.box.ty = selection.element.ty = initialTxy.ty + move.y;
 };
 
 const selectUp = (ctx) => {
     window.removeEventListener("mousemove", ctx.onmousemove);
     window.removeEventListener("mouseup", ctx.onmouseup);
-    ctx.film.selection.downPoint = null;
 };

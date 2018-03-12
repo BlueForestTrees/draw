@@ -1,12 +1,14 @@
 import Do from "../../const/do";
+import {getBox, getTxTy} from "../../util/geo";
 
 export default {
-    [Do.BOX_FROM_ELEMENT]: (state, {element, film, domRef}) => {
-        const elementSvg = domRef.svg.getElementById(element._id);
-        const ctm = elementSvg.getCTM();
-        const box = elementSvg.getBBox();
-
-        film.selection.offset = {tx: ctm.e, ty: ctm.f};
-        film.selection.box = Object.assign({x: box.x, y: box.y, width: box.width, height: box.height}, film.selection.offset);
+    [Do.SET_SELECTION_ELEMENT]: (state, {film, element}) => {
+        film.selection.element = element;
+    },
+    [Do.SET_SELECTION_BOX]: (state, {element, film, domRef}) => {
+        film.selection.box = {
+            ...getBox(domRef.svg, element._id),
+            ...getTxTy(domRef.svg, element._id)
+        };
     }
 };
