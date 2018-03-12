@@ -16,5 +16,7 @@ export default {
     APPLY_SIMPLIFICATION: 'applySimplification',
     SELECT_FILM: 'selectFilm',
     SET_SELECTION_ELEMENT: 'setSelectionElement',
-    SET_SELECTION_BOX:'setSelectionBox'
+    SET_SELECTION_BOX:'setSelectionBox',
+    ADD_ELEMENT: 'addElement',
+    ADD_POINT: 'addPoint'
 };

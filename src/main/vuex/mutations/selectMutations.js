@@ -6,9 +6,11 @@ export default {
         film.selection.element = element;
     },
     [Do.SET_SELECTION_BOX]: (state, {element, film, domRef}) => {
-        film.selection.box = {
-            ...getBox(domRef.svg, element._id),
-            ...getTxTy(domRef.svg, element._id)
-        };
+        if (element) {
+            film.selection.box = {
+                ...getBox(domRef.svg, element._id),
+                ...getTxTy(domRef.svg, element._id)
+            };
+        }
     }
 };

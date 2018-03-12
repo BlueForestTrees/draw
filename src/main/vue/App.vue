@@ -17,7 +17,7 @@
 </template>
 
 <script>
-    import Surface from "./Surface";
+    import Surface from "./surface/Surface";
     import LeftMenu from "./LeftMenu";
     import Player from "./Player";
     import {mapState} from "vuex";

@@ -12,22 +12,22 @@ export const minus = (p1, p2) => ({x: p1.x - p2.x, y: p1.y - p2.y});
 
 export const elementIndex = (ei, index) => Math.min(index - ei.position, ei.e.points.length);
 
-export const polyline = (points, config, length) => {
-    const simplePoints = applyConfig(points, config, length || points.length);
-    const parts = [];
-    for (let i = 0; i < simplePoints.length; i++) {
-        parts.push(`${simplePoints[i].x},${simplePoints[i].y}`);
-    }
-    return parts.join(" ");
-};
 export const path = (points, config, length) => {
-    const simplePoints = applyConfig(points, config, length);
-    const point = simplePoints[0];
-    const curve = [`M ${point.x},${point.y}`];
-    for (let i = 1; i < simplePoints.length; i++) {
-        curve.push(bezierCommand(i, simplePoints, config));
+    const simplePoints = applyConfig(points, config, length || points.length);
+    const path = ["M"];
+
+    if (config.smooth) {
+        path.push(`${simplePoints[0].x},${simplePoints[0].y}`);
+        for (let i = 1; i < simplePoints.length; i++) {
+            path.push(bezierCommand(i, simplePoints, config));
+        }
+    } else {
+        for (let i = 0; i < simplePoints.length; i++) {
+            path.push(`${simplePoints[i].x},${simplePoints[i].y}`);
+        }
     }
-    return curve.join(" ");
+
+    return path.join(" ");
 };
 
 export const map = (value, inMin, inMax, outMin, outMax) => (value - inMin) * (outMax - outMin) / (inMax - inMin) + outMin;

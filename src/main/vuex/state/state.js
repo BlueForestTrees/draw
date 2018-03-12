@@ -14,6 +14,7 @@ export const createSelection = () => ({
 export const createFilm = () => ({
     name: createName(),
     elements: [],
+    children: [],
     index: 0,
     length: 0,
     keep: 0,
@@ -23,7 +24,7 @@ export const createFilm = () => ({
 });
 export const createPlayer = () => ({
     playing: false,
-    chrono: null
+    startMoment: null
 });
 export const createConfig = () => ({
     showPhantom: false,
@@ -41,11 +42,6 @@ export const createConfig = () => ({
     color: '#1CA085',
 
     activeModeIdx: 0
-});
-export const createChrono = () => ({
-    start: _.now(),
-    duration: 0,
-    drawEnd: 0
 });
 export const createId = () => Math.random() + "";
 export const createElement = () => ({

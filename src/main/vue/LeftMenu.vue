@@ -36,6 +36,9 @@
                         <v-icon>add_box</v-icon>
                     </v-btn>
                 </v-layout>
+                <v-btn flat icon @click="merge">
+                    <v-icon>edit</v-icon>
+                </v-btn>
             </v-layout>
         </v-container>
     </v-navigation-drawer>
@@ -79,7 +82,10 @@
             }),
             ...mapActions({
                 deleteSelection: On.DELETE_SELECTED_ELEMENT,
-            })
+            }),
+            merge: function () {
+                this.films[0].children.push(this.films[1]);
+            }
         },
         data: () => ({})
     }
