@@ -15,7 +15,7 @@
             <v-btn icon v-if="film.player.playing" @click="pause(film)">
                 <v-icon>pause</v-icon>
             </v-btn>
-            <v-btn icon v-else @click="play(film)" :disabled="film.imageCount === 0">
+            <v-btn icon v-else @click="play(film)" :disabled="imageCount(film) === 0">
                 <v-icon>play_arrow</v-icon>
             </v-btn>
             <v-btn icon @click="next(film)">
@@ -24,10 +24,10 @@
             <span class="airText">{{`${currentSec}/${totalSec}s`}}</span>
         </v-toolbar-items>
 
-        <v-slider class="slider" v-model="film.currentImage" step="1" :max="film.imageCount" thumb-label/>
+        <v-slider class="slider" v-model="film.currentImage" step="1" :max="imageCount(film)" thumb-label/>
 
         <v-toolbar-items>
-            <span class="airText">{{`${film.currentImage}/${film.imageCount}`}}</span>
+            <span class="airText">{{`${film.currentImage}/${imageCount(film)}`}}</span>
             <v-btn icon @click="keep(film)">
                 <v-icon>get_app</v-icon>
             </v-btn>
@@ -42,7 +42,7 @@
 <script>
 
     import Do from "../const/do";
-    import {mapMutations, mapActions, mapState} from 'vuex';
+    import {mapMutations, mapActions, mapState, mapGetters} from 'vuex';
     import {formatShort} from "../util/common";
     import On from "../const/on";
 
@@ -51,13 +51,14 @@
         props: ['film'],
         computed: {
             ...mapState(['nav']),
+            ...mapGetters(['imageCount']),
             currentSec: function () {
                 const base = this.film.config.imageDuration * this.film.config.durationCoef;
                 return formatShort(this.film.currentImage * base / 1000);
             },
             totalSec: function () {
                 const base = this.film.config.imageDuration * this.film.config.durationCoef;
-                return formatShort(this.film.imageCount * base / 1000);
+                return formatShort(this.imageCount(this.film) * base / 1000);
             }
         },
         methods: {

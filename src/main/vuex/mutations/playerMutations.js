@@ -10,7 +10,7 @@ export default {
         navTo(film, Math.max(0, film.currentImage - 1));
     },
     [Do.NEXT]: ({}, film) => {
-        navTo(film, Math.min(film.imageCount, film.currentImage + 1));
+        navTo(film, film.currentImage + 1);
     },
     [Do.KEEP]: ({}, film) => {
         film.keptImage = film.currentImage;
@@ -21,10 +21,13 @@ export default {
     [Do.PAUSE]: ({}, film) => {
         film.player.playing = false;
     },
-    [Do.PLAY]: ({}, film) => {
-        rewindIfNeeded(film);
+    [Do.PLAY]: ({}, {film, imageCount}) => {
+
+        console.log("play", imageCount);
+
+        rewindIfNeeded(film, imageCount);
         playFilm(film);
-        nextLoop(film);
+        nextLoop(film, imageCount);
     }
 };
 
@@ -32,25 +35,24 @@ const playFilm = film => {
     film.player.playing = true;
     film.player.startMoment = _.now() - (film.currentImage * film.config.imageDuration * film.config.durationCoef);
 };
-const rewindIfNeeded = film => endReached(film) && rewind(film);
+const rewindIfNeeded = (film, imageCount) => film.currentImage < imageCount || rewind(film);
 const rewind = film => navTo(film, 0);
-const endReached = film => film.currentImage >= film.imageCount;
 
-const nextLoop = film => {
+const nextLoop = (film, imageCount) => {
     if (film.player.playing) {
         nextImage(film);
-        if (endReached(film)) {
-            film.player.playing = false;
+        if (film.currentImage < imageCount) {
+            setTimeout(nextLoop.bind(null, film, imageCount), film.config.imageDuration);
         } else {
-            setTimeout(nextLoop.bind(null, film), film.config.imageDuration);
+            film.player.playing = false;
         }
     }
 };
 
-const nextImage = film => {
-    const totalMs = film.imageCount * film.config.imageDuration * film.config.durationCoef;
+const nextImage = (film, imageCount) => {
+    const totalMs = imageCount * film.config.imageDuration * film.config.durationCoef;
     const currentMs = elapsed(film.player.startMoment, _.now());
-    const currentImage = Math.ceil(film.imageCount * currentMs / totalMs);
+    const currentImage = Math.ceil(imageCount * currentMs / totalMs);
 
     navTo(film, currentImage);
 };

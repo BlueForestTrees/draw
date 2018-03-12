@@ -27,9 +27,6 @@ export default {
 const drawMove = (ctx, e) => {
     ctx.ei.e.points.push(globalToLocal(e, ctx.domRef));
     navTo(ctx.film, ctx.film.currentImage + 1);
-    if (ctx.film.currentImage > ctx.film.imageCount) {
-        ctx.film.imageCount = ctx.film.currentImage;
-    }
 };
 
 const drawUp = ctx => {

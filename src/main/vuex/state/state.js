@@ -16,7 +16,6 @@ export const createFilm = () => ({
     elements: [],
     children: [],
     currentImage: 0,
-    imageCount: 0,
     keptImage: 0,
     player: createPlayer(),
     config: createConfig(),
@@ -46,7 +45,6 @@ export const createConfig = () => ({
 export const createId = () => Math.random() + "";
 export const createElement = () => ({
     _id: createId(),
-    duration: 0,
     points: []
 });
 export const createElementInstance = (e, position) => ({
