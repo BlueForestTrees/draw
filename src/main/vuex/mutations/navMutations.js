@@ -12,6 +12,6 @@ export default {
         state.activeFilm = film;
     },
     [Do.UNSELECT]: (state, film) => {
-        Object.assign(film.selection, createSelection());
+        Object.assign(film.f.selection, createSelection());
     }
 };

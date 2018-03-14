@@ -10,7 +10,7 @@ export const globalToLocal = (e, {svgPoint, svg}) => {
 
 export const minus = (p1, p2) => ({x: p1.x - p2.x, y: p1.y - p2.y});
 
-export const elementIndex = (ei, index) => Math.min(index - ei.position, ei.e.points.length);
+export const elementIndex = (ei, index) => Math.min(index - ei.tz, ei.e.points.length);
 
 export const path = (points, config, length) => {
     const simplePoints = applyConfig(points, config, length || points.length);
@@ -43,7 +43,7 @@ export const simplifyPoints = (points, config) => {
     }
 };
 
-export const simplifyFilm = (film, config) => _.forEach(film.elements, e => e.points = simplifyPoints(e.points, config));
+export const simplifyFilm = film => _.forEach(film.f.elements, ei => ei.e.points = simplifyPoints(ei.e.points, film.f.config));
 
 export const limit = (points, length) => points.slice(0, length);
 

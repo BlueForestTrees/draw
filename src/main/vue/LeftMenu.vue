@@ -2,14 +2,14 @@
     <v-navigation-drawer fixed app v-model="visible">
         <v-container fluid>
             <v-layout column>
-                <v-switch label="Curve" v-model="film.config.smooth"/>
-                <v-slider v-if="film.config.smooth" v-model="film.config.smoothing" label="coef" min="0" step="0.05" max="1" thumb-label/>
-                <v-slider v-if="film.config.smooth" v-model="film.config.flattening" label="flat" min="0" step="0.05" max="1" thumb-label/>
-                <v-switch label="Simple" v-model="film.config.simplify"/>
-                <v-select v-if="film.config.simplify" :items="['visvalingam','ramer']" v-model="film.config.simpleMode" label="Algo" class="input-group--focused"></v-select>
-                <v-slider v-if="film.config.simplify" v-model="film.config.simpleCoef" label="coef" min="1" step="1" max="200" thumb-label/>
-                <v-btn v-if="film.config.simplify" @click="applySimplification(film)">apply</v-btn>
-                <v-switch label="Phantom" v-model="film.showPhantom"/>
+                <v-switch label="Curve" v-model="film.f.config.smooth"/>
+                <v-slider v-if="film.f.config.smooth" v-model="film.f.config.smoothing" label="coef" min="0" step="0.05" max="1" thumb-label/>
+                <v-slider v-if="film.f.config.smooth" v-model="film.f.config.flattening" label="flat" min="0" step="0.05" max="1" thumb-label/>
+                <v-switch label="Simple" v-model="film.f.config.simplify"/>
+                <v-select v-if="film.f.config.simplify" :items="['visvalingam','ramer']" v-model="film.f.config.simpleMode" label="Algo" class="input-group--focused"></v-select>
+                <v-slider v-if="film.f.config.simplify" v-model="film.f.config.simpleCoef" label="coef" min="1" step="1" max="200" thumb-label/>
+                <v-btn v-if="film.f.config.simplify" @click="applySimplification(film)">apply</v-btn>
+                <v-switch label="Phantom" v-model="film.f.showPhantom"/>
                 <div>
                     <v-btn flat icon @click="cloneSelection(film)" :disabled="noSelection">
                         <v-icon>toll</v-icon>
@@ -21,17 +21,17 @@
                         <v-icon>delete</v-icon>
                     </v-btn>
                 </div>
-                <v-slider v-model="film.config.durationCoef" label="speed" min="0.25" step="0.05" max="4" thumb-label/>
-                <v-btn-toggle mandatory v-model="film.config.activeModeIdx">
+                <v-slider v-model="film.f.config.durationCoef" label="speed" min="0.25" step="0.05" max="4" thumb-label/>
+                <v-btn-toggle mandatory v-model="film.f.config.activeModeIdx">
                     <template>
                         <v-btn flat v-for="mode in modes" :key="mode.name">
                             <v-icon>{{mode.icon}}</v-icon>
                         </v-btn>
                     </template>
                 </v-btn-toggle>
-                <swatches v-if="activeMode.canColor" v-model="film.config.color" colors="text-advanced" popover-to="left"/>
+                <swatches v-if="activeMode.canColor" v-model="film.f.config.color" colors="text-advanced" popover-to="left"/>
                 <v-layout row align-center>
-                    <v-select :items="films" v-model="film" item-text="name" prepend-icon="map" :hint="`${film.name} - ${imageCount(film)}i`" @change="selectFilm"></v-select>
+                    <v-select :items="films" v-model="film" item-text="f.name" prepend-icon="map" :hint="`${film.f.name} - ${film.f.imageCount}i`" @change="selectFilm"></v-select>
                     <v-btn flat icon @click="addNewFilm">
                         <v-icon>add_box</v-icon>
                     </v-btn>
@@ -46,7 +46,7 @@
 
 <script>
 
-    import {mapMutations, mapState, mapGetters, mapActions} from "vuex";
+    import {mapActions, mapGetters, mapMutations, mapState} from "vuex";
     import Do from "../const/do";
     import Swatches from 'vue-swatches'
     import On from "../const/on";
@@ -58,7 +58,7 @@
         },
         computed: {
             ...mapState(['nav', 'activeFilm', 'films', 'modes']),
-            ...mapGetters(['activeMode', 'noSelection', 'imageCount']),
+            ...mapGetters(['activeMode', 'noSelection']),
             film: function () {
                 return this.activeFilm;
             },
@@ -84,7 +84,11 @@
                 deleteSelection: On.DELETE_SELECTED_ELEMENT,
             }),
             merge: function () {
-                this.films[0].children.push(this.films[1]);
+                const parent = this.films[0];
+                const child = this.films[1];
+                parent.f.imageCount = Math.max(parent.f.imageCount, child.f.imageCount);
+                child.f.currentImage = 0;
+                parent.f.children.push(child);
             }
         },
         data: () => ({})

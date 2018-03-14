@@ -7,7 +7,7 @@ import {navTo} from "../mutations/playerMutations";
 export default {
     [On.START_DRAW]: ({commit}, {e, film, domRef}) => {
         const ctx = {
-            ei: createElementInstance(createElement(), film.currentImage),
+            ei: createElementInstance(createElement(), film.f.currentImage),
             startMoment: _.now(),
             film,
             domRef
@@ -15,7 +15,7 @@ export default {
         ctx.onmousemove = drawMove.bind(null, ctx);
         ctx.onmouseup = drawUp.bind(null, ctx);
 
-        film.elements.push(ctx.ei);
+        film.f.elements.push(ctx.ei);
 
         drawMove(ctx, e);
 
@@ -25,8 +25,10 @@ export default {
 }
 
 const drawMove = (ctx, e) => {
+    const newImage = ctx.film.f.currentImage + 1;
     ctx.ei.e.points.push(globalToLocal(e, ctx.domRef));
-    navTo(ctx.film, ctx.film.currentImage + 1);
+    ctx.film.f.imageCount = Math.max(ctx.film.f.imageCount, newImage);
+    navTo(ctx.film, newImage);
 };
 
 const drawUp = ctx => {

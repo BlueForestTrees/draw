@@ -14,7 +14,7 @@
         props: ['film'],
         computed: {
             box: function () {
-                return this.film.selection.box;
+                return this.film.f.selection.box;
             }
         }
     }

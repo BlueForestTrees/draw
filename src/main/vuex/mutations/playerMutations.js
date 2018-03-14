@@ -7,57 +7,54 @@ export default {
         rewind(film);
     },
     [Do.PREV]: ({}, film) => {
-        navTo(film, Math.max(0, film.currentImage - 1));
+        navTo(film, Math.max(0, film.f.currentImage - 1));
     },
     [Do.NEXT]: ({}, film) => {
-        navTo(film, film.currentImage + 1);
+        navTo(film, film.f.currentImage + 1);
     },
     [Do.KEEP]: ({}, film) => {
-        film.keptImage = film.currentImage;
+        film.f.keptImage = film.f.currentImage;
     },
     [Do.UNKEEP]: ({}, film) => {
-        navTo(film, film.keptImage);
+        navTo(film, film.f.keptImage);
     },
     [Do.PAUSE]: ({}, film) => {
-        film.player.playing = false;
+        film.f.player.playing = false;
     },
-    [Do.PLAY]: ({}, {film, imageCount}) => {
-
-        console.log("play", imageCount);
-
-        rewindIfNeeded(film, imageCount);
+    [Do.PLAY]: ({}, film) => {
+        rewindIfNeeded(film);
         playFilm(film);
-        nextLoop(film, imageCount);
+        nextLoop(film);
     }
 };
 
 const playFilm = film => {
-    film.player.playing = true;
-    film.player.startMoment = _.now() - (film.currentImage * film.config.imageDuration * film.config.durationCoef);
+    film.f.player.playing = true;
+    film.f.player.startMoment = _.now() - (film.f.currentImage * film.f.config.imageDuration * film.f.config.durationCoef);
 };
-const rewindIfNeeded = (film, imageCount) => film.currentImage < imageCount || rewind(film);
+const rewindIfNeeded = film => film.f.currentImage < film.f.imageCount || rewind(film);
 const rewind = film => navTo(film, 0);
 
-const nextLoop = (film, imageCount) => {
-    if (film.player.playing) {
+const nextLoop = film => {
+    if (film.f.player.playing) {
         nextImage(film);
-        if (film.currentImage < imageCount) {
-            setTimeout(nextLoop.bind(null, film, imageCount), film.config.imageDuration);
+        if (film.f.currentImage < film.f.imageCount) {
+            setTimeout(nextLoop.bind(null, film), film.f.config.imageDuration);
         } else {
-            film.player.playing = false;
+            film.f.player.playing = false;
         }
     }
 };
 
-const nextImage = (film, imageCount) => {
-    const totalMs = imageCount * film.config.imageDuration * film.config.durationCoef;
-    const currentMs = elapsed(film.player.startMoment, _.now());
-    const currentImage = Math.ceil(imageCount * currentMs / totalMs);
+const nextImage = (film) => {
+    const totalMs = film.f.imageCount * film.f.config.imageDuration * film.f.config.durationCoef;
+    const currentMs = elapsed(film.f.player.startMoment, _.now());
+    const currentImage = Math.ceil(film.f.imageCount * currentMs / totalMs);
 
     navTo(film, currentImage);
 };
 
 export const navTo = (film, to) => {
-    film.currentImage = to;
-    _.forEach(film.children, sfilm => navTo(sfilm, to));
+    film.f.currentImage = to;
+    _.forEach(film.f.children, sfilm => navTo(sfilm, to));
 };

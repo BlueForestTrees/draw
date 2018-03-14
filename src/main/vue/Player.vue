@@ -12,10 +12,10 @@
             <v-btn icon @click="prev(film)">
                 <v-icon>fast_rewind</v-icon>
             </v-btn>
-            <v-btn icon v-if="film.player.playing" @click="pause(film)">
+            <v-btn icon v-if="film.f.player.playing" @click="pause(film)">
                 <v-icon>pause</v-icon>
             </v-btn>
-            <v-btn icon v-else @click="play(film)" :disabled="imageCount(film) === 0">
+            <v-btn icon v-else @click="play(film)" :disabled="film.f.imageCount === 0">
                 <v-icon>play_arrow</v-icon>
             </v-btn>
             <v-btn icon @click="next(film)">
@@ -24,10 +24,10 @@
             <span class="airText">{{`${currentSec}/${totalSec}s`}}</span>
         </v-toolbar-items>
 
-        <v-slider class="slider" v-model="film.currentImage" step="1" :max="imageCount(film)" thumb-label/>
+        <v-slider class="slider" v-model="film.f.currentImage" step="1" :max="film.f.imageCount" thumb-label/>
 
         <v-toolbar-items>
-            <span class="airText">{{`${film.currentImage}/${imageCount(film)}`}}</span>
+            <span class="airText">{{`${film.f.currentImage}/${film.f.imageCount}`}}</span>
             <v-btn icon @click="keep(film)">
                 <v-icon>get_app</v-icon>
             </v-btn>
@@ -51,14 +51,13 @@
         props: ['film'],
         computed: {
             ...mapState(['nav']),
-            ...mapGetters(['imageCount']),
             currentSec: function () {
-                const base = this.film.config.imageDuration * this.film.config.durationCoef;
-                return formatShort(this.film.currentImage * base / 1000);
+                const base = this.film.f.config.imageDuration * this.film.f.config.durationCoef;
+                return formatShort(this.film.f.currentImage * base / 1000);
             },
             totalSec: function () {
-                const base = this.film.config.imageDuration * this.film.config.durationCoef;
-                return formatShort(this.imageCount(this.film) * base / 1000);
+                const base = this.film.f.config.imageDuration * this.film.f.config.durationCoef;
+                return formatShort(this.film.f.imageCount * base / 1000);
             }
         },
         methods: {

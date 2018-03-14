@@ -9,10 +9,10 @@ export default {
     [On.START_SELECT]: ({commit}, {e, film, domRef}) => {
         const currentElementSvg = e.target;
         if (currentElementSvg.id && currentElementSvg.id !== "surface") {
-            const element = _.find(film.elements, {_id: currentElementSvg.id});
+            const element = _.find(film.f.elements, {_id: currentElementSvg.id});
             const ctx = {
                 domRef,
-                selection: film.selection,
+                selection: film.f.selection,
                 downMouse: globalToLocal(e, domRef),
                 initialTxy: getTxTy(domRef.svg, element._id)
             };
@@ -26,7 +26,7 @@ export default {
                 window.addEventListener("mouseup", ctx.onmouseup);
             });
         } else {
-            film.selection = createSelection();
+            film.f.selection = createSelection();
         }
     }
 }

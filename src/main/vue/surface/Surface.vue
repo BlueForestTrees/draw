@@ -1,7 +1,7 @@
 <template>
     <svg @mousedown="onMouseDown" id="surface" width="100%" height="100%" class="surface" ref="surface">
 
-        <phantom v-if="film.showPhantom" :film="film"/>
+        <phantom v-if="film.f.showPhantom" :film="film"/>
 
         <elements :film="film"/>
 
@@ -44,7 +44,7 @@
             elementIndex,path
         },
         watch: {
-            "film.selection.element": function (n) {
+            "film.f.selection.element": function (n) {
                 this.commitSelect({element: n, film: this.film, domRef: this.domRef});
             }
         },

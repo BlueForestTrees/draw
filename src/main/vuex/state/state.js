@@ -15,11 +15,19 @@ export const createFilm = () => ({
     name: createName(),
     elements: [],
     children: [],
+    imageCount: 0,
     currentImage: 0,
     keptImage: 0,
     player: createPlayer(),
     config: createConfig(),
     selection: createSelection()
+});
+export const createFilmInstance = (f, tz) => ({
+    f: f || createFilm(),
+    _id: createId(),
+    tx: 0,
+    ty: 0,
+    tz: tz || 0
 });
 export const createPlayer = () => ({
     playing: false,
@@ -47,17 +55,17 @@ export const createElement = () => ({
     _id: createId(),
     points: []
 });
-export const createElementInstance = (e, position) => ({
+export const createElementInstance = (e, tz) => ({
     e,
     _id: createId(),
-    position,
     tx: 0,
-    ty: 0
+    ty: 0,
+    tz
 });
 export const cloneElementInstance = ei => ({
     e: ei.e,
     _id: createId(),
-    position: ei.position,
+    tz: ei.tz,
     tx: ei.tx + cloneOffset,
     ty: ei.ty + cloneOffset
 });
