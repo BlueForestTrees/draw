@@ -35,7 +35,7 @@ export const createPlayer = () => ({
 });
 export const createConfig = () => ({
     showPhantom: false,
-    smooth: false,
+    smooth: true,
     smoothing: 0.2,
     flattening: 0,
 
@@ -46,7 +46,7 @@ export const createConfig = () => ({
     imageDuration: 15,
     durationCoef: 1,
 
-    color: '#1CA085',
+    color: '#000000',
     width:10,
 
     activeModeIdx: 0

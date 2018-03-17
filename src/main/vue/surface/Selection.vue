@@ -4,7 +4,7 @@
           :width="box.width" :height="box.height"
           :transform="`translate(${box.tx} ${box.ty})`"
 
-          style="fill:none;stroke:red;stroke-dasharray:5,5;stroke-width:1;stroke-opacity:0.8"
+          style="fill:none;stroke:gray;stroke-dasharray:5,5;stroke-width:1;stroke-opacity:0.8"
     />
 </template>
 
