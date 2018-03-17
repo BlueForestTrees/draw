@@ -4,7 +4,7 @@
               :id="ei._id"
               :key="`${ei._id}@${elementIndex(ei,film.f.currentImage)}`"
               :d="path(ei.e.points, film.f.config, elementIndex(ei,film.f.currentImage))"
-              style="fill:none;stroke:black;stroke-width:6;stroke-linecap:round"
+              :style="`fill:none;stroke:${ei.e.color};stroke-width:${ei.e.width};stroke-linecap:round`"
               :transform="`translate(${ei.tx} ${ei.ty})`"
         />
         <elements v-for="sfilm in film.f.children" :film="sfilm" :key="sfilm.f.name"/>

@@ -30,6 +30,7 @@
                     </template>
                 </v-btn-toggle>
                 <swatches v-if="activeMode.canColor" v-model="film.f.config.color" colors="text-advanced" popover-to="left"/>
+                <v-slider v-model="film.f.config.width" label="width" min="1" step="1" max="100" thumb-label/>
                 <v-layout row align-center>
                     <v-select :items="films" v-model="film" item-text="f.name" prepend-icon="map" :hint="`${film.f.name} - ${film.f.imageCount}i`" @change="selectFilm"></v-select>
                     <v-btn flat icon @click="addNewFilm">

@@ -47,13 +47,16 @@ export const createConfig = () => ({
     durationCoef: 1,
 
     color: '#1CA085',
+    width:10,
 
     activeModeIdx: 0
 });
 export const createId = () => Math.random() + "";
-export const createElement = () => ({
+export const createElement = (color,width) => ({
     _id: createId(),
-    points: []
+    points: [],
+    color,
+    width
 });
 export const createElementInstance = (e, tz) => ({
     e,
