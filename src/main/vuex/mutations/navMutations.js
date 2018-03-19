@@ -11,6 +11,9 @@ export default {
     [Do.SELECT_FILM]: (state, film) => {
         state.activeFilm = film;
     },
+    [Do.SELECT_PEN]: (state, pen) => {
+        state.activePen = pen;
+    },
     [Do.UNSELECT]: (state, film) => {
         Object.assign(film.f.selection, createSelection());
     }

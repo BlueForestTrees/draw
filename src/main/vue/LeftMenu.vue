@@ -32,8 +32,14 @@
                 <swatches v-if="activeMode.canColor" v-model="film.f.config.color" colors="text-advanced" popover-to="left"/>
 
 
-                    <svg><circle :fill="film.f.config.color" :width="film.f.config.width" :height="film.f.config.width" :cx="film.f.config.width*0.5" :cy="film.f.config.width*0.5" :r="film.f.config.width*0.5"/></svg>
-                    <v-slider v-model="film.f.config.width" label="width" min="1" step="1" max="100" thumb-label/>
+                <svg>
+                    <circle :fill="film.f.config.color" :width="film.f.config.width" :height="film.f.config.width" :cx="film.f.config.width*0.5" :cy="film.f.config.width*0.5" :r="film.f.config.width*0.5"/>
+                </svg>
+                <v-slider v-model="film.f.config.width" label="width" min="1" step="1" max="100" thumb-label/>
+
+
+                <v-select :items="pens" v-model="pen" item-text="name" prepend-icon="edit" @change="selectPen"></v-select>
+
 
                 <v-layout row align-center>
                     <v-select :items="films" v-model="film" item-text="f.name" prepend-icon="map" :hint="`${film.f.name} - ${film.f.imageCount}i`" @change="selectFilm"></v-select>
@@ -41,9 +47,9 @@
                         <v-icon>add_box</v-icon>
                     </v-btn>
                 </v-layout>
-                <v-btn flat icon @click="merge">
-                    <v-icon>edit</v-icon>
-                </v-btn>
+                <!--<v-btn flat icon @click="merge">-->
+                <!--<v-icon>edit</v-icon>-->
+                <!--</v-btn>-->
             </v-layout>
         </v-container>
     </v-navigation-drawer>
@@ -62,11 +68,8 @@
             Swatches
         },
         computed: {
-            ...mapState(['nav', 'activeFilm', 'films', 'modes']),
+            ...mapState({'nav': 'nav', film: 'activeFilm', pen: 'activePen', films: 'films', pens: 'pens', modes: 'modes'}),
             ...mapGetters(['activeMode', 'noSelection']),
-            film: function () {
-                return this.activeFilm;
-            },
             visible: {
                 get: function () {
                     return this.nav.menuVisible;
@@ -83,6 +86,7 @@
                 clearFilm: Do.CLEAR_FILM,
                 applySimplification: Do.APPLY_SIMPLIFICATION,
                 selectFilm: Do.SELECT_FILM,
+                selectPen: Do.SELECT_PEN,
                 addNewFilm: Do.ACTIVATE_NEW_FILM
             }),
             ...mapActions({

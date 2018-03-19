@@ -11,6 +11,12 @@ export const createSelection = () => ({
     element: null,
     box: null
 });
+export const createPens = () => ([]);
+export const createPen = name => ({
+    name,
+    color: '#000000',
+    width: 10
+});
 export const createFilm = () => ({
     name: createName(),
     elements: [],
@@ -47,12 +53,12 @@ export const createConfig = () => ({
     durationCoef: 1,
 
     color: '#000000',
-    width:10,
+    width: 10,
 
     activeModeIdx: 0
 });
 export const createId = () => Math.random() + "";
-export const createElement = (color,width) => ({
+export const createElement = (color, width) => ({
     _id: createId(),
     points: [],
     color,
@@ -81,5 +87,7 @@ export default {
     nav: createNav(),
     films: createFilms(),
     activeFilm: null,
+    pens: createPens(),
+    activePen: null,
     modes: createModes()
 };
