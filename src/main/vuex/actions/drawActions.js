@@ -5,9 +5,9 @@ import _ from 'lodash';
 import {navTo} from "../mutations/playerMutations";
 
 export default {
-    [On.START_DRAW]: ({commit}, {e, film, domRef}) => {
+    [On.START_DRAW]: ({commit}, {e, film, domRef, pen}) => {
         const ctx = {
-            ei: createElementInstance(createElement(film.f.config.color, film.f.config.width), film.f.currentImage),
+            ei: createElementInstance(createElement(pen), film.f.currentImage),
             startMoment: _.now(),
             film,
             domRef

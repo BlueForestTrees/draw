@@ -29,27 +29,36 @@
                         </v-btn>
                     </template>
                 </v-btn-toggle>
-                <swatches v-if="activeMode.canColor" v-model="film.f.config.color" colors="text-advanced" popover-to="left"/>
+                <swatches v-if="activeMode.canColor" v-model="activePen.color" colors="text-advanced" popover-to="left"/>
 
 
-                <svg>
-                    <circle :fill="film.f.config.color" :width="film.f.config.width" :height="film.f.config.width" :cx="film.f.config.width*0.5" :cy="film.f.config.width*0.5" :r="film.f.config.width*0.5"/>
-                </svg>
-                <v-slider v-model="film.f.config.width" label="width" min="1" step="1" max="100" thumb-label/>
+                <v-slider v-model="activePen.width" label="width" min="1" step="1" max="100" thumb-label/>
 
 
-                <v-select :items="pens" v-model="pen" item-text="name" prepend-icon="edit" @change="selectPen"></v-select>
+                <v-menu>
+                    <div slot="activator">
+                        <v-icon>edit</v-icon>
+                        <pen-preview :pen="activePen"/>
+                    </div>
+                    <v-list>
+                        <v-list-tile>
+                                <pen-preview v-for="pen in pens" :pen="pen" :key="pen.name" @click="selectPen(pen)"/>
+                        </v-list-tile>
+                    </v-list>
+                </v-menu>
 
 
-                <v-layout row align-center>
+                <!--<v-layout row align-center>
                     <v-select :items="films" v-model="film" item-text="f.name" prepend-icon="map" :hint="`${film.f.name} - ${film.f.imageCount}i`" @change="selectFilm"></v-select>
                     <v-btn flat icon @click="addNewFilm">
                         <v-icon>add_box</v-icon>
                     </v-btn>
-                </v-layout>
+                </v-layout>-->
                 <!--<v-btn flat icon @click="merge">-->
                 <!--<v-icon>edit</v-icon>-->
                 <!--</v-btn>-->
+
+
             </v-layout>
         </v-container>
     </v-navigation-drawer>
@@ -58,17 +67,19 @@
 <script>
 
     import {mapActions, mapGetters, mapMutations, mapState} from "vuex";
-    import Do from "../const/do";
+    import Do from "../../const/do";
     import Swatches from 'vue-swatches'
-    import On from "../const/on";
+    import On from "../../const/on";
+    import PenPreview from "./PenPreview";
 
     export default {
         name: 'left-menu',
         components: {
+            PenPreview,
             Swatches
         },
         computed: {
-            ...mapState({'nav': 'nav', film: 'activeFilm', pen: 'activePen', films: 'films', pens: 'pens', modes: 'modes'}),
+            ...mapState({'nav': 'nav', film: 'activeFilm', films: 'films', pens: 'pens', modes: 'modes', activePen: 'activePen'}),
             ...mapGetters(['activeMode', 'noSelection']),
             visible: {
                 get: function () {

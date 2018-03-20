@@ -13,6 +13,7 @@ export const minus = (p1, p2) => ({x: p1.x - p2.x, y: p1.y - p2.y});
 export const elementIndex = (ei, index) => Math.min(index - ei.tz, ei.e.points.length);
 
 export const path = (points, config, length) => {
+    config = config || {};
     const simplePoints = applyConfig(points, config, length || points.length);
     const path = ["M"];
 
@@ -32,7 +33,7 @@ export const path = (points, config, length) => {
 
 export const map = (value, inMin, inMax, outMin, outMax) => (value - inMin) * (outMax - outMin) / (inMax - inMin) + outMin;
 
-export const simplifyPoints = (points, config) => {
+const simplifyPoints = (points, config) => {
     if (config.simplify) {
         return config.simpleMode === "visvalingam" ?
             simplify(points, config.simpleCoef)
@@ -47,10 +48,9 @@ export const simplifyFilm = film => _.forEach(film.f.elements, ei => ei.e.points
 
 export const limit = (points, length) => points.slice(0, length);
 
-const applyConfig = (points, config, length) => {
-    return simplifyPoints(limit(points, length), config);
-};
-export const bezierCommand = (i, a, config) => {
+const applyConfig = (points, config, length) => simplifyPoints(limit(points, length), config);
+
+const bezierCommand = (i, a, config) => {
     const point = a[i];
     const cps = controlPoint(a[i - 1], a[i - 2], point, false, config);
     const cpe = controlPoint(point, a[i - 1], a[i + 1], true, config);

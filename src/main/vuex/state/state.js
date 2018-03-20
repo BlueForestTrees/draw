@@ -11,7 +11,11 @@ export const createSelection = () => ({
     element: null,
     box: null
 });
-export const createPens = () => ([]);
+export const createPens = () => ([
+    Object.assign(createPen("basic"), {}),
+    Object.assign(createPen("little red"), {color: 'red', width: 5}),
+    Object.assign(createPen("mini blue"), {color: 'blue', width: 2}),
+]);
 export const createPen = name => ({
     name,
     color: '#000000',
@@ -52,17 +56,13 @@ export const createConfig = () => ({
     imageDuration: 15,
     durationCoef: 1,
 
-    color: '#000000',
-    width: 10,
-
     activeModeIdx: 0
 });
 export const createId = () => Math.random() + "";
-export const createElement = (color, width) => ({
+export const createElement = pen => ({
     _id: createId(),
     points: [],
-    color,
-    width
+    pen
 });
 export const createElementInstance = (e, tz) => ({
     e,

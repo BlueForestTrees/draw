@@ -25,7 +25,7 @@
             Selection
         },
         name: "surface",
-        props: ['film'],
+        props: ['film', 'pen'],
         data: function () {
             return {
                 domRef: null
@@ -36,12 +36,12 @@
         },
         methods: {
             onMouseDown: function (e) {
-                this.$store.dispatch(this.activeMode.action, {e, film: this.film, domRef: this.domRef});
+                this.$store.dispatch(this.activeMode.action, {e, film: this.film, domRef: this.domRef, pen: this.pen});
             },
             ...mapMutations({
                 commitSelect: Do.SET_SELECTION_BOX
             }),
-            elementIndex,path
+            elementIndex, path
         },
         watch: {
             "film.f.selection.element": function (n) {

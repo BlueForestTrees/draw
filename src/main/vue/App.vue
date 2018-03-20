@@ -6,8 +6,8 @@
                 <v-layout align-center justify-center>
                     <v-flex style="height:900px">
                         <v-card class="elevation-12" style="height:900px">
-                            <surface :film="activeFilm" @select=""/>
-                            <player :film="activeFilm" />
+                            <surface :film="activeFilm" :pen="activePen"/>
+                            <player :film="activeFilm"/>
                         </v-card>
                     </v-flex>
                 </v-layout>
@@ -18,7 +18,7 @@
 
 <script>
     import Surface from "./surface/Surface";
-    import LeftMenu from "./LeftMenu";
+    import LeftMenu from "./menu/LeftMenu";
     import Player from "./Player";
     import {mapState} from "vuex";
     import On from "../const/on";
@@ -30,7 +30,7 @@
             Surface
         },
         computed: {
-            ...mapState(["activeFilm","films"])
+            ...mapState(["activeFilm", "films", "activePen"])
         },
         mounted: async function () {
             await this.$store.dispatch(On.MOUNT_APP);

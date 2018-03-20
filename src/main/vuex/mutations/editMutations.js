@@ -11,9 +11,11 @@ export default {
         state.activeFilm = newFilm;
     },
     [Do.ACTIVATE_FIRST_PEN]: state => {
-        state.pens.push(createPen("basic"));
-        state.pens.push(createPen("basic2"));
-        state.activePen = state.pens[0];
+        if(state.pens && state.pens[0]){
+            state.activePen = state.pens[0];
+        }else{
+            console.error("state.pens vide")
+        }
     },
     [Do.CLONE_SELECTION]: ({}, film) => {
         let clone = cloneElementInstance(film.f.selection.element);
