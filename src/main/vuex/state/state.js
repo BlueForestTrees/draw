@@ -1,6 +1,7 @@
 import {cloneOffset} from "../../const/values";
 import {anagram} from "../../util/common";
 import On from "../../const/on";
+import modes from "../../const/modes";
 
 export const createNav = () => ({
     menuVisible: true
@@ -79,8 +80,9 @@ export const cloneElementInstance = ei => ({
     ty: ei.ty + cloneOffset
 });
 export const createModes = () => ([
-    {name: "draw", icon: "brush", canColor: true, action: On.START_DRAW},
-    {name: "select", icon: "pan_tool", action: On.START_SELECT}
+    {name: modes.BRUSH, icon: "brush", canColor: true, action: On.START_DRAW},
+    {name: modes.SELECT, icon: "pan_tool", action: On.START_SELECT},
+    {name: modes.ZOOM, icon: "find", action: "zoom"}
 ]);
 
 export default {

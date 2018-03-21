@@ -29,23 +29,24 @@
                         </v-btn>
                     </template>
                 </v-btn-toggle>
-                <swatches v-if="activeMode.canColor" v-model="activePen.color" colors="text-advanced" popover-to="left"/>
-
-
-                <v-slider v-model="activePen.width" label="width" min="1" step="1" max="100" thumb-label/>
-
-
+                <span v-if="brushMode">
                 <v-menu>
-                    <div slot="activator">
-                        <v-icon>edit</v-icon>
+                    <v-layout slot="activator" row>
+                        <v-icon>brush</v-icon>
                         <pen-preview :pen="activePen"/>
-                    </div>
+                    </v-layout>
                     <v-list>
-                        <v-list-tile>
-                                <pen-preview v-for="pen in pens" :pen="pen" :key="pen.name" @click="selectPen(pen)"/>
+                        <v-list-tile v-for="pen in pens" :key="pen.name" @click="selectPen(pen)">
+                            <v-list-tile-content>
+                                <pen-preview :pen="pen"/>
+                                <v-divider/>
+                            </v-list-tile-content>
                         </v-list-tile>
                     </v-list>
                 </v-menu>
+                <swatches v-if="activeMode.canColor" v-model="activePen.color" colors="text-advanced" popover-to="left"/>
+                <v-slider v-model="activePen.width" label="width" min="1" step="1" max="100" thumb-label/>
+                </span>
 
 
                 <!--<v-layout row align-center>
