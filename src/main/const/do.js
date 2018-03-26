@@ -3,6 +3,8 @@ export default {
     SET_MENU_VISIBILITY: 'setMenuVisibility',
     ACTIVATE_NEW_FILM: 'activateNewFilm',
     ACTIVATE_FIRST_PEN: 'activateFirstPen',
+    IMPORT: 'import',
+    SHOW_IMPORT_DIALOG: 'showImportDialog',
     REWIND: 'rewind',
     PREV: 'prev',
     NEXT: 'next',

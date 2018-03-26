@@ -41,10 +41,10 @@
 
 <script>
 
-    import Do from "../const/do";
+    import Do from "../../const/do";
     import {mapMutations, mapActions, mapState, mapGetters} from 'vuex';
-    import {formatShort} from "../util/common";
-    import On from "../const/on";
+    import {formatShort} from "../../util/common";
+    import On from "../../const/on";
 
     export default {
         name: 'player',

@@ -1,6 +1,6 @@
 export default {
     activeMode: state => state.modes[state.activeFilm.f.config.activeModeIdx],
-    modeIs: mode => (state, getters) => getters.activeMode === mode,
+    modeIs: (state, getters) => mode => getters.activeMode.name === mode,
     selection: state => state.activeFilm.f.selection.element,
     noSelection: (state, getters) => !getters.selection
 }

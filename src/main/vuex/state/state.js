@@ -63,7 +63,14 @@ export const createId = () => Math.random() + "";
 export const createElement = pen => ({
     _id: createId(),
     points: [],
+    d: null,
     pen
+});
+export const createElementFromSvg = svg => ({
+    _id: createId(),
+    points: null,
+    svg,
+    pen: null
 });
 export const createElementInstance = (e, tz) => ({
     e,
@@ -84,6 +91,9 @@ export const createModes = () => ([
     {name: modes.SELECT, icon: "pan_tool", action: On.START_SELECT},
     {name: modes.ZOOM, icon: "find", action: "zoom"}
 ]);
+export const createImportDialog = () => ({
+    visible: false
+});
 
 export default {
     nav: createNav(),
@@ -91,5 +101,6 @@ export default {
     activeFilm: null,
     pens: createPens(),
     activePen: null,
-    modes: createModes()
+    modes: createModes(),
+    importDialog: createImportDialog()
 };

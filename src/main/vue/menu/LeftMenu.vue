@@ -2,14 +2,6 @@
     <v-navigation-drawer fixed app v-model="visible">
         <v-container fluid>
             <v-layout column>
-                <v-switch label="Curve" v-model="film.f.config.smooth"/>
-                <v-slider v-if="film.f.config.smooth" v-model="film.f.config.smoothing" label="coef" min="0" step="0.05" max="1" thumb-label/>
-                <v-slider v-if="film.f.config.smooth" v-model="film.f.config.flattening" label="flat" min="0" step="0.05" max="1" thumb-label/>
-                <v-switch label="Simple" v-model="film.f.config.simplify"/>
-                <v-select v-if="film.f.config.simplify" :items="['visvalingam','ramer']" v-model="film.f.config.simpleMode" label="Algo" class="input-group--focused"></v-select>
-                <v-slider v-if="film.f.config.simplify" v-model="film.f.config.simpleCoef" label="coef" min="1" step="1" max="200" thumb-label/>
-                <v-btn v-if="film.f.config.simplify" @click="applySimplification(film)">apply</v-btn>
-                <v-switch label="Phantom" v-model="film.f.showPhantom"/>
                 <div>
                     <v-btn flat icon @click="cloneSelection(film)" :disabled="noSelection">
                         <v-icon>toll</v-icon>
@@ -20,8 +12,10 @@
                     <v-btn flat icon @click="deleteSelection(film)" :disabled="noSelection">
                         <v-icon>delete</v-icon>
                     </v-btn>
+                    <v-btn flat icon @click="toggleImport(true)">
+                        <v-icon>edit</v-icon>
+                    </v-btn>
                 </div>
-                <v-slider v-model="film.f.config.durationCoef" label="speed" min="0.25" step="0.05" max="4" thumb-label/>
                 <v-btn-toggle mandatory v-model="film.f.config.activeModeIdx">
                     <template>
                         <v-btn flat v-for="mode in modes" :key="mode.name">
@@ -29,26 +23,40 @@
                         </v-btn>
                     </template>
                 </v-btn-toggle>
-                <span v-if="brushMode">
-                <v-menu>
-                    <v-layout slot="activator" row>
-                        <v-icon>brush</v-icon>
-                        <pen-preview :pen="activePen"/>
-                    </v-layout>
-                    <v-list>
-                        <v-list-tile v-for="pen in pens" :key="pen.name" @click="selectPen(pen)">
-                            <v-list-tile-content>
-                                <pen-preview :pen="pen"/>
-                                <v-divider/>
-                            </v-list-tile-content>
-                        </v-list-tile>
-                    </v-list>
-                </v-menu>
-                <swatches v-if="activeMode.canColor" v-model="activePen.color" colors="text-advanced" popover-to="left"/>
-                <v-slider v-model="activePen.width" label="width" min="1" step="1" max="100" thumb-label/>
+
+
+                <span v-if="modeIs(BRUSH)">
+                    <v-container>
+                        <v-menu>
+                            <v-layout slot="activator" row>
+                                <v-icon>brush</v-icon>
+                                <pen-preview :pen="activePen"/>
+                            </v-layout>
+                            <v-list>
+                                <v-list-tile v-for="pen in pens" :key="pen.name" @click="selectPen(pen)">
+                                    <v-list-tile-content>
+                                        <pen-preview :pen="pen"/>
+                                        <v-divider/>
+                                    </v-list-tile-content>
+                                </v-list-tile>
+                            </v-list>
+                        </v-menu>
+                    </v-container>
+                    <swatches v-if="activeMode.canColor" v-model="activePen.color" colors="text-advanced" popover-to="left"/>
+                    <v-slider v-model="activePen.width" label="width" min="1" step="1" max="100" thumb-label/>
                 </span>
 
+                <v-divider/>
 
+                <v-slider v-model="film.f.config.durationCoef" label="speed" min="0.25" step="0.05" max="4" thumb-label/>
+                <v-switch label="Curve" v-model="film.f.config.smooth"/>
+                <v-slider v-if="film.f.config.smooth" v-model="film.f.config.smoothing" label="coef" min="0" step="0.05" max="1" thumb-label/>
+                <v-slider v-if="film.f.config.smooth" v-model="film.f.config.flattening" label="flat" min="0" step="0.05" max="1" thumb-label/>
+                <v-switch label="Simple" v-model="film.f.config.simplify"/>
+                <v-select v-if="film.f.config.simplify" :items="['visvalingam','ramer']" v-model="film.f.config.simpleMode" label="Algo" class="input-group--focused"></v-select>
+                <v-slider v-if="film.f.config.simplify" v-model="film.f.config.simpleCoef" label="coef" min="1" step="1" max="200" thumb-label/>
+                <v-btn v-if="film.f.config.simplify" @click="applySimplification(film)">apply</v-btn>
+                <v-switch label="Phantom" v-model="film.f.showPhantom"/>
                 <!--<v-layout row align-center>
                     <v-select :items="films" v-model="film" item-text="f.name" prepend-icon="map" :hint="`${film.f.name} - ${film.f.imageCount}i`" @change="selectFilm"></v-select>
                     <v-btn flat icon @click="addNewFilm">
@@ -72,6 +80,7 @@
     import Swatches from 'vue-swatches'
     import On from "../../const/on";
     import PenPreview from "./PenPreview";
+    import modes from "../../const/modes";
 
     export default {
         name: 'left-menu',
@@ -81,7 +90,7 @@
         },
         computed: {
             ...mapState({'nav': 'nav', film: 'activeFilm', films: 'films', pens: 'pens', modes: 'modes', activePen: 'activePen'}),
-            ...mapGetters(['activeMode', 'noSelection']),
+            ...mapGetters(['activeMode', 'noSelection', 'modeIs']),
             visible: {
                 get: function () {
                     return this.nav.menuVisible;
@@ -99,7 +108,8 @@
                 applySimplification: Do.APPLY_SIMPLIFICATION,
                 selectFilm: Do.SELECT_FILM,
                 selectPen: Do.SELECT_PEN,
-                addNewFilm: Do.ACTIVATE_NEW_FILM
+                addNewFilm: Do.ACTIVATE_NEW_FILM,
+                toggleImport: Do.SHOW_IMPORT_DIALOG
             }),
             ...mapActions({
                 deleteSelection: On.DELETE_SELECTED_ELEMENT,
@@ -112,6 +122,8 @@
                 parent.f.children.push(child);
             }
         },
-        data: () => ({})
+        data: () => ({
+            BRUSH: modes.BRUSH
+        })
     }
 </script>

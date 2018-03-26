@@ -1,6 +1,7 @@
 import {simplify_line} from "visvalingam-simplifier";
 import {simplify} from "simplify-polyline";
 import _ from 'lodash';
+import {createElementInstance} from "../vuex/state/state";
 
 export const globalToLocal = (e, {svgPoint, svg}) => {
     svgPoint.x = e.clientX;
@@ -87,4 +88,10 @@ export const getBox = (parent, childId) => {
         x: box.x, y: box.y,
         width: box.width, height: box.height
     };
+};
+
+export const addElementInstance = (element, film) => {
+    const ei = createElementInstance(element, film.f.currentImage);
+    film.f.elements.push(ei);
+    return ei;
 };

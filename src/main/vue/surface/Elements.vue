@@ -1,6 +1,8 @@
 <template>
     <g>
-        <path v-for="ei in film.f.elements" v-if="elementIndex(ei,film.f.currentImage) > 0"
+        <svg-film v-for="ei in film.f.elements" v-if="ei.e.svg" :svg="ei.e.svg" :key="`${ei._id}`"/>
+
+        <path v-for="ei in film.f.elements" v-if="ei.e.points && elementIndex(ei,film.f.currentImage) > 0"
               :id="ei._id"
               :key="`${ei._id}@${elementIndex(ei,film.f.currentImage)}`"
               :d="path(ei.e.points, film.f.config, elementIndex(ei,film.f.currentImage))"

@@ -1,5 +1,8 @@
 <template>
     <v-app id="app" light>
+
+        <import-dialog/>
+
         <left-menu v-if="activeFilm" :film="activeFilm"/>
         <v-content v-if="activeFilm">
             <v-container fluid fill-height>
@@ -19,12 +22,14 @@
 <script>
     import Surface from "./surface/Surface";
     import LeftMenu from "./menu/LeftMenu";
-    import Player from "./Player";
+    import Player from "./player/Player";
     import {mapState} from "vuex";
     import On from "../const/on";
+    import ImportDialog from "./dialog/ImportDialog";
 
     export default {
         components: {
+            ImportDialog,
             Player,
             LeftMenu,
             Surface
