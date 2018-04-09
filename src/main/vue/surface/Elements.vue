@@ -15,8 +15,10 @@
 
 <script>
     import {elementIndex, path} from "../../util/geo";
+    import SvgFilm from "./SvgFilm";
 
     export default {
+        components: {SvgFilm},
         name: 'elements',
         props: ['film'],
         methods: {

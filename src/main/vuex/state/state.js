@@ -63,13 +63,12 @@ export const createId = () => Math.random() + "";
 export const createElement = pen => ({
     _id: createId(),
     points: [],
-    d: null,
     pen
 });
-export const createElementFromSvg = svg => ({
+export const createElementFromExternal = external => ({
     _id: createId(),
     points: null,
-    svg,
+    ...external,
     pen: null
 });
 export const createElementInstance = (e, tz) => ({

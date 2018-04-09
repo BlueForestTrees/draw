@@ -1,6 +1,10 @@
+<template>
+    <p>hello</p>
+</template>
+
 <script>
     export default {
-        name:'svg-film',
+        name:'svg-film'
 
     }
 </script>

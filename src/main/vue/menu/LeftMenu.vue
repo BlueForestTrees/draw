@@ -13,7 +13,7 @@
                         <v-icon>delete</v-icon>
                     </v-btn>
                     <v-btn flat icon @click="toggleImport(true)">
-                        <v-icon>edit</v-icon>
+                        <v-icon>chat</v-icon>
                     </v-btn>
                 </div>
                 <v-btn-toggle mandatory v-model="film.f.config.activeModeIdx">
