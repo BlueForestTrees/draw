@@ -60,17 +60,16 @@ export const createConfig = () => ({
     activeModeIdx: 0
 });
 export const createId = () => Math.random() + "";
-export const createElement = pen => ({
+
+
+export const createElement = ({pen, points, svg, d}) => ({
     _id: createId(),
-    points: [],
-    pen
+    pen,
+    points,
+    svg,
+    d
 });
-export const createElementFromExternal = external => ({
-    _id: createId(),
-    points: null,
-    ...external,
-    pen: null
-});
+
 export const createElementInstance = (e, tz) => ({
     e,
     _id: createId(),

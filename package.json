@@ -30,7 +30,8 @@
     "vue-style-loader": "^3.0.3",
     "vue-template-compiler": "^2.5.9",
     "webpack": "^3.10.0",
-    "webpack-dev-server": "^2.9.7"
+    "webpack-dev-server": "^2.9.7",
+    "webpack-mild-compile": "^3.2.0"
   },
   "dependencies": {
     "bson-objectid": "^1.2.2",

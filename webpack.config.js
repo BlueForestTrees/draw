@@ -2,6 +2,7 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin');
+const WebpackMildCompile = require('webpack-mild-compile').Plugin;
 
 const conf = {
     entry: './src/main/index.js',
@@ -29,6 +30,7 @@ const conf = {
     plugins: [
         new HtmlWebpackPlugin({template: './src/main/index.html', inject: 'body', hash: 'true'}),
         new CopyWebpackPlugin([{ from: './src/main/img', to: 'img'}]),
+        new WebpackMildCompile()//recompile x times bug
     ],
 
     devServer: {

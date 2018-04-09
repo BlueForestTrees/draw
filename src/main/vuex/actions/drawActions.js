@@ -7,7 +7,7 @@ import {navTo} from "../mutations/playerMutations";
 export default {
     [On.START_DRAW]: ({commit}, {e, film, domRef, pen}) => {
         const ctx = {
-            ei: addElementInstance(createElement(pen), film),
+            ei: addElementInstance(createElement({pen, points: []}), film),
             startMoment: _.now(),
             film,
             domRef

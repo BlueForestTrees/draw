@@ -2,6 +2,17 @@
     <g>
         <svg-film v-for="ei in film.f.elements" v-if="ei.e.svg" :svg="ei.e.svg" :key="`${ei._id}`"/>
 
+        <!--svg-->
+
+        <!--svg d path-->
+        <path v-for="ei in film.f.elements" v-if="ei.e.d"
+              :id="ei._id" :key="ei._id"
+              :d="ei.e.d"
+              :style="`fill:none; stroke:${ei.e.pen.color}; stroke-width:${ei.e.pen.width}; stroke-linecap:round`"
+              :transform="`translate(${ei.tx} ${ei.ty})`"
+        />
+
+        <!--POINTS-->
         <path v-for="ei in film.f.elements" v-if="ei.e.points && elementIndex(ei,film.f.currentImage) > 0"
               :id="ei._id"
               :key="`${ei._id}@${elementIndex(ei,film.f.currentImage)}`"
@@ -9,6 +20,7 @@
               :style="`fill:none; stroke:${ei.e.pen.color}; stroke-width:${ei.e.pen.width}; stroke-linecap:round`"
               :transform="`translate(${ei.tx} ${ei.ty})`"
         />
+
         <elements v-for="sfilm in film.f.children" :film="sfilm" :key="sfilm.f.name"/>
     </g>
 </template>
