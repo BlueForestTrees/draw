@@ -11,7 +11,7 @@ export const globalToLocal = (e, {svgPoint, svg}) => {
 
 export const minus = (p1, p2) => ({x: p1.x - p2.x, y: p1.y - p2.y});
 
-export const elementIndex = (ei, index) => Math.min(index - ei.tz, ei.e.points.length);
+export const eii = (ei, ftz) => Math.min(ftz - ei.tz, ei.e.points.length);
 
 export const path = (points, config, length) => {
     config = config || {};
@@ -90,8 +90,8 @@ export const getBox = (parent, childId) => {
     };
 };
 
-export const addElementInstance = (element, film) => {
-    const ei = createElementInstance(element, film.f.currentImage);
+export const addToFilm = (e, film) => {
+    const ei = createElementInstance(e, film.f.ftz);
     film.f.elements.push(ei);
     return ei;
 };

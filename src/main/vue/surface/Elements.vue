@@ -5,18 +5,12 @@
         <!--svg-->
 
         <!--svg d path-->
-        <path v-for="ei in film.f.elements" v-if="ei.e.d"
-              :id="ei._id" :key="ei._id"
-              :d="ei.e.d"
-              :style="`fill:none; stroke:${ei.e.pen.color}; stroke-width:${ei.e.pen.width}; stroke-linecap:round`"
-              :transform="`translate(${ei.tx} ${ei.ty})`"
-        />
 
         <!--POINTS-->
-        <path v-for="ei in film.f.elements" v-if="ei.e.points && elementIndex(ei,film.f.currentImage) > 0"
+        <path v-for="ei in film.f.elements" v-if="ei.e.points && eii(ei,film.f.ftz) > 0"
               :id="ei._id"
-              :key="`${ei._id}@${elementIndex(ei,film.f.currentImage)}`"
-              :d="path(ei.e.points, film.f.config, elementIndex(ei,film.f.currentImage))"
+              :key="`${ei._id}@${eii(ei,film.f.ftz)}`"
+              :d="path(ei.e.points, film.f.config, eii(ei,film.f.ftz))"
               :style="`fill:none; stroke:${ei.e.pen.color}; stroke-width:${ei.e.pen.width}; stroke-linecap:round`"
               :transform="`translate(${ei.tx} ${ei.ty})`"
         />
@@ -26,7 +20,7 @@
 </template>
 
 <script>
-    import {elementIndex, path} from "../../util/geo";
+    import {eii, path} from "../../util/geo";
     import SvgFilm from "./SvgFilm";
 
     export default {
@@ -34,7 +28,7 @@
         name: 'elements',
         props: ['film'],
         methods: {
-            elementIndex, path
+            eii, path
         }
     }
 </script>

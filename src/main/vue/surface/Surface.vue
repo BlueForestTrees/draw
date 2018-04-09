@@ -16,7 +16,7 @@
     import Selection from "./Selection";
     import Phantom from "./Phantom";
     import Elements from "./Elements";
-    import {elementIndex, path} from "../../util/geo";
+    import {eii, path} from "../../util/geo";
 
     export default {
         components: {
@@ -41,7 +41,7 @@
             ...mapMutations({
                 commitSelect: Do.SET_SELECTION_BOX
             }),
-            elementIndex, path
+            elementIndex: eii, path
         },
         watch: {
             "film.f.selection.element": function (n) {

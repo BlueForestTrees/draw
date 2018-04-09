@@ -1,6 +1,6 @@
 import Do from "../../const/do";
 import {createElement} from "../state/state";
-import {addElementInstance} from "../../util/geo";
+import {addToFilm} from "../../util/geo";
 
 export default {
     [Do.IMPORT]: (state, pastedData) => {
@@ -19,7 +19,8 @@ export default {
                 console.log("format d'import non reconnu (ni d, ni svg, ni points");
             }
 
-            addElementInstance(createElement(eDef), state.activeFilm);
+            addToFilm(createElement(eDef), state.activeFilm);
+
             state.importDialog.visible = false;
         }
     },

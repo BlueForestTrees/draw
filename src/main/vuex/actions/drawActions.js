@@ -1,13 +1,13 @@
 import On from "../../const/on";
 import {createElement} from "../state/state";
-import {addElementInstance, globalToLocal} from "../../util/geo";
+import {addToFilm, globalToLocal} from "../../util/geo";
 import _ from 'lodash';
 import {navTo} from "../mutations/playerMutations";
 
 export default {
     [On.START_DRAW]: ({commit}, {e, film, domRef, pen}) => {
         const ctx = {
-            ei: addElementInstance(createElement({pen, points: []}), film),
+            ei: addToFilm(createElement({pen, points: []}), film),
             startMoment: _.now(),
             film,
             domRef
@@ -24,7 +24,7 @@ export default {
 }
 
 const drawMove = (ctx, e) => {
-    const newImage = ctx.film.f.currentImage + 1;
+    const newImage = ctx.film.f.ftz + 1;
     ctx.ei.e.points.push(globalToLocal(e, ctx.domRef));
     ctx.film.f.imageCount = Math.max(ctx.film.f.imageCount, newImage);
     navTo(ctx.film, newImage);

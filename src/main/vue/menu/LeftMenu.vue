@@ -118,7 +118,7 @@
                 const parent = this.films[0];
                 const child = this.films[1];
                 parent.f.imageCount = Math.max(parent.f.imageCount, child.f.imageCount);
-                child.f.currentImage = 0;
+                child.f.ftz = 0;
                 parent.f.children.push(child);
             }
         },
