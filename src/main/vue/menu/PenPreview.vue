@@ -20,7 +20,7 @@
             };
         },
         methods: {
-            path
+            path: path
         }
     }
 </script>

@@ -1,35 +1,46 @@
 import Do from "../../const/do";
-import {cloneElementInstance, createFilm, createFilmInstance, createPen} from "../state/state";
+import {cloneElementInstance, createFilm, createFilmInstance} from "../state/state";
 import Vue from "vue"
-import {simplifyFilm} from "../../util/geo";
+import {getBox, getTxTy, simplifyFilm} from "../../util/geo";
 import _ from 'lodash';
 
 export default {
+    [Do.CLONE]: ({}, {ei, film}) => {
+        let clone = cloneElementInstance(ei);
+        film.f.elements.push(clone);
+        Vue.nextTick(() => film.f.selection.element = clone);
+    },
+    [Do.SET_SELECTION_ELEMENT]: (state, {film, element}) => {
+        film.f.selection.element = element;
+    },
+    [Do.SET_SELECTION_BOX]: (state, {element, film, domRef}) => {
+        if (element) {
+            film.f.selection.box = {
+                ...getBox(domRef.svg, element._id),
+                ...getTxTy(domRef.svg, element._id)
+            };
+        }
+    },
     [Do.ACTIVATE_NEW_FILM]: state => {
         const newFilm = createFilmInstance();
         state.films.push(newFilm);
         state.activeFilm = newFilm;
     },
     [Do.ACTIVATE_FIRST_PEN]: state => {
-        if(state.pens && state.pens[0]){
+        if (state.pens && state.pens[0]) {
             state.activePen = state.pens[0];
-        }else{
+        } else {
             console.error("state.pens vide")
         }
-    },
-    [Do.CLONE_SELECTION]: ({}, film) => {
-        let clone = cloneElementInstance(film.f.selection.element);
-        film.f.elements.push(clone);
-        Vue.nextTick(() => film.f.selection.element = clone);
     },
     [Do.CLEAR_FILM]: ({}, film) => {
         Object.assign(film.f, createFilm());
     },
-    [Do.DELETE_SELECTED_ELEMENT]: ({}, film) => {
+    [Do.DELETE_ELEMENT]: ({}, {ei, film}) => {
         film.f.elements.splice(
             _.findIndex(
                 film.f.elements,
-                {_id: film.f.selection.element._id}),
+                {_id: ei._id}),
             1);
     },
     [Do.APPLY_SIMPLIFICATION]: ({}, film) => {

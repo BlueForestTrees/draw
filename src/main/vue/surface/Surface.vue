@@ -41,7 +41,7 @@
             ...mapMutations({
                 commitSelect: Do.SET_SELECTION_BOX
             }),
-            elementIndex: eii, path
+            elementIndex: eii, path: path
         },
         watch: {
             "film.f.selection.element": function (n) {

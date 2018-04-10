@@ -3,14 +3,8 @@
         <v-container fluid>
             <v-layout column>
                 <div>
-                    <v-btn flat icon @click="cloneSelection(film)" :disabled="noSelection">
-                        <v-icon>toll</v-icon>
-                    </v-btn>
                     <v-btn flat icon @click="clearFilm(film)">
                         <v-icon>delete_sweep</v-icon>
-                    </v-btn>
-                    <v-btn flat icon @click="deleteSelection(film)" :disabled="noSelection">
-                        <v-icon>delete</v-icon>
                     </v-btn>
                     <v-btn flat icon @click="toggleImport(true)">
                         <v-icon>chat</v-icon>
@@ -57,6 +51,7 @@
                 <v-slider v-if="film.f.config.simplify" v-model="film.f.config.simpleCoef" label="coef" min="1" step="1" max="200" thumb-label/>
                 <v-btn v-if="film.f.config.simplify" @click="applySimplification(film)">apply</v-btn>
                 <v-switch label="Phantom" v-model="film.f.showPhantom"/>
+                <v-switch label="Animated" v-if="selection" v-model="selection.e.anim"/>
                 <!--<v-layout row align-center>
                     <v-select :items="films" v-model="film" item-text="f.name" prepend-icon="map" :hint="`${film.f.name} - ${film.f.imageCount}i`" @change="selectFilm"></v-select>
                     <v-btn flat icon @click="addNewFilm">
@@ -75,10 +70,9 @@
 
 <script>
 
-    import {mapActions, mapGetters, mapMutations, mapState} from "vuex";
+    import {mapGetters, mapMutations, mapState} from "vuex";
     import Do from "../../const/do";
     import Swatches from 'vue-swatches'
-    import On from "../../const/on";
     import PenPreview from "./PenPreview";
     import modes from "../../const/modes";
 
@@ -90,7 +84,7 @@
         },
         computed: {
             ...mapState({'nav': 'nav', film: 'activeFilm', films: 'films', pens: 'pens', modes: 'modes', activePen: 'activePen'}),
-            ...mapGetters(['activeMode', 'noSelection', 'modeIs']),
+            ...mapGetters(['activeMode', 'selection', 'modeIs']),
             visible: {
                 get: function () {
                     return this.nav.menuVisible;
@@ -103,16 +97,12 @@
         methods: {
             ...mapMutations({
                 setVisible: Do.SET_MENU_VISIBILITY,
-                cloneSelection: Do.CLONE_SELECTION,
                 clearFilm: Do.CLEAR_FILM,
                 applySimplification: Do.APPLY_SIMPLIFICATION,
                 selectFilm: Do.SELECT_FILM,
                 selectPen: Do.SELECT_PEN,
                 addNewFilm: Do.ACTIVATE_NEW_FILM,
                 toggleImport: Do.SHOW_IMPORT_DIALOG
-            }),
-            ...mapActions({
-                deleteSelection: On.DELETE_SELECTED_ELEMENT,
             }),
             merge: function () {
                 const parent = this.films[0];

@@ -1,5 +1,6 @@
 import Do from "../../const/do";
 import {createSelection} from "../state/state";
+import {findIndex} from 'lodash';
 
 export default {
     [Do.TOGGLE_MENU_VISIBILITY]: (state) => {
@@ -16,5 +17,8 @@ export default {
     },
     [Do.UNSELECT]: (state, film) => {
         Object.assign(film.f.selection, createSelection());
+    },
+    [Do.SET_MODE]: (state, mode) => {
+        state.activeFilm.f.config.activeModeIdx = findIndex(state.modes,{name:mode});
     }
 };

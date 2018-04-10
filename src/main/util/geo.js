@@ -11,7 +11,7 @@ export const globalToLocal = (e, {svgPoint, svg}) => {
 
 export const minus = (p1, p2) => ({x: p1.x - p2.x, y: p1.y - p2.y});
 
-export const eii = (ei, ftz) => Math.min(ftz - ei.tz, ei.e.points.length);
+export const eii = (ei, ftz) => ei.e.anim ? Math.min(ftz - ei.tz, ei.e.points.length) : ei.e.points.length;
 
 export const path = (points, config, length) => {
     config = config || {};

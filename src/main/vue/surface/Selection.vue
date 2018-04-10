@@ -3,8 +3,7 @@
           :x="box.x" :y="box.y"
           :width="box.width" :height="box.height"
           :transform="`translate(${box.tx} ${box.ty})`"
-
-          style="fill:none;stroke:gray;stroke-dasharray:5,5;stroke-width:1;stroke-opacity:0.8"
+          style="fill:none;stroke:gray;stroke-dasharray:5,5;stroke-width:1;stroke-opacity:0.8;pointer-events: none;"
     />
 </template>
 

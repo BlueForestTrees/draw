@@ -7,6 +7,8 @@ import Do from "../../const/do";
 
 export default {
     [On.START_SELECT]: ({commit}, {e, film, domRef}) => {
+
+
         const currentElementSvg = e.target;
         if (currentElementSvg.id && currentElementSvg.id !== "surface") {
             const element = _.find(film.f.elements, {_id: currentElementSvg.id});

@@ -9,7 +9,7 @@ export default {
 
             pastedData = pastedData.replace(/\s+/g, ' ').trim();
 
-            if (pastedData.startsWith("M")) {
+            if (pastedData.match(/^M.+z$/)) {
                 eDef.d = pastedData;
             } else if (pastedData.match(/^.*svg.*$/)) {
                 eDef.svg = pastedData;
@@ -20,6 +20,7 @@ export default {
             }
 
             addToFilm(createElement(eDef), state.activeFilm);
+
 
             state.importDialog.visible = false;
         }

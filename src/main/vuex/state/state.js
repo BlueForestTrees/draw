@@ -62,12 +62,13 @@ export const createConfig = () => ({
 export const createId = () => Math.random() + "";
 
 
-export const createElement = ({pen, points, svg, d}) => ({
+export const createElement = ({pen, points, svg, d, anim}) => ({
     _id: createId(),
     pen,
     points,
     svg,
-    d
+    d,
+    anim
 });
 
 export const createElementInstance = (e, tz) => ({
@@ -87,7 +88,7 @@ export const cloneElementInstance = ei => ({
 export const createModes = () => ([
     {name: modes.BRUSH, icon: "brush", canColor: true, action: On.START_DRAW},
     {name: modes.SELECT, icon: "pan_tool", action: On.START_SELECT},
-    {name: modes.ZOOM, icon: "find", action: "zoom"}
+    {name: modes.ZOOM, icon: "search", action: On.START_ZOOM}
 ]);
 export const createImportDialog = () => ({
     visible: false
