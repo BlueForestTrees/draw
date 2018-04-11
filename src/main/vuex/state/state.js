@@ -16,6 +16,7 @@ export const createPens = () => ([
     Object.assign(createPen("basic"), {}),
     Object.assign(createPen("little red"), {color: 'red', width: 5}),
     Object.assign(createPen("mini blue"), {color: 'blue', width: 2}),
+    Object.assign(createPen("black stroke"), {width: 7, stroke: true}),
 ]);
 export const createPen = name => ({
     name,

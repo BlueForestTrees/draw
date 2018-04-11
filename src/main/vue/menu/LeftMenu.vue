@@ -2,20 +2,27 @@
     <v-navigation-drawer fixed app v-model="visible">
         <v-container fluid>
             <v-layout column>
-                <div>
+
+                <v-layout row align-center>
+                    <v-select :items="films" v-model="film" item-text="f.name" prepend-icon="map" :hint="`${film.f.name} - ${film.f.imageCount}i`" @change="selectFilm"></v-select>
+                    <v-btn flat icon @click="addNewFilm">
+                        <v-icon>add_box</v-icon>
+                    </v-btn>
                     <v-btn flat icon @click="clearFilm(film)">
-                        <v-icon>delete_sweep</v-icon>
+                        <v-icon>delete</v-icon>
                     </v-btn>
-                    <v-btn flat icon @click="toggleImport(true)">
-                        <v-icon>chat</v-icon>
-                    </v-btn>
-                </div>
+                </v-layout>
+                <!--<v-btn flat icon @click="merge">-->
+                <!--<v-icon>edit</v-icon>-->
+                <!--</v-btn>-->
+
+                <v-btn flat icon @click="toggleImport(true)">
+                    <v-icon>subject</v-icon>
+                </v-btn>
                 <v-btn-toggle mandatory v-model="film.f.config.activeModeIdx">
-                    <template>
-                        <v-btn flat v-for="mode in modes" :key="mode.name">
-                            <v-icon>{{mode.icon}}</v-icon>
-                        </v-btn>
-                    </template>
+                    <v-btn flat v-for="mode in modes" :key="mode.name">
+                        <v-icon>{{mode.icon}}</v-icon>
+                    </v-btn>
                 </v-btn-toggle>
 
 
@@ -52,16 +59,6 @@
                 <v-btn v-if="film.f.config.simplify" @click="applySimplification(film)">apply</v-btn>
                 <v-switch label="Phantom" v-model="film.f.showPhantom"/>
                 <v-switch label="Animated" v-if="selection" v-model="selection.e.anim"/>
-                <!--<v-layout row align-center>
-                    <v-select :items="films" v-model="film" item-text="f.name" prepend-icon="map" :hint="`${film.f.name} - ${film.f.imageCount}i`" @change="selectFilm"></v-select>
-                    <v-btn flat icon @click="addNewFilm">
-                        <v-icon>add_box</v-icon>
-                    </v-btn>
-                </v-layout>-->
-                <!--<v-btn flat icon @click="merge">-->
-                <!--<v-icon>edit</v-icon>-->
-                <!--</v-btn>-->
-
 
             </v-layout>
         </v-container>

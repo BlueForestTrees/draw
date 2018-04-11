@@ -35,7 +35,7 @@ const conf = {
 
     devServer: {
         port: 8078,
-        host:"0.0.0.0",
+        host:"localhost",
         contentBase: path.resolve(__dirname, 'dist'),
         quiet: true
     },

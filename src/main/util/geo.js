@@ -15,7 +15,7 @@ export const eii = (ei, ftz) => ei.e.anim ? Math.min(ftz - ei.tz, ei.e.points.le
 
 export const path = (points, config, length) => {
     config = config || {};
-    const simplePoints = applyConfig(points, config, length || points.length);
+    const simplePoints = simplifyPoints(limit(points, length || points.length), config);
     const path = ["M"];
 
     if (config.smooth) {
@@ -48,8 +48,6 @@ const simplifyPoints = (points, config) => {
 export const simplifyFilm = film => _.forEach(film.f.elements, ei => ei.e.points = simplifyPoints(ei.e.points, film.f.config));
 
 export const limit = (points, length) => points.slice(0, length);
-
-const applyConfig = (points, config, length) => simplifyPoints(limit(points, length), config);
 
 const bezierCommand = (i, a, config) => {
     const point = a[i];
