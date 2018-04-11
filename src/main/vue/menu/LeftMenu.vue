@@ -49,7 +49,7 @@
 
                 <v-divider/>
 
-                <v-slider v-model="film.f.config.durationCoef" label="speed" min="0.25" step="0.05" max="4" thumb-label/>
+                <v-slider v-model="film.f.config.durationCoef" label="duration" min="0.25" step="0.05" max="4" thumb-label/>
                 <v-switch label="Curve" v-model="film.f.config.smooth"/>
                 <v-slider v-if="film.f.config.smooth" v-model="film.f.config.smoothing" label="coef" min="0" step="0.05" max="1" thumb-label/>
                 <v-slider v-if="film.f.config.smooth" v-model="film.f.config.flattening" label="flat" min="0" step="0.05" max="1" thumb-label/>

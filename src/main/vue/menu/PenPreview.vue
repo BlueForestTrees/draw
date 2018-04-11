@@ -1,15 +1,11 @@
 <template>
     <svg width="100%" height="100%" viewBox="0 0 200 20" preserveAspectRatio="xMidYMid meet">
-        <!--<rect x="0" y="0" width="100%" height="100%" fill="#FEDA00"/>-->
-        <path v-if="pen"
-              :d="path(points)"
-              :style="`fill:none; stroke:${pen.color}; stroke-width:${pen.width}; stroke-linecap:round`"
-        />
+        <path :d="penPreviewPath" :style="style(pen)"/>
     </svg>
 </template>
 
 <script>
-    import {path} from "../../util/geo";
+    import {path, style} from "../../util/geo";
 
     export default {
         name: "pen-preview",
@@ -20,7 +16,12 @@
             };
         },
         methods: {
-            path: path
+            path, style
+        },
+        computed: {
+            penPreviewPath: function () {
+                return this.path(this.pen, this.points);
+            }
         }
     }
 </script>

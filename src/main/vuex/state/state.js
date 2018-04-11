@@ -47,18 +47,18 @@ export const createPlayer = () => ({
 });
 export const createConfig = () => ({
     showPhantom: false,
+    imageDuration: 15,
+    durationCoef: 1,
+    activeModeIdx: 0,
+
+
     smooth: true,
     smoothing: 0.2,
     flattening: 0,
 
     simplify: false,
     simpleMode: "visvalingam",
-    simpleCoef: 10,
-
-    imageDuration: 15,
-    durationCoef: 1,
-
-    activeModeIdx: 0
+    simpleCoef: 10
 });
 export const createId = () => Math.random() + "";
 

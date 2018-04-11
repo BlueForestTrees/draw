@@ -1,6 +1,6 @@
 import {simplify_line} from "visvalingam-simplifier";
 import {simplify} from "simplify-polyline";
-import _ from 'lodash';
+import {find, forEach, map} from 'lodash';
 import {createElementInstance} from "../vuex/state/state";
 
 export const globalToLocal = (e, {svgPoint, svg}) => {
@@ -13,26 +13,39 @@ export const minus = (p1, p2) => ({x: p1.x - p2.x, y: p1.y - p2.y});
 
 export const eii = (ei, ftz) => ei.e.anim ? Math.min(ftz - ei.tz, ei.e.points.length) : ei.e.points.length;
 
-export const path = (points, config, length) => {
-    config = config || {};
-    const simplePoints = simplifyPoints(limit(points, length || points.length), config);
-    const path = ["M"];
-
-    if (config.smooth) {
-        path.push(`${simplePoints[0].x},${simplePoints[0].y}`);
-        for (let i = 1; i < simplePoints.length; i++) {
-            path.push(bezierCommand(i, simplePoints, config));
-        }
+export const style = pen => {
+    if (pen.stroke) {
+        return `fill:none; stroke:${pen.color}; stroke-width:${pen.width}; stroke-linecap:round`;
     } else {
-        for (let i = 0; i < simplePoints.length; i++) {
-            path.push(`${simplePoints[i].x},${simplePoints[i].y}`);
-        }
+        return `fill:${pen.color};`
+    }
+};
+
+export const path = (pen, points, config, length) => {
+    config = config || {};
+    let pathPoints = simplifyPoints(limit(points, length || points.length), config);
+
+    if (!pen.stroke) {
+        pathPoints =
+            map(pathPoints, pt => ({x: pt.x - 10, y: pt.y - 10}))
+                .concat(map(pathPoints, pt => ({x: pt.x + 10, y: pt.y + 10})).reverse());
     }
 
+    const path = ["M"];
+    if (config.smooth) {
+        path.push(`${pathPoints[0].x},${pathPoints[0].y}`);
+        for (let i = 1; i < pathPoints.length; i++) {
+            path.push(bezierCommand(i, pathPoints, config));
+        }
+    } else {
+        for (let i = 0; i < pathPoints.length; i++) {
+            path.push(`${pathPoints[i].x},${pathPoints[i].y}`);
+        }
+    }
     return path.join(" ");
 };
 
-export const map = (value, inMin, inMax, outMin, outMax) => (value - inMin) * (outMax - outMin) / (inMax - inMin) + outMin;
+export const mapPoint = (value, inMin, inMax, outMin, outMax) => (value - inMin) * (outMax - outMin) / (inMax - inMin) + outMin;
 
 const simplifyPoints = (points, config) => {
     if (config.simplify) {
@@ -45,7 +58,7 @@ const simplifyPoints = (points, config) => {
     }
 };
 
-export const simplifyFilm = film => _.forEach(film.f.elements, ei => ei.e.points = simplifyPoints(ei.e.points, film.f.config));
+export const simplifyFilm = film => forEach(film.f.elements, ei => ei.e.points = simplifyPoints(ei.e.points, film.f.config));
 
 export const limit = (points, length) => points.slice(0, length);
 
@@ -59,7 +72,7 @@ export const controlPoint = (current, previous, next, reverse, config) => {
     const p = previous || current;
     const n = next || current;
     const o = line(p, n);
-    const flat = map(Math.cos(o.angle) * config.flattening, 0, 1, 1, 0);
+    const flat = mapPoint(Math.cos(o.angle) * config.flattening, 0, 1, 1, 0);
     const angle = o.angle * flat + (reverse ? Math.PI : 0);
     const length = o.length * config.smoothing;
     const x = current.x + Math.cos(angle) * length;
