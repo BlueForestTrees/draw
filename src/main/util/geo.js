@@ -15,20 +15,21 @@ export const eii = (ei, ftz) => ei.e.anim ? Math.min(ftz - ei.tz, ei.e.points.le
 
 export const style = pen => {
     if (pen.stroke) {
-        return `fill:none; stroke:${pen.color}; stroke-width:${pen.width}; stroke-linecap:round`;
+        return `fill:none; stroke:${pen.color}; stroke-width:${pen.width}; stroke-linecap:round; stroke-opacity:${pen.opacity}`;
     } else {
-        return `fill:${pen.color};`
+        return `fill:pink; fill-opacity:${pen.opacity}; stroke:${pen.color}; stroke-width:1; stroke-opacity:${pen.opacity}`;
     }
 };
 
 export const path = (pen, points, config, length) => {
     config = config || {};
     let pathPoints = simplifyPoints(limit(points, length || points.length), config);
+    const hwidth = pen.width * 0.5;
 
     if (!pen.stroke) {
         pathPoints =
-            map(pathPoints, pt => ({x: pt.x - 10, y: pt.y - 10}))
-                .concat(map(pathPoints, pt => ({x: pt.x + 10, y: pt.y + 10})).reverse());
+            map(pathPoints, pt => ({x: pt.x - hwidth, y: pt.y - hwidth}))
+                .concat(map(pathPoints, pt => ({x: pt.x + hwidth, y: pt.y + hwidth})).reverse());
     }
 
     const path = ["M"];
@@ -42,6 +43,11 @@ export const path = (pen, points, config, length) => {
             path.push(`${pathPoints[i].x},${pathPoints[i].y}`);
         }
     }
+
+    if (!pen.stroke) {
+        path.push("z");
+    }
+
     return path.join(" ");
 };
 

@@ -21,7 +21,8 @@ export const createPens = () => ([
 export const createPen = name => ({
     name,
     color: '#000000',
-    width: 10
+    width: 10,
+    opacity: 1
 });
 export const createFilm = () => ({
     name: createName(),
@@ -65,7 +66,7 @@ export const createId = () => Math.random() + "";
 
 export const createElement = ({pen, points, svg, d, anim}) => ({
     _id: createId(),
-    pen,
+    pen: Object.assign({}, pen),
     points,
     svg,
     d,

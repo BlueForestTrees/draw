@@ -45,6 +45,7 @@
                     </v-container>
                     <swatches v-if="activeMode.canColor" v-model="activePen.color" colors="text-advanced" popover-to="left"/>
                     <v-slider v-model="activePen.width" label="width" min="1" step="1" max="100" thumb-label/>
+                    <v-slider v-model="activePen.opacity" label="opacity" min="0" step="0.01" max="1" thumb-label/>
                 </span>
 
                 <v-divider/>
