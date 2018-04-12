@@ -2,14 +2,10 @@
     <v-dialog width="800px" v-model="visible" fullscreen transition="dialog-bottom-transition" :overlay="false" scrollable>
         <v-card tile>
             <v-toolbar card dark color="primary">
-                <v-btn icon @click.native="visible = false" dark>
-                    <v-icon>close</v-icon>
-                </v-btn>
+                <v-btn dark flat @click.native="dispatchImport(path)"><v-icon>done</v-icon></v-btn>
                 <v-toolbar-title>Importer un élément</v-toolbar-title>
                 <v-spacer></v-spacer>
-                <v-toolbar-items>
-                    <v-btn dark flat @click.native="dispatchImport(path)">Import</v-btn>
-                </v-toolbar-items>
+                <v-btn icon @click.native="visible = false" dark><v-icon>close</v-icon></v-btn>
             </v-toolbar>
             <v-card-text>
                 <v-text-field multi-line placeholder="Coller ici le contenu de la balise 'd'" v-model="path"/>

@@ -1,22 +1,16 @@
 import Do from "../../const/do";
-import {cloneElementInstance, createFilm, createFilmInstance} from "../state/state";
-import Vue from "vue"
-import {addMaskToFilm, getBox, getTxTy, simplifyFilm} from "../../util/geo";
+import {createFilm, createFilmInstance} from "../state/state";
+import {getBBox, getTxTy, simplifyFilm} from "../../util/geo";
 import _ from 'lodash';
 
 export default {
-    [Do.CLONE]: ({}, {ei, film}) => {
-        let clone = cloneElementInstance(ei);
-        film.f.elements.push(clone);
-        Vue.nextTick(() => film.f.selection.element = clone);
-    },
     [Do.SET_SELECTION_ELEMENT]: (state, {film, element}) => {
         film.f.selection.element = element;
     },
     [Do.SET_SELECTION_BOX]: (state, {element, film, domRef}) => {
         if (element) {
             film.f.selection.box = {
-                ...getBox(domRef.svg, element._id),
+                ...getBBox(domRef.svg, element._id),
                 ...getTxTy(domRef.svg, element._id)
             };
         }
@@ -52,5 +46,8 @@ export default {
     },
     [Do.ADD_MASK_TO_PEN]: ({}, {ei, pen}) => {
         pen.mask = ei.e._id;
+    },
+    [Do.ADD_ELEMENT_INSTANCE]: ({}, {ei, film}) => {
+        film.f.elements.push(ei);
     }
 };

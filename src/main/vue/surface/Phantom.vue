@@ -34,7 +34,7 @@
         name: 'phantom',
         props: ['film'],
         methods: {
-            path: path
+            path
         }
     }
 </script>

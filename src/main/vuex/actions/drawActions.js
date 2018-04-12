@@ -1,18 +1,21 @@
 import On from "../../const/on";
-import {createElement} from "../state/state";
-import {globalToLocal, instanciateToFilm} from "../../util/geo";
+import {createElement, createElementInstance} from "../state/state";
+import {globalToLocal} from "../../util/geo";
 import _ from 'lodash';
 import {navTo} from "../mutations/playerMutations";
+import Do from "../../const/do";
 
 export default {
-    [On.START_DRAW]: ({commit, getters}, {evt, film, domRef, pen}) => {
+    [On.START_DRAW]: ({commit, getters, state}, {evt, film, domRef, pen}) => {
         const ctx = {
             e: createElement({pen, points: [], anim: true, mask: pen.mask}),
             startMoment: _.now(),
             film,
             domRef
         };
-        instanciateToFilm(ctx.e, film);
+
+        commit(Do.ADD_ELEMENT_INSTANCE, {ei: createElementInstance(ctx.e, film), film});
+
         ctx.onmousemove = drawMove.bind(null, ctx);
         ctx.onmouseup = drawUp.bind(null, ctx);
 

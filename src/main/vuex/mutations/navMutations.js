@@ -1,6 +1,7 @@
 import Do from "../../const/do";
 import {createSelection} from "../state/state";
 import {findIndex} from 'lodash';
+import Vue from 'vue';
 
 export default {
     [Do.TOGGLE_MENU_VISIBILITY]: (state) => {
@@ -15,10 +16,13 @@ export default {
     [Do.SELECT_PEN]: (state, pen) => {
         state.activePen = pen;
     },
-    [Do.UNSELECT]: (state, film) => {
+    [Do.SELECT_ELEMENT]: (state, ei) => {
+        Vue.nextTick(() => state.activeFilm.f.selection.element = ei);
+    },
+    [Do.UNSELECT_ELEMENT]: (state, film) => {
         Object.assign(film.f.selection, createSelection());
     },
     [Do.SET_MODE]: (state, mode) => {
-        state.activeFilm.f.config.activeModeIdx = findIndex(state.modes,{name:mode});
+        state.activeFilm.f.config.activeModeIdx = findIndex(state.modes, {name: mode});
     }
 };

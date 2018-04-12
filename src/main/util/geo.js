@@ -1,7 +1,6 @@
 import {simplify_line} from "visvalingam-simplifier";
 import {simplify} from "simplify-polyline";
 import {find, forEach, map} from 'lodash';
-import {createElementInstance} from "../vuex/state/state";
 
 export const globalToLocal = (e, {svgPoint, svg}) => {
     svgPoint.x = e.clientX;
@@ -26,7 +25,6 @@ export const path = (pen, points, config, length) => {
     config = config || {};
     let pathPoints = simplifyPoints(limit(points, length || points.length), config);
     const hwidth = pen.width * 0.5;
-
 
     if (!pen.stroke) {
         if (pathPoints.length > 1) {
@@ -121,16 +119,10 @@ export const getTxTy = (parent, childId) => {
     return {tx: ctm.e, ty: ctm.f};
 };
 
-export const getBox = (parent, childId) => {
+export const getBBox = (parent, childId) => {
     const box = parent.getElementById(childId).getBBox();
     return {
         x: box.x, y: box.y,
         width: box.width, height: box.height
     };
-};
-
-export const instanciateToFilm = (e, film) => {
-    const ei = createElementInstance(e, film.f.ftz);
-    film.f.elements.push(ei);
-    return ei;
 };

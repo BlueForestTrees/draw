@@ -77,12 +77,12 @@ export const createElement = ({_id, pen, points, svg, d, anim, mask}) => ({
     mask
 });
 
-export const createElementInstance = (e, tz) => ({
+export const createElementInstance = (e, film) => ({
     e,
     _id: createId(),
     tx: 0,
     ty: 0,
-    tz
+    tz: film.f.ftz
 });
 
 export const cloneElementInstance = ei => ({
