@@ -8,7 +8,7 @@ import Do from "../../const/do";
 export default {
     [On.START_DRAW]: ({commit, getters, state}, {evt, film, domRef, pen}) => {
         const ctx = {
-            e: createElement({pen, points: [], anim: true, mask: pen.mask}),
+            e: createElement({pen:{...pen, mask:getters.activeMaskId}, points: [], anim: true}),
             startMoment: _.now(),
             film,
             domRef

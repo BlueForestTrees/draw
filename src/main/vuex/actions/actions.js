@@ -4,6 +4,7 @@ import playerActions from "./playerActions";
 import drawActions from "./drawActions";
 import selectActions from "./selectActions";
 import importActions from "./importActions";
+import maskActions from "./maskActions";
 
 export default {
     ...appActions,
@@ -11,5 +12,6 @@ export default {
     ...playerActions,
     ...drawActions,
     ...selectActions,
-    ...importActions
+    ...importActions,
+    ...maskActions
 }

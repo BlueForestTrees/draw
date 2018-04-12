@@ -41,13 +41,4 @@ export default {
         simplifyFilm(film);
         film.f.config.simplify = false;
     },
-    [Do.ADD_MASK_TO_FILM]: ({}, {ei, film}) => {
-        film.f.masks.push(ei);
-    },
-    [Do.ADD_MASK_TO_PEN]: ({}, {ei, pen}) => {
-        pen.mask = ei.e._id;
-    },
-    [Do.ADD_ELEMENT_INSTANCE]: ({}, {ei, film}) => {
-        film.f.elements.push(ei);
-    }
 };

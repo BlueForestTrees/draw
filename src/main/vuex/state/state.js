@@ -36,7 +36,7 @@ export const createFilm = () => ({
     keptImage: 0,
     player: createPlayer(),
     config: createConfig(),
-    selection: createSelection()
+    selection: createSelection(),
 });
 export const createFilmInstance = (f, tz) => ({
     f: f || createFilm(),
@@ -54,6 +54,7 @@ export const createConfig = () => ({
     imageDuration: 15,
     durationCoef: 1,
     activeModeIdx: 0,
+    activeMaskIdx: null,
 
 
     smooth: true,
@@ -67,14 +68,13 @@ export const createConfig = () => ({
 export const createId = () => Math.random() + "";
 
 
-export const createElement = ({_id, pen, points, svg, d, anim, mask}) => ({
+export const createElement = ({_id, pen, points, svg, d, anim}) => ({
     _id: _id || createId(),
     pen: Object.assign({}, pen),
     points,
     svg,
     d,
-    anim,
-    mask
+    anim
 });
 
 export const createElementInstance = (e, film) => ({

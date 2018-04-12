@@ -7,5 +7,5 @@ export default {
     START_DRAW: 'startDraw',
     START_SELECT: 'startSelect',
     START_ZOOM: 'startZoom',
-    TOGGLE_MASK: 'toggleMask',
+    MASK_CONVERT: 'maskConvert',
 };

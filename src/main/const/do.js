@@ -1,7 +1,6 @@
 export default {
     ADD_POINT: 'addPoint',
     ADD_MASK_TO_FILM: 'addMaskToFilm',
-    ADD_MASK_TO_PEN: 'addMaskToPen',
     ACTIVATE_NEW_FILM: 'activateNewFilm',
     ACTIVATE_FIRST_PEN: 'activateFirstPen',
     APPLY_SIMPLIFICATION: 'applySimplification',

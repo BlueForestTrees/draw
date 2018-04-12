@@ -1,7 +1,7 @@
 <template>
     <g style="pointer-events: none">
 
-        <template v-for="mi in film.f.masks">
+        <template v-for="mi in visibleMasks">
             <path v-if="mi.e.d" :key="mi._id"
                   :d="mi.e.d"
                   style="fill:black;fill-opacity:0.1"
@@ -29,12 +29,16 @@
 
 <script>
     import {path} from "../../util/geo";
+    import {mapGetters} from "vuex";
 
     export default {
         name: 'phantom',
         props: ['film'],
         methods: {
             path
+        },
+        computed: {
+            ...mapGetters(['visibleMasks'])
         }
     }
 </script>

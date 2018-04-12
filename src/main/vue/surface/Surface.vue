@@ -1,6 +1,8 @@
 <template>
     <svg @mousedown="onMouseDown" id="surface" width="100%" height="100%" class="surface" ref="surface">
 
+        <masks :film="film"/>
+
         <phantom v-if="film.f.config.showPhantom" :film="film"/>
 
         <elements :film="film"/>
@@ -17,9 +19,11 @@
     import Phantom from "./Phantom";
     import Elements from "./Elements";
     import {eii, path} from "../../util/geo";
+    import Masks from "./Masks";
 
     export default {
         components: {
+            Masks,
             Elements,
             Phantom,
             Selection

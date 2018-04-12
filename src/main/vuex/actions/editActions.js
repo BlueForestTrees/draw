@@ -14,9 +14,4 @@ export default {
         commit(Do.SELECT_ELEMENT, clonedEI);
         commit(Do.SET_MODE, modes.SELECT);
     },
-    [On.TOGGLE_MASK]: ({commit}, {ei, film}) => {
-        commit(Do.DELETE_ELEMENT, {ei, film});
-        commit(Do.ADD_MASK_TO_FILM, {ei, film});
-        commit(Do.ADD_MASK_TO_PEN, ei);
-    }
 }

@@ -22,9 +22,15 @@
                     <v-btn flat icon @click="toggleImport(true)">
                         <v-icon>get_app</v-icon>
                     </v-btn>
-                    <v-btn flat icon @click="toggleMask({ei:selection, film})" :disabled="noSelection">
+                </v-layout>
+                <!--MASK-->
+                <v-layout row align-center>
+                    <v-btn flat icon @click="maskConvert({ei:selection, film})" :disabled="noSelection">
                         <v-icon>group_work</v-icon>
                     </v-btn>
+                    <v-btn-toggle v-model="film.f.config.activeMaskIdx">
+                        <v-btn flat v-for="(mask, id) in film.f.masks" :key="id">M{{id}}</v-btn>
+                    </v-btn-toggle>
                 </v-layout>
 
                 <!--OUTILS-->
@@ -93,7 +99,7 @@
         },
         computed: {
             ...mapState({'nav': 'nav', film: 'activeFilm', films: 'films', pens: 'pens', modes: 'modes', activePen: 'activePen'}),
-            ...mapGetters(['activeMode', 'selection', 'noSelection', 'modeIs']),
+            ...mapGetters(['activeMode', 'selection', 'noSelection', 'modeIs', 'visibleMasks']),
             visible: {
                 get: function () {
                     return this.nav.menuVisible;
@@ -114,7 +120,7 @@
                 toggleImport: Do.SHOW_IMPORT_DIALOG,
             }),
             ...mapActions({
-                toggleMask: On.TOGGLE_MASK
+                maskConvert: On.MASK_CONVERT
             }),
             merge: function () {
                 const parent = this.films[0];

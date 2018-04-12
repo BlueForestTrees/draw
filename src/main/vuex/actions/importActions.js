@@ -4,12 +4,12 @@ import {createElement, createElementInstance} from "../state/state";
 import modes from "../../const/modes";
 
 export default {
-    [On.IMPORT]: ({commit, state}, importData) => {
+    [On.IMPORT]: ({commit, state, getters}, importData) => {
         if (importData && importData.length > 0) {
             importData = importData.replace(/\s+/g, ' ').trim();
 
             const e = createElement({
-                pen: {...state.activePen, stroke: false},
+                pen: {...state.activePen, stroke: false, mask:getters.activeMaskId},
                 d: importData.match(/^M.+z$/) && importData,
                 points: importData.match(/\[.*({"x":\d+,"y":\d+})(,.*{"x":\d+,"y":\d+})+.*]/g) && JSON.parse(importData)
             });
