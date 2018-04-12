@@ -1,7 +1,5 @@
-import filmGetters from "./filmGetters";
-import configGetters from "./configGetters";
+import configGetters from "./editGetters";
 
 export default {
-    ...filmGetters,
     ...configGetters
 }

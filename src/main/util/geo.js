@@ -12,12 +12,13 @@ export const globalToLocal = (e, {svgPoint, svg}) => {
 export const minus = (p1, p2) => ({x: p1.x - p2.x, y: p1.y - p2.y});
 
 export const eii = (ei, ftz) => ei.e.anim ? Math.min(ftz - ei.tz, ei.e.points.length) : ei.e.points.length;
+export const showPathD = (ei, film) => ei.e.d && ei.tz <= film.f.ftz;
 
-export const style = pen => {
+export const style = (pen) => {
     if (pen.stroke) {
-        return `fill:none; stroke:${pen.color}; stroke-width:${pen.width}; stroke-linecap:round; stroke-opacity:${pen.opacity}`;
+        return `fill:none; stroke:${pen.color}; stroke-width:${pen.width}; stroke-linecap:round; stroke-opacity:${pen.opacity};` + (pen.mask ? `clip-path: url(#mask${pen.mask});` : "");
     } else {
-        return `fill:pink; fill-opacity:${pen.opacity}; stroke:${pen.color}; stroke-width:1; stroke-opacity:${pen.opacity}`;
+        return `fill-opacity:${pen.opacity}; fill:${pen.color};` + (pen.mask ? `clip-path: url(#mask${pen.mask});` : "");
     }
 };
 
@@ -26,10 +27,31 @@ export const path = (pen, points, config, length) => {
     let pathPoints = simplifyPoints(limit(points, length || points.length), config);
     const hwidth = pen.width * 0.5;
 
+
     if (!pen.stroke) {
-        pathPoints =
-            map(pathPoints, pt => ({x: pt.x - hwidth, y: pt.y - hwidth}))
-                .concat(map(pathPoints, pt => ({x: pt.x + hwidth, y: pt.y + hwidth})).reverse());
+        if (pathPoints.length > 1) {
+
+            const up = [pathPoints[0]];
+            const down = [pathPoints[0]];
+
+            for (let i = 1; i < pathPoints.length; i++) {
+                const pt = pathPoints[i];
+                const ppt = pathPoints[i - 1];
+
+                const dx = pt.x - ppt.x;
+                const dy = pt.y - ppt.y;
+
+
+                up.push(
+                    {x: pt.x - hwidth, y: pt.y - hwidth}
+                );
+                down.push(
+                    {x: pt.x + hwidth, y: pt.y + hwidth}
+                );
+            }
+
+            pathPoints = up.concat(down.reverse());
+        }
     }
 
     const path = ["M"];
@@ -107,7 +129,7 @@ export const getBox = (parent, childId) => {
     };
 };
 
-export const addToFilm = (e, film) => {
+export const instanciateToFilm = (e, film) => {
     const ei = createElementInstance(e, film.f.ftz);
     film.f.elements.push(ei);
     return ei;

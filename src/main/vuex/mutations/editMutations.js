@@ -1,7 +1,7 @@
 import Do from "../../const/do";
 import {cloneElementInstance, createFilm, createFilmInstance} from "../state/state";
 import Vue from "vue"
-import {getBox, getTxTy, simplifyFilm} from "../../util/geo";
+import {addMaskToFilm, getBox, getTxTy, simplifyFilm} from "../../util/geo";
 import _ from 'lodash';
 
 export default {
@@ -46,5 +46,11 @@ export default {
     [Do.APPLY_SIMPLIFICATION]: ({}, film) => {
         simplifyFilm(film);
         film.f.config.simplify = false;
+    },
+    [Do.ADD_MASK_TO_FILM]: ({}, {ei, film}) => {
+        film.f.masks.push(ei);
+    },
+    [Do.ADD_MASK_TO_PEN]: ({}, {ei, pen}) => {
+        pen.mask = ei.e._id;
     }
 };

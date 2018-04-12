@@ -29,7 +29,7 @@
         <v-toolbar-items>
             <span class="airText">{{`${film.f.ftz}/${film.f.imageCount}`}}</span>
             <v-btn icon @click="keep(film)">
-                <v-icon>get_app</v-icon>
+                <v-icon>system_update_alt</v-icon>
             </v-btn>
             <v-btn icon @click="unkeep(film)">
                 <v-icon>exit_to_app</v-icon>

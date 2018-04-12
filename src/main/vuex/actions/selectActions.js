@@ -6,16 +6,16 @@ import _ from 'lodash';
 import Do from "../../const/do";
 
 export default {
-    [On.START_SELECT]: ({commit}, {e, film, domRef}) => {
+    [On.START_SELECT]: ({commit}, {evt, film, domRef}) => {
 
 
-        const currentElementSvg = e.target;
+        const currentElementSvg = evt.target;
         if (currentElementSvg.id && currentElementSvg.id !== "surface") {
             const element = _.find(film.f.elements, {_id: currentElementSvg.id});
             const ctx = {
                 domRef,
                 selection: film.f.selection,
-                downMouse: globalToLocal(e, domRef),
+                downMouse: globalToLocal(evt, domRef),
                 initialTxy: getTxTy(domRef.svg, element._id)
             };
             ctx.onmousemove = selectMove.bind(null, ctx);

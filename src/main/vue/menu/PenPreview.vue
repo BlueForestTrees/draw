@@ -16,7 +16,7 @@
             };
         },
         methods: {
-            path, style
+            path, style: style
         },
         computed: {
             penPreviewPath: function () {

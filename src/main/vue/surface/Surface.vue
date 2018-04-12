@@ -1,7 +1,7 @@
 <template>
     <svg @mousedown="onMouseDown" id="surface" width="100%" height="100%" class="surface" ref="surface">
 
-        <phantom v-if="film.f.showPhantom" :film="film"/>
+        <phantom v-if="film.f.config.showPhantom" :film="film"/>
 
         <elements :film="film"/>
 
@@ -35,8 +35,10 @@
             ...mapGetters(['activeMode'])
         },
         methods: {
-            onMouseDown: function (e) {
-                this.$store.dispatch(this.activeMode.action, {e, film: this.film, domRef: this.domRef, pen: this.pen});
+            onMouseDown: function (evt) {
+                if (this.activeMode.surfaceAction) {
+                    this.$store.dispatch(this.activeMode.surfaceAction, {evt, film: this.film, domRef: this.domRef, pen: this.pen});
+                }
             },
             ...mapMutations({
                 commitSelect: Do.SET_SELECTION_BOX

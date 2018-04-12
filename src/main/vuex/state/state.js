@@ -16,17 +16,20 @@ export const createPens = () => ([
     Object.assign(createPen("basic"), {}),
     Object.assign(createPen("little red"), {color: 'red', width: 5}),
     Object.assign(createPen("mini blue"), {color: 'blue', width: 2}),
-    Object.assign(createPen("black stroke"), {width: 7, stroke: true}),
+    Object.assign(createPen("black stroke"), {width: 7}),
 ]);
 export const createPen = name => ({
     name,
     color: '#000000',
     width: 10,
-    opacity: 1
+    opacity: 1,
+    mask: false,
+    stroke: true
 });
 export const createFilm = () => ({
     name: createName(),
     elements: [],
+    masks: [],
     children: [],
     imageCount: 0,
     ftz: 0,
@@ -47,7 +50,7 @@ export const createPlayer = () => ({
     startMoment: null
 });
 export const createConfig = () => ({
-    showPhantom: false,
+    showPhantom: true,
     imageDuration: 15,
     durationCoef: 1,
     activeModeIdx: 0,
@@ -64,13 +67,14 @@ export const createConfig = () => ({
 export const createId = () => Math.random() + "";
 
 
-export const createElement = ({pen, points, svg, d, anim}) => ({
-    _id: createId(),
+export const createElement = ({_id, pen, points, svg, d, anim, mask}) => ({
+    _id: _id || createId(),
     pen: Object.assign({}, pen),
     points,
     svg,
     d,
-    anim
+    anim,
+    mask
 });
 
 export const createElementInstance = (e, tz) => ({
@@ -80,6 +84,7 @@ export const createElementInstance = (e, tz) => ({
     ty: 0,
     tz
 });
+
 export const cloneElementInstance = ei => ({
     e: ei.e,
     _id: createId(),
@@ -88,9 +93,10 @@ export const cloneElementInstance = ei => ({
     ty: ei.ty + cloneOffset
 });
 export const createModes = () => ([
-    {name: modes.BRUSH, icon: "brush", canColor: true, action: On.START_DRAW},
-    {name: modes.SELECT, icon: "pan_tool", action: On.START_SELECT},
-    {name: modes.ZOOM, icon: "search", action: On.START_ZOOM}
+    {name: modes.BRUSH, icon: "brush", canColor: true, surfaceAction: On.START_DRAW},
+    {name: modes.SELECT, icon: "pan_tool", surfaceAction: On.START_SELECT},
+    {name: modes.ZOOM, icon: "search", surfaceAction: On.START_ZOOM},
+    {name: modes.FILM, icon: "map"}
 ]);
 export const createImportDialog = () => ({
     visible: false
