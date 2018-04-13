@@ -10,7 +10,7 @@ export default {
 
             const e = createElement({
                 pen: {...state.activePen, stroke: false, mask: getters.activeMaskId},
-                d: importData.match(/^M.+z$/) && importData,
+                d: (importData.match(/^M.+Z$/) && importData) || (importData.match(/ d="/) && extractD(importData)),
                 points: importData.match(/\[.*({"x":\d+,"y":\d+})(,.*{"x":\d+,"y":\d+})+.*]/g) && JSON.parse(importData)
             });
 
@@ -35,3 +35,13 @@ export default {
         commit(Do.UNSELECT_ELEMENT, film);
     },
 }
+
+const extractD = importData => {
+    const ds = [];
+    const regex = / d="(.+?)"/g;
+    let f;
+    while ((f = regex.exec(importData)) !== null) {
+        ds.push(f[1]);
+    }
+    return ds.join(" ");
+};
