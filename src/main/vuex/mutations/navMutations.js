@@ -23,6 +23,6 @@ export default {
         Object.assign(film.f.selection, createSelection());
     },
     [Do.SET_MODE]: (state, mode) => {
-        state.activeFilm.f.config.activeModeIdx = findIndex(state.modes, {name: mode});
+        state.activeFilm.f.config.activeModeIdx = findIndex(state.panels, {name: mode});
     }
 };

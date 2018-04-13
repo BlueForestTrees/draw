@@ -16,7 +16,7 @@ export const createSelection = () => ({
 export const createPens = () => ([
     createPen({}),
     createPen({color: 'red', width: 5}),
-    createPen({color: 'blue', width: 2}),
+    createPen({color: '#1565C0', width: 2}),
 ]);
 export const createPen = ({color, width, opacity, mask, stroke}) => ({
     _id: createId(),
@@ -109,5 +109,5 @@ export default {
     activeFilm: null,
     pens: createPens(),
     activePen: null,
-    modes: createModes()
+    panels: createModes()
 };

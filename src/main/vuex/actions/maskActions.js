@@ -8,5 +8,6 @@ export default {
         commit(Do.DELETE_ELEMENT, {ei, film});
         commit(Do.ADD_MASK_TO_FILM, {ei, film});
         commit(Do.UNSELECT_ELEMENT, film);
+        state.activeFilm.f.config.showPhantom = true;
     }
 }

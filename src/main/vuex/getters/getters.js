@@ -2,7 +2,7 @@ import {isFinite} from 'lodash';
 import {formatShort} from "../../util/common";
 
 export default {
-    activeMode: state => state.modes[state.activeFilm.f.config.activeModeIdx],
+    activeMode: state => state.panels[state.activeFilm.f.config.activeModeIdx],
     activeMask: state => isFinite(state.activeFilm.f.config.activeMaskIdx) && state.activeFilm.f.masks[state.activeFilm.f.config.activeMaskIdx],
     activeMaskId: (state, getters) => getters.activeMask && getters.activeMask.e._id,
     visibleMasks: (state, getters) => getters.activeMask ? [getters.activeMask] : [],
