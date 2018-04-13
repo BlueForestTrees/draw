@@ -2,6 +2,7 @@ import {cloneOffset} from "../../const/values";
 import {anagram} from "../../util/common";
 import On from "../../const/on";
 import modes from "../../const/modes";
+import {isNil} from 'lodash';
 
 export const createNav = () => ({
     menuVisible: true
@@ -13,18 +14,17 @@ export const createSelection = () => ({
     box: null
 });
 export const createPens = () => ([
-    Object.assign(createPen("basic"), {}),
-    Object.assign(createPen("little red"), {color: 'red', width: 5}),
-    Object.assign(createPen("mini blue"), {color: 'blue', width: 2}),
-    Object.assign(createPen("black stroke"), {width: 7}),
+    createPen({}),
+    createPen({color: 'red', width: 5}),
+    createPen({color: 'blue', width: 2}),
 ]);
-export const createPen = name => ({
-    name,
-    color: '#000000',
-    width: 10,
-    opacity: 1,
-    mask: false,
-    stroke: true
+export const createPen = ({color, width, opacity, mask, stroke}) => ({
+    _id: createId(),
+    color: isNil(color) ? '#000000' : color,
+    width: isNil(width) ? 10 : width,
+    opacity: isNil(opacity) ? 1 : opacity,
+    mask: isNil(mask) ? false : mask,
+    stroke: isNil(stroke) ? true : stroke
 });
 export const createFilm = () => ({
     name: createName(),
@@ -55,7 +55,7 @@ export const createConfig = () => ({
     showPhantom: true,
     imageDuration: 15,
     durationCoef: 1,
-    activeModeIdx: 0,
+    activeModeIdx: 1,
     activeMaskIdx: null,
 
 
@@ -96,7 +96,7 @@ export const cloneElementInstance = ei => ({
 });
 export const createModes = () => ([
     {name: modes.FILM, icon: "map"},
-    {name: modes.BRUSH, icon: "brush", canColor: true, surfaceAction: On.START_DRAW},
+    {name: modes.BRUSH, icon: "brush", surfaceAction: On.START_DRAW},
     {name: modes.SELECT, icon: "select_all", surfaceAction: On.START_SELECT},
     {name: modes.MASK, icon: "group_work", surfaceAction: On.START_SELECT},
     {name: modes.ZOOM, icon: "search", surfaceAction: On.START_ZOOM},

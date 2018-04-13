@@ -4,6 +4,7 @@ import Vue from 'vue';
 import {createSelection} from "../state/state";
 import _ from 'lodash';
 import Do from "../../const/do";
+import modes from "../../const/modes";
 
 export default {
     [On.START_SELECT]: ({commit}, {evt, film, domRef}) => {
@@ -28,6 +29,10 @@ export default {
         } else {
             film.f.selection = createSelection();
         }
+    },
+    [On.PICK_PEN]: ({commit}, ei) => {
+        commit(Do.PICK_PEN, Object.assign({}, ei.e.pen));
+        commit(Do.SET_MODE, modes.BRUSH);
     }
 }
 

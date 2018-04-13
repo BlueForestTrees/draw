@@ -12,6 +12,7 @@ export default {
     NEXT: 'next',
     PREV: 'prev',
     PAUSE: 'pause',
+    PICK_PEN: 'PICK_PEN',
     PLAY: 'play',
     REWIND: 'rewind',
     SELECT_ELEMENT: 'selectElement',

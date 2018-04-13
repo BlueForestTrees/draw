@@ -17,7 +17,7 @@
                                 <pen-preview :pen="activePen"/>
                             </v-layout>
                             <v-list>
-                                <v-list-tile v-for="pen in pens" :key="pen.name" @click="selectPen(pen)">
+                                <v-list-tile v-for="pen in pens" :key="pen._id" @click="selectPen(pen)">
                                     <v-list-tile-content>
                                         <pen-preview :pen="pen"/>
                                         <v-divider/>
@@ -26,10 +26,9 @@
                             </v-list>
                         </v-menu>
                     </v-container>
-                    <v-switch label="Contour" v-model="activePen.stroke"></v-switch>
-                    <swatches v-if="activeMode.canColor" v-model="activePen.color" colors="text-advanced" popover-to="left"/>
-                    <v-slider v-model="activePen.width" label="width" min="1" step="1" max="100" thumb-label/>
-                    <v-slider v-model="activePen.opacity" label="opacity" min="0" step="0.01" max="1" thumb-label/>
+
+                    <pen-edit :pen="activePen"/>
+
                     <v-switch label="Curve" v-model="film.f.config.smooth"/>
                     <v-slider v-if="film.f.config.smooth" v-model="film.f.config.smoothing" label="coef" min="0" step="0.05" max="1" thumb-label/>
                     <v-slider v-if="film.f.config.smooth" v-model="film.f.config.flattening" label="flat" min="0" step="0.05" max="1" thumb-label/>
@@ -38,6 +37,10 @@
                     <v-slider v-if="film.f.config.simplify" v-model="film.f.config.simpleCoef" label="coef" min="1" step="1" max="200" thumb-label/>
                     <v-btn v-if="film.f.config.simplify" @click="applySimplification(film)">apply</v-btn>
                     <v-switch label="Animated" v-if="selection" v-model="selection.e.anim"/>
+                </span>
+                <span v-if="modeIs(SELECT) && selection">
+                    <pen-edit :pen="selection.e.pen"/>
+                    <v-btn @click="pickPen(selection)"><v-icon>trending_flat</v-icon><v-icon>brush</v-icon></v-btn>
                 </span>
                 <span v-if="modeIs(FILM)">
                     <v-layout row align-center>
@@ -78,18 +81,18 @@
 
     import {mapActions, mapGetters, mapMutations, mapState} from "vuex";
     import Do from "../../const/do";
-    import Swatches from 'vue-swatches'
     import PenPreview from "./PenPreview";
     import modes from "../../const/modes";
     import On from "../../const/on";
     import Import from "../panel/Import";
+    import PenEdit from "./PenEdit";
 
     export default {
         name: 'left-menu',
         components: {
+            PenEdit,
             Import,
-            PenPreview,
-            Swatches
+            PenPreview
         },
         computed: {
             ...mapState({'nav': 'nav', film: 'activeFilm', films: 'films', pens: 'pens', modes: 'modes', activePen: 'activePen'}),
@@ -113,7 +116,8 @@
                 addNewFilm: Do.ACTIVATE_NEW_FILM,
             }),
             ...mapActions({
-                maskConvert: On.MASK_CONVERT
+                maskConvert: On.MASK_CONVERT,
+                pickPen: On.PICK_PEN
             }),
             merge: function () {
                 const parent = this.films[0];
@@ -125,6 +129,7 @@
         },
         data: () => ({
             BRUSH: modes.BRUSH,
+            SELECT: modes.SELECT,
             FILM: modes.FILM,
             MASK: modes.MASK,
             IMPORT: modes.IMPORT

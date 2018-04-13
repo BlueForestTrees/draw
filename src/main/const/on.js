@@ -3,6 +3,7 @@ export default {
     DELETE_ELEMENT: 'deleteElement',
     IMPORT: 'import',
     MOUNT_APP: 'mountApp',
+    PICK_PEN: 'PICK_PEN',
     PLAY: 'play',
     START_DRAW: 'startDraw',
     START_SELECT: 'startSelect',
