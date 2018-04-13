@@ -20,9 +20,10 @@ export default {
     SET_MENU_VISIBILITY: 'setMenuVisibility',
     SET_MODE: 'setMode',
     SET_SELECTION_ELEMENT: 'setSelectionElement',
-    SET_SELECTION_BOX:'setSelectionBox',
-    SHOW_IMPORT_DIALOG: 'showImportDialog',
+    SET_SELECTION_BOX: 'setSelectionBox',
     TOGGLE_MENU_VISIBILITY: 'toggleMenuVisibility',
     UNKEEP: 'unkeep',
     UNSELECT_ELEMENT: 'unselectElement',
+    ZOOM_IN: 'zoomIn',
+    ZOOM_OUT: 'zoomOut'
 };

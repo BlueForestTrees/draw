@@ -37,6 +37,8 @@ export const createFilm = () => ({
     player: createPlayer(),
     config: createConfig(),
     selection: createSelection(),
+
+    zoom: 1
 });
 export const createFilmInstance = (f, tz) => ({
     f: f || createFilm(),
@@ -93,14 +95,13 @@ export const cloneElementInstance = ei => ({
     ty: ei.ty + cloneOffset
 });
 export const createModes = () => ([
+    {name: modes.FILM, icon: "map"},
     {name: modes.BRUSH, icon: "brush", canColor: true, surfaceAction: On.START_DRAW},
-    {name: modes.SELECT, icon: "pan_tool", surfaceAction: On.START_SELECT},
+    {name: modes.SELECT, icon: "select_all", surfaceAction: On.START_SELECT},
+    {name: modes.MASK, icon: "group_work", surfaceAction: On.START_SELECT},
     {name: modes.ZOOM, icon: "search", surfaceAction: On.START_ZOOM},
-    {name: modes.FILM, icon: "map"}
+    {name: modes.IMPORT, icon: "get_app"},
 ]);
-export const createImportDialog = () => ({
-    visible: false
-});
 
 export default {
     nav: createNav(),
@@ -108,6 +109,5 @@ export default {
     activeFilm: null,
     pens: createPens(),
     activePen: null,
-    modes: createModes(),
-    importDialog: createImportDialog()
+    modes: createModes()
 };

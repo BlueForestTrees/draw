@@ -42,8 +42,7 @@
 <script>
 
     import Do from "../../const/do";
-    import {mapMutations, mapActions, mapState, mapGetters} from 'vuex';
-    import {formatShort} from "../../util/common";
+    import {mapActions, mapGetters, mapMutations, mapState} from 'vuex';
     import On from "../../const/on";
 
     export default {
@@ -51,14 +50,7 @@
         props: ['film'],
         computed: {
             ...mapState(['nav']),
-            currentSec: function () {
-                const base = this.film.f.config.imageDuration * this.film.f.config.durationCoef;
-                return formatShort(this.film.f.ftz * base / 1000);
-            },
-            totalSec: function () {
-                const base = this.film.f.config.imageDuration * this.film.f.config.durationCoef;
-                return formatShort(this.film.f.imageCount * base / 1000);
-            }
+            ...mapGetters(['currentSec', 'totalSec'])
         },
         methods: {
             ...mapMutations({

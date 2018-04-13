@@ -1,6 +1,8 @@
 export default {
-    BRUSH: 'brush',
-    SELECT: 'select',
-    ZOOM: 'zoom',
-    FILM: 'film'
+    BRUSH: 'Pinceau',
+    FILM: 'Film',
+    IMPORT: 'Import',
+    MASK: 'Masque',
+    SELECT: 'Selection',
+    ZOOM: 'Zoom',
 }

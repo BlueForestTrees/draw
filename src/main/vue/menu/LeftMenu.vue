@@ -3,44 +3,12 @@
         <v-container fluid>
             <v-layout column>
 
-                <!--FILM-->
-                <v-layout row align-center>
-                    <v-select :items="films" v-model="film" item-text="f.name" prepend-icon="map" :hint="`${film.f.name} - ${film.f.imageCount}i`" @change="selectFilm"></v-select>
-                    <v-btn flat icon @click="addNewFilm">
-                        <v-icon>add_box</v-icon>
-                    </v-btn>
-                    <v-btn flat icon @click="clearFilm(film)">
-                        <v-icon>delete</v-icon>
-                    </v-btn>
-                </v-layout>
-                <!--<v-btn flat icon @click="merge">-->
-                <!--<v-icon>edit</v-icon>-->
-                <!--</v-btn>-->
-
-                <!--ACTIONS-->
-                <v-layout row align-center>
-                    <v-btn flat icon @click="toggleImport(true)">
-                        <v-icon>get_app</v-icon>
-                    </v-btn>
-                </v-layout>
-                <!--MASK-->
-                <v-layout row align-center>
-                    <v-btn flat icon @click="maskConvert({ei:selection, film})" :disabled="noSelection">
-                        <v-icon>group_work</v-icon>
-                    </v-btn>
-                    <v-btn-toggle v-model="film.f.config.activeMaskIdx">
-                        <v-btn flat v-for="(mask, id) in film.f.masks" :key="id">M{{id}}</v-btn>
-                    </v-btn-toggle>
-                </v-layout>
-
-                <!--OUTILS-->
                 <v-btn-toggle mandatory v-model="film.f.config.activeModeIdx">
                     <v-btn flat v-for="mode in modes" :key="mode.name">
                         <v-icon>{{mode.icon}}</v-icon>
                     </v-btn>
                 </v-btn-toggle>
-
-
+                {{activeMode.name}}
                 <span v-if="modeIs(BRUSH)">
                     <v-container>
                         <v-menu>
@@ -71,11 +39,35 @@
                     <v-btn v-if="film.f.config.simplify" @click="applySimplification(film)">apply</v-btn>
                     <v-switch label="Animated" v-if="selection" v-model="selection.e.anim"/>
                 </span>
-
-
                 <span v-if="modeIs(FILM)">
-                    <v-slider v-model="film.f.config.durationCoef" label="duration" min="0.25" step="0.05" max="4" thumb-label/>
+                    <v-layout row align-center>
+                        <v-select :items="films" v-model="film" item-text="f.name" prepend-icon="map" :hint="`${film.f.name} - ${film.f.imageCount}i`" @change="selectFilm"></v-select>
+                        <v-btn flat icon @click="addNewFilm">
+                            <v-icon>add_box</v-icon>
+                        </v-btn>
+                        <v-btn flat icon @click="clearFilm(film)">
+                            <v-icon>delete</v-icon>
+                        </v-btn>
+                    </v-layout>
+                    <v-layout row>
+                        <v-icon>directions_run</v-icon>
+                        <v-flex dense>{{totalSec}}s</v-flex>
+                        <v-slider v-model="film.f.config.durationCoef" min="0.25" step="0.05" max="4"/>
+                    </v-layout>
                     <v-switch label="Phantom" v-model="film.f.config.showPhantom"/>
+                </span>
+                <span v-if="modeIs(MASK)">
+                    <v-layout row align-center>
+                        <v-btn flat icon @click="maskConvert({ei:selection, film})" :disabled="noSelection">
+                            <v-icon>group_work</v-icon>
+                        </v-btn>
+                        <v-btn-toggle v-model="film.f.config.activeMaskIdx">
+                            <v-btn flat v-for="(mask, id) in film.f.masks" :key="id">M{{id}}</v-btn>
+                        </v-btn-toggle>
+                    </v-layout>
+                </span>
+                <span v-if="modeIs(IMPORT)">
+                   <import/>
                 </span>
             </v-layout>
         </v-container>
@@ -90,16 +82,18 @@
     import PenPreview from "./PenPreview";
     import modes from "../../const/modes";
     import On from "../../const/on";
+    import Import from "../panel/Import";
 
     export default {
         name: 'left-menu',
         components: {
+            Import,
             PenPreview,
             Swatches
         },
         computed: {
             ...mapState({'nav': 'nav', film: 'activeFilm', films: 'films', pens: 'pens', modes: 'modes', activePen: 'activePen'}),
-            ...mapGetters(['activeMode', 'selection', 'noSelection', 'modeIs', 'visibleMasks']),
+            ...mapGetters(['activeMode', 'selection', 'noSelection', 'modeIs', 'visibleMasks', 'totalSec']),
             visible: {
                 get: function () {
                     return this.nav.menuVisible;
@@ -117,7 +111,6 @@
                 selectFilm: Do.SELECT_FILM,
                 selectPen: Do.SELECT_PEN,
                 addNewFilm: Do.ACTIVATE_NEW_FILM,
-                toggleImport: Do.SHOW_IMPORT_DIALOG,
             }),
             ...mapActions({
                 maskConvert: On.MASK_CONVERT
@@ -133,6 +126,8 @@
         data: () => ({
             BRUSH: modes.BRUSH,
             FILM: modes.FILM,
+            MASK: modes.MASK,
+            IMPORT: modes.IMPORT
         })
     }
 </script>

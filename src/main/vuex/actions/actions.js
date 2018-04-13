@@ -1,17 +1,21 @@
-import appActions from "./appActions";
 import surfaceActions from "./editActions";
 import playerActions from "./playerActions";
 import drawActions from "./drawActions";
 import selectActions from "./selectActions";
-import importActions from "./importActions";
 import maskActions from "./maskActions";
+import On from "../../const/on";
+import Do from "../../const/do";
+import zoomActions from "./zoomActions";
 
 export default {
-    ...appActions,
+    [On.MOUNT_APP]: async ({commit}) => {
+        commit(Do.ACTIVATE_FIRST_PEN);
+        commit(Do.ACTIVATE_NEW_FILM);
+    },
     ...surfaceActions,
     ...playerActions,
     ...drawActions,
     ...selectActions,
-    ...importActions,
-    ...maskActions
+    ...maskActions,
+    ...zoomActions
 }

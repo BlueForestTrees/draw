@@ -32,7 +32,7 @@
         name: 'elements',
         props: ['film'],
         methods: {
-            eii, showPathD, path, style: style,
+            eii, showPathD, path, style,
             eiPath: function (ei) {
                 return this.path(ei.e.pen, ei.e.points, this.film.f.config, this.eii(ei, this.film.f.ftz));
             },

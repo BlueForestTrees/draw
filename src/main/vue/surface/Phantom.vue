@@ -12,12 +12,12 @@
         <template v-for="ei in film.f.elements">
             <path v-if="ei.e.d" :key="ei._id"
                   :d="ei.e.d"
-                  style="fill:black;fill-opacity:0.1"
+                  :style="phantomStyle(ei)"
                   :transform="`translate(${ei.tx} ${ei.ty})`"
             />
             <path v-else-if="ei.e.points" :key="ei._id"
                   :d="path(ei.e.pen, ei.e.points, film.f.config)"
-                  style="fill:none;stroke:black;stroke-width:3;stroke-opacity:0.1"
+                  :style="phantomStyle(ei)"
                   :transform="`translate(${ei.tx} ${ei.ty})`"
             />
         </template>
@@ -28,14 +28,17 @@
 </template>
 
 <script>
-    import {path} from "../../util/geo";
+    import {path, style} from "../../util/geo";
     import {mapGetters} from "vuex";
 
     export default {
         name: 'phantom',
         props: ['film'],
         methods: {
-            path
+            path, style,
+            phantomStyle: function (ei) {
+                return this.style(ei.e.pen, ei) + "opacity:0.1";
+            }
         },
         computed: {
             ...mapGetters(['visibleMasks'])
