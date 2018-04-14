@@ -15,6 +15,7 @@ export const createSelection = () => ({
     box: null
 });
 export const createPens = () => ([
+    createPen({color: '#1155cc', width: 50, linecap: linecaps.ROND}),
     createPen({}),
     createPen({color: 'red', width: 5}),
     createPen({color: '#1565C0', width: 2}),
