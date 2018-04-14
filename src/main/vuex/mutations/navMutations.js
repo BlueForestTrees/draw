@@ -10,6 +10,9 @@ export default {
     [Do.SET_MENU_VISIBILITY]: (state, visible) => {
         state.nav.menuVisible = !!visible;
     },
+    [Do.ADD_FILM]: (state, film) => {
+        state.films.push(film);
+    },
     [Do.SELECT_FILM]: (state, film) => {
         state.activeFilm = film;
     },

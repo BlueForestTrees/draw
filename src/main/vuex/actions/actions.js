@@ -8,9 +8,9 @@ import Do from "../../const/do";
 import zoomActions from "./zoomActions";
 
 export default {
-    [On.MOUNT_APP]: async ({commit}) => {
+    [On.MOUNT_APP]: async ({commit, dispatch}) => {
         commit(Do.ACTIVATE_FIRST_PEN);
-        commit(Do.ACTIVATE_NEW_FILM);
+        dispatch(On.ACTIVATE_NEW_FILM);
     },
     ...surfaceActions,
     ...playerActions,

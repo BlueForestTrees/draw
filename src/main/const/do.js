@@ -1,7 +1,7 @@
 export default {
     ADD_POINT: 'addPoint',
+    ADD_FILM: 'addFilm',
     ADD_MASK_TO_FILM: 'addMaskToFilm',
-    ACTIVATE_NEW_FILM: 'activateNewFilm',
     ACTIVATE_FIRST_PEN: 'activateFirstPen',
     APPLY_SIMPLIFICATION: 'applySimplification',
     ADD_ELEMENT_INSTANCE: 'addElementInstance',
@@ -20,6 +20,7 @@ export default {
     SELECT_PEN: 'selectPen',
     SET_MENU_VISIBILITY: 'setMenuVisibility',
     SET_MODE: 'setMode',
+    SET_FILM: 'setFilm',
     SET_SELECTION_ELEMENT: 'setSelectionElement',
     SET_SELECTION_BOX: 'setSelectionBox',
     TOGGLE_MENU_VISIBILITY: 'toggleMenuVisibility',

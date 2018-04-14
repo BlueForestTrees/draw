@@ -4,6 +4,9 @@ import {getBBox, getTxTy, simplifyFilm} from "../../util/geo";
 import _ from 'lodash';
 
 export default {
+    [Do.SET_FILM]: (state, film) => {
+        state.film = film;
+    },
     [Do.SET_SELECTION_ELEMENT]: (state, {film, elementId}) => {
         film.f.selection.elementId = elementId;
     },
@@ -14,11 +17,6 @@ export default {
                 ...getTxTy(domRef.svg, elementId)
             };
         }
-    },
-    [Do.ACTIVATE_NEW_FILM]: state => {
-        const newFilm = createFilmInstance();
-        state.films.push(newFilm);
-        state.activeFilm = newFilm;
     },
     [Do.ACTIVATE_FIRST_PEN]: state => {
         if (state.pens && state.pens[0]) {

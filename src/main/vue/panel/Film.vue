@@ -15,29 +15,36 @@
             <v-slider v-model="film.f.config.durationCoef" min="0.25" step="0.05" max="4"/>
         </v-layout>
         <v-switch label="Phantom" v-model="film.f.config.showPhantom"/>
-        <v-btn flat icon @click="exportFilm(film)"><v-icon>share</v-icon></v-btn>
+        <v-btn flat icon @click="openFilmDialog"><v-icon>share</v-icon></v-btn>
+        <film-dialog/>
     </span>
 </template>
 <script>
     import Do from "../../const/do";
-    import {mapGetters, mapMutations, mapActions} from "vuex";
+    import {mapActions, mapGetters, mapMutations, mapState} from "vuex";
+    import FilmDialog from "../menu/RawEditFilmDialog";
     import On from "../../const/on";
 
     export default {
         name: 'film',
+        components: {FilmDialog},
         props: ['films', 'film'],
         computed: {
             ...mapGetters(['totalSec']),
+            ...mapState(['nav'])
         },
         methods: {
+            ...mapActions({
+                addNewFilm: On.ACTIVATE_NEW_FILM,
+            }),
             ...mapMutations({
                 selectFilm: Do.SELECT_FILM,
-                addNewFilm: Do.ACTIVATE_NEW_FILM,
                 clearFilm: Do.CLEAR_FILM,
             }),
-            ...mapActions({
-                exportFilm: On.EXPORT_FILM
-            })
+            openFilmDialog: function () {
+                this.nav.filmDialogVisible = true;
+                this.nav.rawFilm = JSON.stringify(this.film, null, 4);
+            }
         }
     }
 </script>

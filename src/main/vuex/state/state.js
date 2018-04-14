@@ -5,7 +5,9 @@ import modes from "../../const/modes";
 import {isNil} from 'lodash';
 
 export const createNav = () => ({
-    menuVisible: true
+    menuVisible: true,
+    filmDialogVisible: false,
+    rawFilm: null
 });
 export const createFilms = () => ([]);
 export const createName = anagram;
