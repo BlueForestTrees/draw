@@ -1,0 +1,19 @@
+<template>
+    <span>
+        <v-switch v-model="pen.stroke" label="Fil de fer"></v-switch>
+        <v-layout row>Couleur <swatches v-model="pen.color" colors="text-advanced" popover-to="left"/></v-layout>
+        <v-slider v-model="pen.width" label="Epaisseur" min="1" step="1" max="100" thumb-label/>
+        <v-slider v-model="pen.opacity" label="Transparence" min="0" step="0.01" max="1" thumb-label/>
+    </span>
+</template>
+<script>
+    import Swatches from 'vue-swatches';
+
+    export default {
+        name: "pen-edit",
+        props: ['pen'],
+        components: {
+            Swatches
+        }
+    }
+</script>

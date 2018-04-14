@@ -1,13 +1,13 @@
 <template>
     <v-app id="app" light>
-        <left-menu :config="config" :film="film"/>
-        <v-content>
+        <left-menu v-if="activeFilm" :film="activeFilm"/>
+        <v-content v-if="activeFilm">
             <v-container fluid fill-height>
                 <v-layout align-center justify-center>
                     <v-flex style="height:900px">
                         <v-card class="elevation-12" style="height:900px">
-                            <surface :config="config" :film="film"/>
-                            <player :film="film" :config="config" />
+                            <surface :film="activeFilm" :pen="activePen"/>
+                            <player :film="activeFilm"/>
                         </v-card>
                     </v-flex>
                 </v-layout>
@@ -17,12 +17,11 @@
 </template>
 
 <script>
-    import Surface from "./Surface";
-    import LeftMenu from "./LeftMenu";
-    import {createConfig, createFilm} from "../vuex/state";
-    import Player from "./Player";
-
-    //TODO menus OK, temps OK, viewBox, symbole, tools
+    import Surface from "./surface/Surface";
+    import LeftMenu from "./menu/LeftMenu";
+    import Player from "./player/Player";
+    import {mapState} from "vuex";
+    import On from "../const/on";
 
     export default {
         components: {
@@ -30,12 +29,11 @@
             LeftMenu,
             Surface
         },
-        data: function () {
-            return {
-                config: createConfig(),
-                film: createFilm()
-            }
+        computed: {
+            ...mapState(["activeFilm", "films", "activePen"])
+        },
+        mounted: async function () {
+            await this.$store.dispatch(On.MOUNT_APP);
         }
     }
 </script>
-

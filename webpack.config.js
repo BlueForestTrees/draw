@@ -1,6 +1,8 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin');
+const WebpackMildCompile = require('webpack-mild-compile').Plugin;
 
 const conf = {
     entry: './src/main/index.js',
@@ -20,12 +22,15 @@ const conf = {
     module: {
         rules: [
             {test: /\.vue$/, exclude: /node_modules/, loader: 'vue-loader', options: { loaders: {js: 'babel-loader'}}},
-            {test: /\.js$/, exclude: /node_modules/, loader: 'babel-loader'}
+            {test: /\.js$/, exclude: /node_modules/, loader: 'babel-loader'},
+            {test: /\.css$/, exclude: /node_modules/, use: ['style-loader','css-loader']}
         ]
     },
 
     plugins: [
-        new HtmlWebpackPlugin({template: './src/main/index.html', inject: 'body', hash: 'true'})
+        new HtmlWebpackPlugin({template: './src/main/index.html', inject: 'body', hash: 'true'}),
+        new CopyWebpackPlugin([{ from: './src/main/img', to: 'img'}]),
+        new WebpackMildCompile()//recompile x times bug
     ],
 
     devServer: {
