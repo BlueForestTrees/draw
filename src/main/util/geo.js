@@ -16,7 +16,9 @@ export const showPathD = (ei, film) => ei.e.d && ei.tz <= film.f.ftz;
 
 export const style = (pen) => {
     if (pen.stroke) {
-        return `fill:none; stroke:${pen.color}; stroke-width:${pen.width}; stroke-linecap:round; stroke-opacity:${pen.opacity};` + (pen.mask ? `clip-path: url(#mask${pen.mask});` : "");
+        return `fill:none; stroke:${pen.color}; stroke-width:${pen.width}; stroke-linecap:round; stroke-opacity:${pen.opacity};`
+            + (pen.mask ? `clip-path: url(#mask${pen.mask});` : "")
+            + `stroke-linecap:${pen.linecap}`;
     } else {
         return `fill-opacity:${pen.opacity}; fill:${pen.color};` + (pen.mask ? `clip-path: url(#mask${pen.mask});` : "");
     }
@@ -116,14 +118,14 @@ export const line = (pointA, pointB) => {
 };
 
 export const getTxTy = (parent, childId) => {
-        const ctm = parent.getElementById(childId).getCTM();
-        return {tx: ctm.e, ty: ctm.f};
+    const ctm = parent.getElementById(childId).getCTM();
+    return {tx: ctm.e, ty: ctm.f};
 };
 
 export const getBBox = (parent, childId) => {
-        const box = parent.getElementById(childId).getBBox();
-        return {
-            x: box.x, y: box.y,
-            width: box.width, height: box.height
-        };
+    const box = parent.getElementById(childId).getBBox();
+    return {
+        x: box.x, y: box.y,
+        width: box.width, height: box.height
+    };
 };

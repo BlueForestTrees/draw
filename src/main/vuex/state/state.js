@@ -3,6 +3,7 @@ import {anagram} from "../../util/common";
 import On from "../../const/on";
 import modes from "../../const/modes";
 import {isNil} from 'lodash';
+import linecaps from "../../const/linecaps";
 
 export const createNav = () => ({
     menuVisible: true,
@@ -20,13 +21,14 @@ export const createPens = () => ([
     createPen({color: 'red', width: 5}),
     createPen({color: '#1565C0', width: 2}),
 ]);
-export const createPen = ({color, width, opacity, mask, stroke}) => ({
+export const createPen = ({color, width, opacity, mask, stroke, linecap}) => ({
     _id: createId(),
     color: isNil(color) ? '#000000' : color,
     width: isNil(width) ? 10 : width,
     opacity: isNil(opacity) ? 1 : opacity,
     mask: isNil(mask) ? false : mask,
-    stroke: isNil(stroke) ? true : stroke
+    stroke: isNil(stroke) ? true : stroke,
+    linecap: isNil(linecap) ? linecaps.BUTT : linecap,
 });
 export const createFilm = () => ({
     name: createName(),
