@@ -1,5 +1,5 @@
 <template>
-    <span>
+    <span v-if="selection">
         <pen-edit :pen="selection.e.pen"/>
         <v-btn @click="pickPen(selection)"><v-icon>trending_flat</v-icon><v-icon>brush</v-icon></v-btn>
     </span>

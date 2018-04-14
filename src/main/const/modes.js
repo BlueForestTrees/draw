@@ -1,7 +1,7 @@
 export default {
     BRUSH: 'Pinceau',
     FILM: 'Film',
-    IMPORT: 'Import',
+    IMPORT: 'Path Import',
     MASK: 'Masque',
     SELECT: 'Selection',
     ZOOM: 'Zoom',

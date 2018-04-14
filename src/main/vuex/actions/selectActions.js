@@ -2,9 +2,9 @@ import On from "../../const/on";
 import {getTxTy, globalToLocal, minus} from "../../util/geo";
 import Vue from 'vue';
 import {createSelection} from "../state/state";
-import _ from 'lodash';
 import Do from "../../const/do";
 import modes from "../../const/modes";
+import {getElement} from "../../util/common";
 
 export default {
     [On.START_SELECT]: ({commit}, {evt, film, domRef}) => {
@@ -13,7 +13,7 @@ export default {
             const ctx = {
                 domRef,
                 selection: film.f.selection,
-                element: _.find(film.f.elements, {_id: currentElementSvg.id}),
+                element: getElement(film, currentElementSvg.id),
                 downMouse: globalToLocal(evt, domRef),
                 initialTxy: getTxTy(domRef.svg, currentElementSvg.id)
             };
@@ -46,3 +46,4 @@ const selectUp = (ctx) => {
     window.removeEventListener("mousemove", ctx.onmousemove);
     window.removeEventListener("mouseup", ctx.onmouseup);
 };
+

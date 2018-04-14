@@ -11,7 +11,7 @@
                 <span v-if="modeIs(modes.BRUSH)">
                     <brush/>
                 </span>
-                <span v-if="modeIs(modes.SELECT) && selection">
+                <span v-if="modeIs(modes.SELECT)">
                     <selection :selection="selection"/>
                 </span>
                 <span v-if="modeIs(modes.FILM)">
@@ -38,7 +38,7 @@
     import PenEdit from "./PenEdit";
     import Masking from "../panel/Masking";
     import Film from "../panel/Film";
-    import Selection from "../surface/Selection";
+    import Selection from "../panel/Selection";
     import Brush from "../panel/Brush";
 
     export default {
