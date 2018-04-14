@@ -11,14 +11,10 @@ export default {
         film.f.selection.elementId = elementId;
     },
     [Do.SET_SELECTION_BOX]: (state, {elementId, film, domRef}) => {
-        const bBox = getBBox(domRef.svg, elementId);
-        const txTy = getTxTy(domRef.svg, elementId);
-        if (bBox && txTy) {
-            film.f.selection.box = {
-                ...bBox,
-                ...txTy
-            };
-        }
+        film.f.selection.box = {
+            ...getBBox(domRef.svg, elementId),
+            ...getTxTy(domRef.svg, elementId)
+        };
     },
     [Do.ACTIVATE_FIRST_PEN]: state => {
         if (state.pens && state.pens[0]) {

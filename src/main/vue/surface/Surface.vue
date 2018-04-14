@@ -20,6 +20,7 @@
     import Elements from "./Elements";
     import {eii, path} from "../../util/geo";
     import Masks from "./Masks";
+    import Vue from 'vue';
 
     export default {
         components: {
@@ -51,7 +52,9 @@
         },
         watch: {
             "film.f.selection.elementId": function (eid) {
-                this.commitSelect({elementId: eid, film: this.film, domRef: this.domRef});
+                if (!eid) return;
+                //le nextTick sécurise le cas de l'import de film.
+                Vue.nextTick(() => this.commitSelect({elementId: eid, film: this.film, domRef: this.domRef}));
             }
         },
         mounted: function () {

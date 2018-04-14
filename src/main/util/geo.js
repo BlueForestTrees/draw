@@ -116,18 +116,14 @@ export const line = (pointA, pointB) => {
 };
 
 export const getTxTy = (parent, childId) => {
-    if (parent.getElementById(childId)) {
         const ctm = parent.getElementById(childId).getCTM();
         return {tx: ctm.e, ty: ctm.f};
-    }
 };
 
 export const getBBox = (parent, childId) => {
-    if (parent.getElementById(childId)) {
         const box = parent.getElementById(childId).getBBox();
         return {
             x: box.x, y: box.y,
             width: box.width, height: box.height
         };
-    }
 };
