@@ -1,5 +1,5 @@
 import Do from "../../const/do";
-import {createFilm, createFilmInstance} from "../state/state";
+import {createFilm} from "../state/state";
 import {getBBox, getTxTy, simplifyFilm} from "../../util/geo";
 import _ from 'lodash';
 
@@ -11,10 +11,12 @@ export default {
         film.f.selection.elementId = elementId;
     },
     [Do.SET_SELECTION_BOX]: (state, {elementId, film, domRef}) => {
-        if (elementId) {
+        const bBox = getBBox(domRef.svg, elementId);
+        const txTy = getTxTy(domRef.svg, elementId);
+        if (bBox && txTy) {
             film.f.selection.box = {
-                ...getBBox(domRef.svg, elementId),
-                ...getTxTy(domRef.svg, elementId)
+                ...bBox,
+                ...txTy
             };
         }
     },
