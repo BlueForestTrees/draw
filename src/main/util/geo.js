@@ -18,7 +18,7 @@ export const style = (pen) => {
     if (pen.stroke) {
         return `fill:none; stroke:${pen.color}; stroke-width:${pen.width}; stroke-linecap:round; stroke-opacity:${pen.opacity};`
             + (pen.mask ? `clip-path: url(#mask${pen.mask});` : "")
-            + `stroke-linecap:${pen.linecap}`;
+            //+ `stroke-linecap:${pen.linecap}`;
     } else {
         return `fill-opacity:${pen.opacity}; fill:${pen.color};` + (pen.mask ? `clip-path: url(#mask${pen.mask});` : "");
     }

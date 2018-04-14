@@ -1,5 +1,6 @@
 <template>
     <span v-if="selection">
+        <v-btn flat @click="clone({ei:selection, film})"><v-icon>toll</v-icon></v-btn>
         <pen-edit :pen="selection.e.pen"/>
         <v-btn @click="pickPen(selection)"><v-icon>trending_flat</v-icon><v-icon>brush</v-icon></v-btn>
     </span>
@@ -12,10 +13,11 @@
     export default {
         name: 'selection',
         components: {PenEdit},
-        props: ['selection'],
+        props: ['selection', 'film'],
         methods: {
             ...mapActions({
-                pickPen: On.PICK_PEN
+                pickPen: On.PICK_PEN,
+                clone: On.CLONE
             })
         }
     }

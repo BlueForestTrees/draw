@@ -13,7 +13,7 @@
             <v-slider :label="total" v-model="film.f.config.durationCoef" min="0.25" step="0.05" max="4"/>
         </v-layout>
         <v-switch label="Phantom" v-model="film.f.config.showPhantom"/>
-        <film-dialog/>
+        <film-dialog :film="film"/>
     </span>
 </template>
 <script>
@@ -43,7 +43,6 @@
             }),
             openFilmDialog: function () {
                 this.nav.filmDialogVisible = true;
-                this.nav.rawFilm = JSON.stringify(this.film, null, 4);
             }
         }
     }

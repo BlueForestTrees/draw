@@ -10,6 +10,7 @@ export default {
     INSTANTIATE: 'instantiate',
     KEEP: 'keep',
     NEXT: 'next',
+    NAV: 'nav',
     PREV: 'prev',
     PAUSE: 'pause',
     PICK_PEN: 'PICK_PEN',

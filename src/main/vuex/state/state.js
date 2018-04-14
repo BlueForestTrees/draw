@@ -1,4 +1,3 @@
-import {cloneOffset} from "../../const/values";
 import {anagram} from "../../util/common";
 import On from "../../const/on";
 import modes from "../../const/modes";
@@ -7,8 +6,7 @@ import linecaps from "../../const/linecaps";
 
 export const createNav = () => ({
     menuVisible: true,
-    filmDialogVisible: false,
-    rawFilm: null
+    filmDialogVisible: false
 });
 export const createFilms = () => ([]);
 export const createName = anagram;
@@ -95,8 +93,8 @@ export const cloneElementInstance = ei => ({
     e: ei.e,
     _id: createId(),
     tz: ei.tz,
-    tx: ei.tx + cloneOffset,
-    ty: ei.ty + cloneOffset
+    tx: ei.tx,
+    ty: ei.ty
 });
 export const createModes = () => ([
     {name: modes.FILM, icon: "map"},

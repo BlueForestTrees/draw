@@ -6,6 +6,9 @@ export default {
     [Do.REWIND]: async ({}, film) => {
         rewind(film);
     },
+    [Do.NAV]: ({},{film,i}) => {
+        navTo(film, i);
+    },
     [Do.PREV]: ({}, film) => {
         navTo(film, Math.max(0, film.f.ftz - 1));
     },

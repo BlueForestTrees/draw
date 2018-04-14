@@ -12,7 +12,7 @@
                     <brush/>
                 </span>
                 <span v-if="modeIs(modes.SELECT)">
-                    <selection :selection="selection"/>
+                    <selection :selection="selection" :film="film"/>
                 </span>
                 <span v-if="modeIs(modes.FILM)">
                     <film :film="film" :films="films"/>
