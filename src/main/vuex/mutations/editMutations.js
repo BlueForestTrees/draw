@@ -4,14 +4,14 @@ import {getBBox, getTxTy, simplifyFilm} from "../../util/geo";
 import _ from 'lodash';
 
 export default {
-    [Do.SET_SELECTION_ELEMENT]: (state, {film, element}) => {
-        film.f.selection.element = element;
+    [Do.SET_SELECTION_ELEMENT]: (state, {film, elementId}) => {
+        film.f.selection.elementId = elementId;
     },
-    [Do.SET_SELECTION_BOX]: (state, {element, film, domRef}) => {
-        if (element) {
+    [Do.SET_SELECTION_BOX]: (state, {elementId, film, domRef}) => {
+        if (elementId) {
             film.f.selection.box = {
-                ...getBBox(domRef.svg, element._id),
-                ...getTxTy(domRef.svg, element._id)
+                ...getBBox(domRef.svg, elementId),
+                ...getTxTy(domRef.svg, elementId)
             };
         }
     },
@@ -26,6 +26,9 @@ export default {
         } else {
             console.error("state.pens vide")
         }
+    },
+    [Do.CLEAR_FILM]: ({}, film) => {
+        Object.assign(film.f, createFilm());
     },
     [Do.CLEAR_FILM]: ({}, film) => {
         Object.assign(film.f, createFilm());

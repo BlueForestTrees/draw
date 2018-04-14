@@ -34,6 +34,9 @@ export default {
         commit(Do.DELETE_ELEMENT, {ei, film});
         commit(Do.UNSELECT_ELEMENT, film);
     },
+    [On.EXPORT_FILM]: ({state}, film) => {
+        console.log(JSON.stringify(film, null, 4));
+    }
 }
 
 const extractD = importData => {

@@ -10,7 +10,7 @@ export const createNav = () => ({
 export const createFilms = () => ([]);
 export const createName = anagram;
 export const createSelection = () => ({
-    element: null,
+    elementId: null,
     box: null
 });
 export const createPens = () => ([

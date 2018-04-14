@@ -5,7 +5,8 @@ import {find, forEach, map} from 'lodash';
 export const globalToLocal = (e, {svgPoint, svg}) => {
     svgPoint.x = e.clientX;
     svgPoint.y = e.clientY;
-    return svgPoint.matrixTransform(svg.getScreenCTM().inverse());
+    const p = svgPoint.matrixTransform(svg.getScreenCTM().inverse());
+    return {x: p.x, y: p.y};
 };
 
 export const minus = (p1, p2) => ({x: p1.x - p2.x, y: p1.y - p2.y});

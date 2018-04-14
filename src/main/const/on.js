@@ -1,6 +1,7 @@
 export default {
     CLONE: 'clone',
     DELETE_ELEMENT: 'deleteElement',
+    EXPORT_FILM: 'exportFilm',
     IMPORT: 'import',
     MOUNT_APP: 'mountApp',
     PICK_PEN: 'PICK_PEN',

@@ -10,17 +10,17 @@ export default {
     [On.START_SELECT]: ({commit}, {evt, film, domRef}) => {
         const currentElementSvg = evt.target;
         if (currentElementSvg.id && currentElementSvg.id !== "surface") {
-            const element = _.find(film.f.elements, {_id: currentElementSvg.id});
             const ctx = {
                 domRef,
                 selection: film.f.selection,
+                element: _.find(film.f.elements, {_id: currentElementSvg.id}),
                 downMouse: globalToLocal(evt, domRef),
-                initialTxy: getTxTy(domRef.svg, element._id)
+                initialTxy: getTxTy(domRef.svg, currentElementSvg.id)
             };
             ctx.onmousemove = selectMove.bind(null, ctx);
             ctx.onmouseup = selectUp.bind(null, ctx);
 
-            commit(Do.SET_SELECTION_ELEMENT, {film, element});
+            commit(Do.SET_SELECTION_ELEMENT, {film, elementId: currentElementSvg.id});
 
             Vue.nextTick(() => {
                 window.addEventListener("mousemove", ctx.onmousemove);
@@ -36,10 +36,10 @@ export default {
     }
 }
 
-const selectMove = ({selection, domRef, downMouse, initialTxy}, e) => {
+const selectMove = ({selection, element, domRef, downMouse, initialTxy}, e) => {
     const move = minus(globalToLocal(e, domRef), downMouse);
-    selection.box.tx = selection.element.tx = initialTxy.tx + move.x;
-    selection.box.ty = selection.element.ty = initialTxy.ty + move.y;
+    selection.box.tx = element.tx = initialTxy.tx + move.x;
+    selection.box.ty = element.ty = initialTxy.ty + move.y;
 };
 
 const selectUp = (ctx) => {

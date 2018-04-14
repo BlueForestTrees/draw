@@ -50,8 +50,8 @@
             elementIndex: eii, path: path
         },
         watch: {
-            "film.f.selection.element": function (n) {
-                this.commitSelect({element: n, film: this.film, domRef: this.domRef});
+            "film.f.selection.elementId": function (eid) {
+                this.commitSelect({elementId: eid, film: this.film, domRef: this.domRef});
             }
         },
         mounted: function () {

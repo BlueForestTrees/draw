@@ -15,11 +15,13 @@
             <v-slider v-model="film.f.config.durationCoef" min="0.25" step="0.05" max="4"/>
         </v-layout>
         <v-switch label="Phantom" v-model="film.f.config.showPhantom"/>
+        <v-btn flat icon @click="exportFilm(film)"><v-icon>share</v-icon></v-btn>
     </span>
 </template>
 <script>
     import Do from "../../const/do";
-    import {mapGetters, mapMutations} from "vuex";
+    import {mapGetters, mapMutations, mapActions} from "vuex";
+    import On from "../../const/on";
 
     export default {
         name: 'film',
@@ -32,6 +34,9 @@
                 selectFilm: Do.SELECT_FILM,
                 addNewFilm: Do.ACTIVATE_NEW_FILM,
                 clearFilm: Do.CLEAR_FILM,
+            }),
+            ...mapActions({
+                exportFilm: On.EXPORT_FILM
             })
         }
     }

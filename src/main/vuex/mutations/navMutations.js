@@ -17,7 +17,7 @@ export default {
         state.activePen = pen;
     },
     [Do.SELECT_ELEMENT]: (state, ei) => {
-        Vue.nextTick(() => state.activeFilm.f.selection.element = ei);
+        Vue.nextTick(() => state.activeFilm.f.selection.elementId = ei._id);
     },
     [Do.UNSELECT_ELEMENT]: (state, film) => {
         Object.assign(film.f.selection, createSelection());
