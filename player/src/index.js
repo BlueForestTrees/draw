@@ -1,8 +1,10 @@
 import Vue from 'vue';
 import Player from 'Player';
 
-new Vue({
-    el: '#app',
-    components: {Player},
-    template: '<Player/>'
-});
+const initFilm = (el, filmData) => {
+    new Vue({
+        el,
+        components: {Player},
+        template: '<Player/>'
+    });
+};
