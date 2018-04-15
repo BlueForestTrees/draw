@@ -10,9 +10,13 @@
         </v-layout>
         <v-layout row>
             <v-icon>directions_run</v-icon>
-            <v-slider :label="total" v-model="film.f.config.durationCoef" min="0.25" step="0.05" max="4"/>
+            <v-slider :label="total" v-model="film.f.config.durationCoef" min="0.01" step="0.01" max="10"/>
         </v-layout>
         <v-switch label="Phantom" v-model="film.f.config.showPhantom"/>
+
+        <v-btn><v-icon>content_cut</v-icon><v-icon>trending_flat</v-icon></v-btn>
+        <v-btn><v-icon>trending_flat</v-icon><v-icon>content_cut</v-icon></v-btn>
+
         <film-dialog :film="film"/>
     </span>
 </template>

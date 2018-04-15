@@ -32,7 +32,7 @@ const conf = {
         new HtmlWebpackPlugin({template: './src/main/index.html', inject: 'body', hash: 'true'}),
         new CopyWebpackPlugin([{ from: './src/main/img', to: 'img'}]),
         new WebpackMildCompile(),//recompile x times bug
-        new UglifyJsPlugin()
+//        new UglifyJsPlugin()
     ],
 
     devServer: {
