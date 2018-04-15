@@ -4,11 +4,6 @@
             <v-layout>
                 <v-flex xs12 sm6 class="py-2">
                     <v-switch v-model="pen.stroke" label="Fil de fer"></v-switch>
-                    <v-btn-toggle v-if="pen.stroke" mandatory v-model="pen.linecap">
-                        <v-btn flat v-for="(value,key,i) in linecaps" :key="key" :value="value">
-                            {{i}}
-                        </v-btn>
-                    </v-btn-toggle>
                 </v-flex>
             </v-layout>
         </v-container>
@@ -21,16 +16,10 @@
 </template>
 <script>
     import Swatches from 'vue-swatches';
-    import linecaps from "../../const/linecaps";
 
     export default {
         name: "pen-edit",
         props: ['pen'],
-        data: function () {
-            return {
-                linecaps
-            }
-        },
         components: {
             Swatches
         }

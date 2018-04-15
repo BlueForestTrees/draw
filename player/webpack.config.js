@@ -1,12 +1,11 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
 const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin');
 const WebpackMildCompile = require('webpack-mild-compile').Plugin;
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 
 const conf = {
-    entry: './src/main/index.js',
+    entry: './src/index.js',
 
     output: {
         filename: '[name].bundle.js',
@@ -29,14 +28,13 @@ const conf = {
     },
 
     plugins: [
-        new HtmlWebpackPlugin({template: './src/main/index.html', inject: 'body', hash: 'true'}),
-        new CopyWebpackPlugin([{ from: './src/main/img', to: 'img'}]),
+        new HtmlWebpackPlugin({template: './src/index.html', inject: 'body', hash: 'true'}),
         new WebpackMildCompile(),//recompile x times bug
         new UglifyJsPlugin()
     ],
 
     devServer: {
-        port: 8078,
+        port: 8077,
         host:"localhost",
         contentBase: path.resolve(__dirname, 'dist'),
         quiet: true
