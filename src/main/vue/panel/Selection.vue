@@ -14,6 +14,8 @@
     </span>
 </template>
 <script>
+    //TODO scaler la selection
+    //TODO scaler un groupe
     import PenEdit from "../menu/PenEdit";
     import On from "../../const/on";
     import {mapActions} from "vuex";

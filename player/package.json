@@ -6,9 +6,8 @@
   "author": "slim",
   "license": "MIT",
   "scripts": {
-    "dev": "webpack-dev-server --inline --progress",
-    "build": "webpack",
-    "test": "NODE_ENV=test mocha --exit $(find src/test -name '*.js') --require babel-register"
+    "dev": "set NODE_ENV=prod && webpack-dev-server --inline --progress",
+    "build": "set NODE_ENV=prod && webpack"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
