@@ -15,7 +15,8 @@
 </template>
 <script>
     //TODO scaler la selection
-    //TODO scaler un groupe
+    //TODO zoom et move scene
+    //TODO viewBox
     import PenEdit from "../menu/PenEdit";
     import On from "../../const/on";
     import {mapActions} from "vuex";
