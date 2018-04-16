@@ -1,6 +1,6 @@
 import Do from "../../const/do";
 import {createFilm} from "../state/state";
-import {getBBox, getTxTy, simplifyFilm} from "../../util/geo";
+import {getBBox, getTxTy, simplifyFilm} from "../../util/util";
 import _ from 'lodash';
 
 export default {

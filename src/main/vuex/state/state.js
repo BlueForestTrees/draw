@@ -41,12 +41,11 @@ export const createFilm = () => ({
 
     zoom: 1
 });
-export const createFilmInstance = (f, tz) => ({
-    f: f || createFilm(),
+export const createFilmInstance = () => ({
+    f: createFilm(),
     _id: createId(),
     tx: 0,
-    ty: 0,
-    tz: tz || 0
+    ty: 0
 });
 export const createPlayer = () => ({
     playing: false,
@@ -99,9 +98,9 @@ export const createModes = () => ([
     {name: modes.FILM, icon: "map"},
     {name: modes.BRUSH, icon: "brush", surfaceAction: On.START_DRAW},
     {name: modes.SELECT, icon: "select_all", surfaceAction: On.START_SELECT},
-    {name: modes.MASK, icon: "group_work", surfaceAction: On.START_SELECT},
     {name: modes.ZOOM, icon: "search", surfaceAction: On.START_ZOOM},
     {name: modes.IMPORT, icon: "get_app"},
+    {name: modes.VIEWBOX, icon: "videocam", surfaceAction: On.START_VIEWBOX},
 ]);
 
 export default {

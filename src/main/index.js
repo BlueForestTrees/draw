@@ -6,7 +6,6 @@ import Vuetify from 'vuetify'
 import store from "./vuex/store";
 Vue.config.productionTip = false;
 
-
 Vue.use(Vuetify);
 
 new Vue({

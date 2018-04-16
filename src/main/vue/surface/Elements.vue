@@ -24,9 +24,9 @@
 </template>
 
 <script>
-    import {eii, path, showPathD, style} from "../../util/geo";
     import {mapActions} from "vuex";
     import On from "../../const/on";
+    import {eii, path, showPathD, style} from "../../util/playerSurface";
 
     export default {
         name: 'elements',

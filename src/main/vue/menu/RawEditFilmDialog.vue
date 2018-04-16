@@ -47,7 +47,10 @@
                 }
             },
             exportFilm: function () {
+                const temp = this.film.f.ftz;
+                this.film.f.ftz = 0;
                 this.rawFilm = JSON.stringify(this.film, null, 4);
+                this.film.f.ftz = temp;
             }
         },
         data:

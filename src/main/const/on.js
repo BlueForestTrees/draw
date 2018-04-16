@@ -10,5 +10,6 @@ export default {
     START_DRAW: 'startDraw',
     START_SELECT: 'startSelect',
     START_ZOOM: 'startZoom',
-    UPDATE_FILM: 'updateFilm'
+    UPDATE_FILM: 'updateFilm',
+    START_VIEWBOX: 'startViewbox'
 };
