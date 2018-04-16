@@ -1,5 +1,5 @@
 const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin');
 const WebpackMildCompile = require('webpack-mild-compile').Plugin;
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
@@ -28,9 +28,9 @@ const conf = {
     },
 
     plugins: [
-        new HtmlWebpackPlugin({template: './src/index.html', inject: 'body', hash: 'true'}),
+        new CopyWebpackPlugin([{from: './src/index.html', to: '.'}]),
         new WebpackMildCompile(),//recompile x times bug
-        new UglifyJsPlugin()
+        //new UglifyJsPlugin()
     ],
 
     devServer: {
