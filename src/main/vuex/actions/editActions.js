@@ -22,6 +22,8 @@ export default {
             } else {
                 console.log("format d'import non reconnu (ni d, ni points");
             }
+        }else{
+            throw new Error("rien à importer");
         }
     },
     [On.CLONE]: ({commit}, {ei, film}) => {

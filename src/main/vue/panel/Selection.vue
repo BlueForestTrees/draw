@@ -14,6 +14,7 @@
     </span>
 </template>
 <script>
+    //TODO player OK ABSOLUT
     //TODO scaler la selection
     //TODO zoom et move scene
     //TODO viewBox
