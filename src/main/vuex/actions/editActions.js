@@ -33,6 +33,7 @@ export default {
         commit(Do.SET_MODE, modes.SELECT);
     },
     [On.DELETE_ELEMENT]: ({commit}, {ei, film}) => {
+        console.log("delete element");
         commit(Do.DELETE_ELEMENT, {ei, film});
         commit(Do.UNSELECT_ELEMENT, film);
         commit(Do.NAV, {film, i: ei.tz});

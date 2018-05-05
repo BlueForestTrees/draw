@@ -7,7 +7,7 @@
                   :d="ei.e.d" :style="style(ei.e.pen, ei)"
 
                   :transform="`translate(${ei.tx} ${ei.ty})`"
-                  @click.ctrl="clone({ei, film})" @click.alt="del({ei, film})"
+                  @mousedown.ctrl.stop="clone({ei, film})" @mousedown.alt.stop="del({ei, film})"
             />
             <!--ELEMENT WITH POINTS-->
             <path v-else-if="ei.e.points && eii(ei,film.f.ftz) > 0" :id="ei._id" :key="`${ei._id}@${eii(ei,film.f.ftz)}`"
@@ -15,7 +15,7 @@
                   :d="eiPath(ei)" :style="style(ei.e.pen, ei)"
 
                   :transform="`translate(${ei.tx} ${ei.ty})`"
-                  @click.ctrl="clone({ei, film})" @click.alt="del({ei, film})"
+                  @mousedown.ctrl.stop="clone({ei, film})" @mousedown.alt.stop="del({ei, film})"
             />
         </template>
 

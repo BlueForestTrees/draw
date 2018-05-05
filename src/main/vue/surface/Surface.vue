@@ -1,5 +1,5 @@
 <template>
-    <svg @mousedown="onMouseDown" id="surface" width="100%" height="100%" class="surface" ref="surface">
+    <svg @mousedown="svgMouseDown" id="surface" width="100%" height="100%" class="surface" ref="surface">
 
         <masks :film="film"/>
 
@@ -40,7 +40,7 @@
             ...mapGetters(['activeMode'])
         },
         methods: {
-            onMouseDown: function (evt) {
+            svgMouseDown: function (evt) {
                 if (this.activeMode.surfaceAction) {
                     this.$store.dispatch(this.activeMode.surfaceAction, {evt, film: this.film, domRef: this.domRef, pen: this.pen});
                 }

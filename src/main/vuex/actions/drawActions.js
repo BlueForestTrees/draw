@@ -7,6 +7,7 @@ import {navTo} from "../../util/playerControl";
 
 export default {
     [On.START_DRAW]: ({commit, getters, state}, {evt, film, domRef, pen}) => {
+        console.log("brush");
         const ctx = {
             e: createElement({pen:{...pen, mask:getters.activeMaskId}, points: [], anim: true}),
             startMoment: _.now(),
