@@ -36,9 +36,7 @@
     import Do from "../../const/do";
     import {mapActions, mapGetters, mapMutations, mapState} from "vuex";
     import FilmDialog from "../menu/RawEditFilmDialog";
-    import On from "../../const/on";
-    import {saveFilm} from "../../rest/api";
-    import {cloneFilm} from "../../vuex/state/state";
+    import On, {SAVE_FILM_AS} from "../../const/on";
 
     export default {
         name: 'film',
@@ -61,23 +59,9 @@
             }
         },
         methods: {
-            saveFilm,
             save: async function () {
-                let filmToSave = this.film;
-                const saveAs = this.newName && this.film.f.name !== this.newName;
-                if (saveAs) {
-                    filmToSave = cloneFilm(filmToSave, this.newName);
-                }
-
-                await this.saveFilm(filmToSave);
+                await this.saveAs({film:this.film, name:this.newName});
                 this.newName = null;
-
-                if (saveAs) {
-                    console.log(this.film.f.name, filmToSave.f.name);
-                    this.addFilm(filmToSave);
-                    this.selectFilm(filmToSave);
-                }
-
                 this.saving = false;
             },
             toggleSaving: function () {
@@ -90,6 +74,7 @@
                 addNewFilm: On.ACTIVATE_NEW_FILM,
                 selectFilm: On.LOAD_FILM,
                 deleteFilm: On.DELETE_FILM,
+                saveAs: On.SAVE_FILM_AS
             }),
             ...mapMutations({
                 addFilm: Do.ADD_FILM,

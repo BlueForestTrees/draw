@@ -59,7 +59,7 @@ export const createFilm = () => ({
 });
 export const cloneFilm = (film, newName) => {
     const clonedFilm = cloneDeep(film);
-    clonedFilm.f.name = newName;
+    clonedFilm.f.name = name;
     clonedFilm._id = createId();
     return clonedFilm;
 };

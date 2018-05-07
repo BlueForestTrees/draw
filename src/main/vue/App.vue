@@ -5,7 +5,7 @@
             <v-container fluid fill-height>
                 <v-layout align-center justify-center>
                     <v-flex style="height:900px">
-                        <v-card class="elevation-12" style="height:900px" v-if="activeFilm">
+                        <v-card class="elevation-12" style="height:900px">
                             <surface :film="activeFilm" :pen="activePen"/>
                             <player :film="activeFilm"/>
                         </v-card>
