@@ -3,6 +3,8 @@ import On from "../../const/on";
 import {deleteFilm, getFilm, getFilms, saveFilm} from "../../rest/api";
 import {cloneFilm, createId} from "../state/state";
 
+const needLoad = film => !film.f.elements;
+
 export default {
     [On.MOUNT_APP]: async ({commit, dispatch}) => {
         commit(Do.ACTIVATE_FIRST_PEN);
@@ -17,7 +19,11 @@ export default {
         }
     },
     [On.LOAD_FILM]: async ({commit}, film) => {
-        commit(Do.SELECT_FILM, await getFilm(film._id));
+        if (needLoad(film)) {
+            commit(Do.SELECT_FILM, await getFilm(film._id));
+        } else {
+            commit(Do.SELECT_FILM, film);
+        }
     },
     [On.DELETE_FILM]: async ({commit}, film) => {
         await deleteFilm(film._id);
