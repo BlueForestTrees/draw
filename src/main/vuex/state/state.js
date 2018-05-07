@@ -11,7 +11,7 @@ export const createConfig = () => ({
     activeModeIdx: 1,
     activeMaskIdx: null,
 
-    smooth: false,
+    smooth: true,
     smoothing: 0.2,
     flattening: 0,
 

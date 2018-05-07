@@ -7,13 +7,10 @@ import On from "../../const/on";
 import Do from "../../const/do";
 import zoomActions from "./zoomActions";
 import test from "../../const/test";
+import appActions from "./appActions";
 
 export default {
-    [On.MOUNT_APP]: async ({commit, dispatch}) => {
-        commit(Do.ACTIVATE_FIRST_PEN);
-        dispatch(On.ACTIVATE_NEW_FILM);
-        dispatch(On.UPDATE_FILM, test);
-    },
+    ...appActions,
     ...surfaceActions,
     ...playerActions,
     ...drawActions,

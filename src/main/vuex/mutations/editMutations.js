@@ -7,6 +7,9 @@ export default {
     [Do.SET_FILM]: (state, film) => {
         state.film = film;
     },
+    [Do.SET_FILMS]: (state, films) => {
+        state.films = films;
+    },
     [Do.SET_SELECTION_ELEMENT]: (state, {film, elementId}) => {
         film.f.selection.elementId = elementId;
     },
@@ -22,9 +25,6 @@ export default {
         } else {
             console.error("state.pens vide")
         }
-    },
-    [Do.CLEAR_FILM]: ({}, film) => {
-        Object.assign(film.f, createFilm());
     },
     [Do.CLEAR_FILM]: ({}, film) => {
         Object.assign(film.f, createFilm());

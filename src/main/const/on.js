@@ -1,5 +1,8 @@
 export default {
     ACTIVATE_NEW_FILM: 'activateNewFilm',
+    LOAD_FILMS: 'loadFilms',
+    LOAD_FILM: 'loadFilm',
+    DELETE_FILM: 'deleteFilm',
     CLONE: 'clone',
     DELETE_ELEMENT: 'deleteElement',
     IMPORT: 'import',
