@@ -3,6 +3,7 @@ import On from "../../const/on";
 import modes from "../../const/modes";
 import {isNil} from 'lodash';
 import ObjectID from "bson-objectid";
+import {cloneDeep} from 'lodash';
 
 export const createConfig = () => ({
     showPhantom: true,
@@ -56,6 +57,12 @@ export const createFilm = () => ({
 
     zoom: 1
 });
+export const cloneFilm = (film, newName) => {
+    const clonedFilm = cloneDeep(film);
+    clonedFilm.f.name = newName;
+    clonedFilm._id = createId();
+    return clonedFilm;
+};
 export const createFilmInstance = () => ({
     f: createFilm(),
     _id: createId(),
@@ -74,7 +81,7 @@ export const createModes = () => ([
 export const createName = () => reduced(ObjectID());
 export const createNav = () => ({
     menuVisible: true,
-    filmDialogVisible: false
+    rawEditFilmDialogVisible: false
 });
 export const createPens = () => ([
     createPen({color: '#1155cc', width: 50}),

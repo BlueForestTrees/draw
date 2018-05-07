@@ -5,8 +5,8 @@ import {deleteFilm, getFilm, getFilms} from "../../rest/api";
 export default {
     [On.MOUNT_APP]: async ({commit, dispatch}) => {
         commit(Do.ACTIVATE_FIRST_PEN);
-        //dispatch(On.LOAD_FILMS);
-        dispatch(On.ACTIVATE_NEW_FILM);
+        await dispatch(On.LOAD_FILMS);
+        await dispatch(On.ACTIVATE_NEW_FILM);
     },
     [On.LOAD_FILMS]: async ({commit}) => {
         try {

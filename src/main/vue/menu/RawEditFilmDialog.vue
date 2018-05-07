@@ -1,6 +1,6 @@
 <template>
     <v-dialog
-            v-model="nav.filmDialogVisible"
+            v-model="nav.rawEditFilmDialogVisible"
             fullscreen
             transition="dialog-bottom-transition"
             :overlay="false"
@@ -13,7 +13,7 @@
                 <v-toolbar-title>Raw Edit Film</v-toolbar-title>
                 <v-spacer></v-spacer>
                 <v-toolbar-items>
-                    <v-btn icon @click.native="nav.filmDialogVisible = false" dark>
+                    <v-btn icon @click.native="nav.rawEditFilmDialogVisible = false" dark>
                         <v-icon>close</v-icon>
                     </v-btn>
                 </v-toolbar-items>
@@ -41,7 +41,7 @@
             importFilm: function () {
                 try {
                     this.dispatchUpdateFilm(this.rawFilm);
-                    this.nav.filmDialogVisible = false;
+                    this.nav.rawEditFilmDialogVisible = false;
                 } catch (e) {
                     console.error(e);
                 }
