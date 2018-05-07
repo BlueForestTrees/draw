@@ -18,7 +18,6 @@
     import Selection from "./Selection";
     import Phantom from "./Phantom";
     import Elements from "./Elements";
-    import {eii, path} from "../../util/playerSurface";
     import Masks from "./Masks";
     import Vue from 'vue';
 
@@ -47,8 +46,7 @@
             },
             ...mapMutations({
                 commitSelect: Do.SET_SELECTION_BOX
-            }),
-            elementIndex: eii, path: path
+            })
         },
         watch: {
             "film.f.selection.elementId": function (eid) {

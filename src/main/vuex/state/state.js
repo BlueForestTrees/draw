@@ -1,9 +1,8 @@
 import {reduced} from "../../util/common";
 import On from "../../const/on";
 import modes from "../../const/modes";
-import {isNil} from 'lodash';
+import {cloneDeep, isNil} from 'lodash';
 import ObjectID from "bson-objectid";
-import {cloneDeep} from 'lodash';
 
 export const createConfig = () => ({
     showPhantom: true,
@@ -96,6 +95,7 @@ export const createPen = ({color, width, opacity, mask, stroke}) => ({
     opacity: isNil(opacity) ? 1 : opacity,
     mask: isNil(mask) ? false : mask,
     stroke: isNil(stroke) ? true : stroke,
+    length: 0
 });
 export const createPlayer = () => ({
     playing: false,

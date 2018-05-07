@@ -10,7 +10,9 @@ export const style = (pen) => {
 };
 export const path = (pen, points, config, length) => {
     config = config || {};
-    let pathPoints = points.slice(0, length || points.length);
+    const last = length || points.length;
+    const first = pen.length === 0 ? 0 : length - pen.length;
+    let pathPoints = points.slice(first, last);
     const hwidth = pen.width * 0.5;
 
     if (!pen.stroke) {
