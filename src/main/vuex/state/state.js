@@ -106,11 +106,16 @@ export const createSelection = () => ({
     box: null
 });
 
+const createShortcuts = () => ({
+    32: ({dispatch, commit, state}) => dispatch(On.PLAY, state.activeFilm)
+});
+
 export default {
     nav: createNav(),
     films: createFilms(),
     activeFilm: null,
     pens: createPens(),
     activePen: null,
-    panels: createModes()
+    panels: createModes(),
+    shortcuts: createShortcuts()
 };

@@ -1,5 +1,6 @@
 export default {
     ACTIVATE_NEW_FILM: 'activateNewFilm',
+    BIND_GLOBAL_KEYS: 'bindGlobalKeys',
     LOAD_FILMS: 'loadFilms',
     LOAD_FILM: 'loadFilm',
     DELETE_FILM: 'deleteFilm',
