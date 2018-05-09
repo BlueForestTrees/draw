@@ -8,8 +8,9 @@
     >
         <v-card tile>
             <v-toolbar card dark color="primary">
-                <v-btn dark flat @click.native="importFilm">Import</v-btn>
-                <v-btn dark flat @click.native="exportFilm">Export</v-btn>
+                <v-btn dark flat @click.native="importFilm">Import Json Film</v-btn>
+                <v-btn dark flat @click.native="exportFilm">Export Json Film</v-btn>
+                <v-btn dark flat @click.native="exportHtml">Export Html Example</v-btn>
                 <v-toolbar-title>Raw Edit Film</v-toolbar-title>
                 <v-spacer></v-spacer>
                 <v-toolbar-items>
@@ -19,7 +20,7 @@
                 </v-toolbar-items>
             </v-toolbar>
             <v-card-text>
-                <v-text-field auto-grow multi-line v-model="rawFilm"/>
+                <v-text-field auto-grow multi-line v-model="dialogContent"/>
             </v-card-text>
 
             <div style="flex: 1 1 auto;"></div>
@@ -29,6 +30,15 @@
 <script>
     import {mapActions, mapState} from "vuex";
     import On from "../../const/on";
+    import {filmTemplate} from "../../const/template";
+
+    const filmAsString = film => {
+        const temp = film.f.ftz;
+        film.f.ftz = 0;
+        const filmString = JSON.stringify(film);
+        film.f.ftz = temp;
+        return filmString;
+    };
 
     export default {
         name: "film-dialog",
@@ -36,28 +46,27 @@
         computed: {
             ...mapState(['nav'])
         },
+        data: function () {
+            return {
+                dialogContent: null
+            }
+        },
         methods: {
             ...mapActions({dispatchUpdateFilm: On.UPDATE_FILM}),
             importFilm: function () {
                 try {
-                    this.dispatchUpdateFilm(this.rawFilm);
+                    this.dispatchUpdateFilm(this.dialogContent);
                     this.nav.rawEditFilmDialogVisible = false;
                 } catch (e) {
                     console.error(e);
                 }
             },
             exportFilm: function () {
-                const temp = this.film.f.ftz;
-                this.film.f.ftz = 0;
-                this.rawFilm = JSON.stringify(this.film, null, 4);
-                this.film.f.ftz = temp;
-            }
-        },
-        data:
-            function () {
-                return {
-                    rawFilm: null
-                }
+                this.dialogContent = filmAsString(this.film);
             },
+            exportHtml: function () {
+                this.dialogContent = filmTemplate.replace("filmContentHere", filmAsString(this.film));
+            }
+        }
     }
 </script>

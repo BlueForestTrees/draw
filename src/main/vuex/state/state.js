@@ -66,7 +66,9 @@ export const createFilmInstance = () => ({
     f: createFilm(),
     _id: createId(),
     tx: 0,
-    ty: 0
+    ty: 0,
+    tw:640,
+    th:480
 });
 export const createId = () => Math.random() + "";
 export const createModes = () => ([
