@@ -1,5 +1,5 @@
 <template>
-    <svg @mousedown="svgMouseDown" id="surface" width="100%" height="100%" class="surface" ref="surface" viewBox="-1000 -1000 2000 2000">
+    <svg @mousedown="svgMouseDown" id="surface" width="100%" height="100%" class="surface" ref="surface" :viewBox="viewBox">
 
         <masks :film="film"/>
 
@@ -9,13 +9,13 @@
 
         <selection :film="film"/>
 
-        <circle cx="0" cy="0" r="10" stroke="black" stroke-width="3" fill="red" />
+        <circle cx="0" cy="0" r="10" stroke="black" stroke-width="3" fill="red"/>
 
     </svg>
 </template>
 
 <script>
-    import {mapGetters, mapMutations} from 'vuex';
+    import {mapGetters, mapMutations, mapState} from 'vuex';
     import Do from "../../const/do";
     import Selection from "./Selection";
     import Phantom from "./Phantom";
@@ -34,11 +34,16 @@
         props: ['film', 'pen'],
         data: function () {
             return {
-                domRef: null
+                domRef: null,
+                size: 4000
             }
         },
         computed: {
-            ...mapGetters(['activeMode'])
+            ...mapGetters(['activeMode']),
+            viewBox: function () {
+                const zize = this.film.f.zoom * this.size;
+                return `${-0.5 * zize} ${-0.5 * zize} ${zize} ${zize}`;
+            }
         },
         methods: {
             svgMouseDown: function (evt) {

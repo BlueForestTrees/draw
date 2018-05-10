@@ -35,6 +35,6 @@ export const getBBox = (element) => {
     const box = element.getBBox();
     return {
         x: box.x, y: box.y,
-        width: box.width, height: box.height
+        size: box.size, height: box.height
     };
 };

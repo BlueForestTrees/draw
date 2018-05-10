@@ -15,8 +15,8 @@
                   :d="eiPath(ei)" :style="style(ei.e.pen, ei)"
 
                   :transform="`translate(${ei.tx} ${ei.ty})`"
-                  @mousedown.ctrl.stop="clone({ei, film})" @mousedown.alt.stop="del({ei, film})"
             />
+                  <!--@mousedown.ctrl.stop="clone({ei, film})" @mousedown.alt.stop="del({ei, film})"-->
         </template>
 
         <elements v-for="sfilm in film.f.children" :film="sfilm" :key="sfilm.f.name"/>

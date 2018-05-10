@@ -6,7 +6,7 @@
             </v-flex>
         </v-layout>
         <swatches v-model="pen.color" colors="text-advanced" popover-to="left"/>
-        <v-slider v-model="pen.width" label="Epaisseur" min="1" step="1" max="300" thumb-label/>
+        <v-slider v-model="pen.size" label="Epaisseur" min="1" step="1" max="300" thumb-label/>
         <v-slider v-model="pen.length" label="Longueur" min="0" step="1" max="100" thumb-label/>
         <v-slider v-model="pen.opacity" label="Transparence" min="0" step="0.01" max="1" thumb-label/>
     </span>

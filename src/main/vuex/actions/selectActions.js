@@ -1,5 +1,5 @@
 import On from "../../const/on";
-import {getTranslation, getTxTy, globalToLocal, globalToLocal2, minus} from "../../util/util";
+import {getTranslation, globalToLocal, minus} from "../../util/util";
 import Vue from 'vue';
 import {createSelection} from "../state/state";
 import Do from "../../const/do";

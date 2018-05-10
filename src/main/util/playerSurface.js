@@ -2,7 +2,7 @@ export const eii = (ei, ftz) => ei.e.anim ? Math.min(ftz - ei.tz, ei.e.points.le
 export const showPathD = (ei, film) => ei.e.d && ei.tz <= film.f.ftz;
 export const style = (pen) => {
     if (pen.stroke) {
-        return `fill:none; stroke:${pen.color}; stroke-width:${pen.width}; stroke-linecap:round; stroke-opacity:${pen.opacity};`
+        return `fill:none; stroke:${pen.color}; stroke-width:${pen.size}; stroke-linecap:round; stroke-opacity:${pen.opacity};`
             + (pen.mask ? `clip-path: url(#mask${pen.mask});` : "")
     } else {
         return `fill-opacity:${pen.opacity}; fill:${pen.color};` + (pen.mask ? `clip-path: url(#mask${pen.mask});` : "");
@@ -13,7 +13,7 @@ export const path = (pen, points, config, length) => {
     const last = length || points.length;
     const first = pen.length === 0 ? 0 : length - pen.length;
     let pathPoints = points.slice(first, last);
-    const hwidth = pen.width * 0.5;
+    const hwidth = pen.size * 0.5;
 
     if (!pen.stroke) {
         if (pathPoints.length > 1) {

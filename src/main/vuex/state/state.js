@@ -67,8 +67,8 @@ export const createFilmInstance = () => ({
     _id: createId(),
     tx: 0,
     ty: 0,
-    tw:640,
-    th:480
+    tw: 640,
+    th: 480
 });
 export const createId = () => Math.random() + "";
 export const createModes = () => ([
@@ -85,15 +85,15 @@ export const createNav = () => ({
     rawEditFilmDialogVisible: false
 });
 export const createPens = () => ([
-    createPen({color: '#1155cc', width: 50}),
+    createPen({color: '#1155cc', size: 50}),
     createPen({}),
-    createPen({color: 'red', width: 5}),
-    createPen({color: '#1565C0', width: 2}),
+    createPen({color: 'red', size: 5}),
+    createPen({color: '#1565C0', size: 2}),
 ]);
 export const createPen = ({color, width, opacity, mask, stroke}) => ({
     _id: createId(),
     color: isNil(color) ? '#000000' : color,
-    width: isNil(width) ? 10 : width,
+    size: isNil(width) ? 10 : width,
     opacity: isNil(opacity) ? 1 : opacity,
     mask: isNil(mask) ? false : mask,
     stroke: isNil(stroke) ? true : stroke,
