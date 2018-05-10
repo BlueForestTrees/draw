@@ -6,7 +6,6 @@
             <v-btn flat><v-icon>zoom_in</v-icon></v-btn>
             <v-btn flat><v-icon>zoom_out</v-icon></v-btn>
         </v-btn-toggle>
-        {{nav.zoomSide}}
     </span>
 </template>
 
