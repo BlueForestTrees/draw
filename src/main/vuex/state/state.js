@@ -54,7 +54,9 @@ export const createFilm = () => ({
     config: createConfig(),
     selection: createSelection(),
 
-    zoom: 1
+    zoom: 1,
+    panx: 0,
+    pany: 0
 });
 export const cloneFilm = (film, newName) => {
     const clonedFilm = cloneDeep(film);
@@ -82,7 +84,8 @@ export const createModes = () => ([
 export const createName = () => reduced(ObjectID());
 export const createNav = () => ({
     menuVisible: true,
-    rawEditFilmDialogVisible: false
+    rawEditFilmDialogVisible: false,
+    zoomSide: 0
 });
 export const createPens = () => ([
     createPen({color: '#1155cc', size: 50}),

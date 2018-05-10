@@ -1,12 +1,48 @@
 import On from "../../const/on";
-import Do from "../../const/do";
+import {globalToLocal, minus} from "../../util/util";
 
 export default {
     [On.START_ZOOM]: ({commit, state}, {evt, film, domRef, pen}) => {
-        if (evt.altKey) {
-            commit(Do.ZOOM_OUT, film);
-        } else {
-            commit(Do.ZOOM_IN, film);
-        }
+        const ctx = {
+            evt,
+            film,
+            domRef,
+            pen,
+            moved: false,
+            state,
+            downMouse: globalToLocal(evt, domRef),
+        };
+        ctx.onmouseup = zoomUp.bind(null, ctx);
+        ctx.onmousemove = zoomMove.bind(null, ctx);
+
+        window.addEventListener("mousemove", ctx.onmousemove);
+        window.addEventListener("mouseup", ctx.onmouseup);
     }
 }
+
+const zoomMove = (ctx, e) => {
+    ctx.moved = true;
+    const move = minus(globalToLocal(e, ctx.domRef), ctx.downMouse);
+    ctx.film.f.panx -= move.x;
+    ctx.film.f.pany -= move.y;
+};
+
+const zoomUp = (ctx, evt) => {
+    if (!ctx.moved) {
+        if (ctx.state.nav.zoomSide) {
+            if (evt.altKey) {
+                ctx.film.f.zoom /= 1.15;
+            } else {
+                ctx.film.f.zoom *= 1.15;
+            }
+        }else{
+            if (evt.altKey) {
+                ctx.film.f.zoom *= 1.15;
+            } else {
+                ctx.film.f.zoom /= 1.15;
+            }
+        }
+    }
+    window.removeEventListener("mousemove", ctx.onmousemove);
+    window.removeEventListener("mouseup", ctx.onmouseup);
+};

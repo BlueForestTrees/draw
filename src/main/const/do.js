@@ -29,6 +29,4 @@ export default {
     TOGGLE_MENU_VISIBILITY: 'toggleMenuVisibility',
     UNKEEP: 'unkeep',
     UNSELECT_ELEMENT: 'unselectElement',
-    ZOOM_IN: 'zoomIn',
-    ZOOM_OUT: 'zoomOut'
 };

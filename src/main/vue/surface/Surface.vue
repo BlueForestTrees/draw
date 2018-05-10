@@ -42,7 +42,9 @@
             ...mapGetters(['activeMode']),
             viewBox: function () {
                 const zize = this.film.f.zoom * this.size;
-                return `${-0.5 * zize} ${-0.5 * zize} ${zize} ${zize}`;
+                const panx = this.film.f.panx;
+                const pany = this.film.f.pany;
+                return `${panx + -0.5 * zize} ${pany + -0.5 * zize} ${zize} ${zize}`;
             }
         },
         methods: {
