@@ -1,5 +1,5 @@
 import On from "../../const/on";
-import {getTxTy, globalToLocal, minus} from "../../util/util";
+import {getTranslation, getTxTy, globalToLocal, globalToLocal2, minus} from "../../util/util";
 import Vue from 'vue';
 import {createSelection} from "../state/state";
 import Do from "../../const/do";
@@ -15,7 +15,7 @@ export default {
                 selection: film.f.selection,
                 element: getElement(film, currentElementSvg.id),
                 downMouse: globalToLocal(evt, domRef),
-                initialTxy: getTxTy(domRef.svg, currentElementSvg.id)
+                initialTxy: getTranslation(domRef.svg.getElementById(currentElementSvg.id), domRef)
             };
             ctx.onmousemove = selectMove.bind(null, ctx);
             ctx.onmouseup = selectUp.bind(null, ctx);

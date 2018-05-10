@@ -50,7 +50,6 @@ export default {
             }
         };
 
-        console.log("shortcuts");
         window.addEventListener("keydown", keydown, true);
     }
 }

@@ -1,6 +1,6 @@
 import Do from "../../const/do";
 import {createFilm} from "../state/state";
-import {getBBox, getTxTy, simplifyFilm} from "../../util/util";
+import {getBBox, getTranslation, getTxTy, globalToLocal2, simplifyFilm} from "../../util/util";
 import _ from 'lodash';
 
 export default {
@@ -14,9 +14,10 @@ export default {
         film.f.selection.elementId = elementId;
     },
     [Do.SET_SELECTION_BOX]: (state, {elementId, film, domRef}) => {
+        const element = domRef.svg.getElementById(elementId);
         film.f.selection.box = {
-            ...getBBox(domRef.svg, elementId),
-            ...getTxTy(domRef.svg, elementId)
+            ...getBBox(element),
+            ...getTranslation(element,domRef)
         };
     },
     [Do.ACTIVATE_FIRST_PEN]: state => {

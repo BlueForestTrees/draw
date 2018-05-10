@@ -1,5 +1,5 @@
 <template>
-    <svg @mousedown="svgMouseDown" id="surface" width="100%" height="100%" class="surface" ref="surface">
+    <svg @mousedown="svgMouseDown" id="surface" width="100%" height="100%" class="surface" ref="surface" viewBox="-1000 -1000 2000 2000">
 
         <masks :film="film"/>
 
@@ -8,6 +8,8 @@
         <elements :film="film"/>
 
         <selection :film="film"/>
+
+        <circle cx="0" cy="0" r="10" stroke="black" stroke-width="3" fill="red" />
 
     </svg>
 </template>

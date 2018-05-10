@@ -23,13 +23,16 @@ const simplifyPoints = (points, config) => {
 };
 
 export const simplifyFilm = film => forEach(film.f.elements, ei => ei.e.points = simplifyPoints(ei.e.points, film.f.config));
-export const getTxTy = (parent, childId) => {
-    const ctm = parent.getElementById(childId).getCTM();
-    return {tx: ctm.e, ty: ctm.f};
-};
 
-export const getBBox = (parent, childId) => {
-    const box = parent.getElementById(childId).getBBox();
+export const getTranslation = (element, {svgPoint, svg}) => {
+    const ctm = element.getCTM();
+    svgPoint.x = ctm.e;
+    svgPoint.y = ctm.f;
+    const p = svgPoint.matrixTransform(svg.getCTM().inverse());
+    return {tx: p.x, ty: p.y};
+};
+export const getBBox = (element) => {
+    const box = element.getBBox();
     return {
         x: box.x, y: box.y,
         width: box.width, height: box.height
