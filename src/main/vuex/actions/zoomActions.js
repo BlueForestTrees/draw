@@ -8,7 +8,7 @@ export default {
             film,
             domRef,
             pen,
-            moved: false,
+            moved: 0,
             state,
             downMouse: globalToLocal(evt, domRef),
         };
@@ -21,21 +21,21 @@ export default {
 }
 
 const zoomMove = (ctx, e) => {
-    ctx.moved = true;
+    ctx.moved++;
     const move = minus(globalToLocal(e, ctx.domRef), ctx.downMouse);
     ctx.film.f.panx -= move.x;
     ctx.film.f.pany -= move.y;
 };
 
 const zoomUp = (ctx, evt) => {
-    if (!ctx.moved) {
+    if (ctx.moved < 3) {
         if (ctx.state.nav.zoomSide) {
             if (evt.altKey) {
                 ctx.film.f.zoom /= 1.15;
             } else {
                 ctx.film.f.zoom *= 1.15;
             }
-        }else{
+        } else {
             if (evt.altKey) {
                 ctx.film.f.zoom *= 1.15;
             } else {

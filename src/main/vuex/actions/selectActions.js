@@ -14,8 +14,8 @@ export default {
                 domRef,
                 selection: film.f.selection,
                 element: getElement(film, currentElementSvg.id),
+                initialTxy: getTranslation(domRef.svg.getElementById(currentElementSvg.id), domRef),
                 downMouse: globalToLocal(evt, domRef),
-                initialTxy: getTranslation(domRef.svg.getElementById(currentElementSvg.id), domRef)
             };
             ctx.onmousemove = selectMove.bind(null, ctx);
             ctx.onmouseup = selectUp.bind(null, ctx);

@@ -1,21 +1,15 @@
 <template>
     <svg @mousedown="svgMouseDown" id="surface" width="100%" height="100%" class="surface" ref="surface" :viewBox="viewBox">
-
         <masks :film="film"/>
-
         <phantom v-if="film.f.config.showPhantom" :film="film"/>
-
         <elements :film="film"/>
-
-        <selection :film="film"/>
-
         <circle cx="0" cy="0" r="10" stroke="black" stroke-width="3" fill="red"/>
-
+        <selection :film="film"/>
     </svg>
 </template>
 
 <script>
-    import {mapGetters, mapMutations, mapState} from 'vuex';
+    import {mapGetters, mapMutations} from 'vuex';
     import Do from "../../const/do";
     import Selection from "./Selection";
     import Phantom from "./Phantom";
