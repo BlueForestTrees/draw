@@ -3,6 +3,7 @@ import {navTo, play, rewind} from "../../util/playerControl";
 
 export default {
     [Do.REWIND]: async ({}, film) => {
+        film.f.player.playing = false;
         rewind(film);
     },
     [Do.NAV]: ({}, {film, i}) => {

@@ -16,6 +16,7 @@ export default {
     START_DRAW: 'startDraw',
     START_SELECT: 'startSelect',
     START_ZOOM: 'startZoom',
+    TOGGLE_PLAY: 'togglePlay',
     UPDATE_FILM: 'updateFilm',
     START_VIEWBOX: 'startViewbox'
 };
