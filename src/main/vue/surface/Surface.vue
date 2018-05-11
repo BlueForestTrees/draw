@@ -3,7 +3,7 @@
         <masks :film="film"/>
         <phantom v-if="film.f.config.showPhantom" :film="film"/>
         <elements :film="film"/>
-        <circle cx="0" cy="0" r="10" stroke="black" stroke-width="3" fill="red"/>
+        <draw-preview :domRef="domRef"/>
         <selection :film="film"/>
     </svg>
 </template>
@@ -16,9 +16,11 @@
     import Elements from "./Elements";
     import Masks from "./Masks";
     import Vue from 'vue';
+    import DrawPreview from "../menu/DrawPreview";
 
     export default {
         components: {
+            DrawPreview,
             Masks,
             Elements,
             Phantom,
