@@ -1,7 +1,7 @@
 import Do from "../../const/do";
 import On from "../../const/on";
 import {deleteFilm, getFilm, getFilms, saveFilm} from "../../rest/api";
-import {cloneFilm, createId} from "../state/state";
+import {cloneFilm, createCamera, createId} from "../state/state";
 
 const needLoad = film => !film.f.elements;
 
@@ -20,11 +20,12 @@ export default {
         }
     },
     [On.LOAD_FILM]: async ({commit}, film) => {
+        let f = film;
         if (needLoad(film)) {
-            commit(Do.SELECT_FILM, await getFilm(film._id));
-        } else {
-            commit(Do.SELECT_FILM, film);
+            f = await getFilm(film._id);
         }
+        retroCompatFilm(f);
+        commit(Do.SELECT_FILM, f);
     },
     [On.DELETE_FILM]: async ({commit}, film) => {
         await deleteFilm(film._id);
@@ -54,3 +55,7 @@ export default {
         window.addEventListener("keydown", keydown, true);
     }
 }
+
+const retroCompatFilm = film => {
+    if (!film.camera) film.camera = createCamera();
+};

@@ -17,7 +17,6 @@ export default {
 
 const cameraMove = ({commit, film, domRef, mouseDown}, evt) => {
     const mouseMove = globalToLocal(evt, domRef);
-    if (!film.camera) film.camera = {};
     film.camera.x = Math.round(Math.min(mouseDown.x, mouseMove.x));
     film.camera.y = Math.round(Math.min(mouseDown.y, mouseMove.y));
     film.camera.w = Math.round(Math.abs(mouseDown.x - mouseMove.x));
