@@ -16,6 +16,7 @@ export default {
 
         const ei = createElementInstance(ctx.e, film);
         commit(Do.ADD_ELEMENT_INSTANCE, {ei, film});
+        commit(Do.SET_SELECTION_ELEMENT, {film, elementId: ei._id});
 
         ctx.onmousemove = drawMove.bind(null, ctx);
         ctx.onmouseup = drawUp.bind(null, ctx);
@@ -24,7 +25,6 @@ export default {
 
         window.addEventListener("mousemove", ctx.onmousemove);
         window.addEventListener("mouseup", ctx.onmouseup);
-        commit(Do.SELECT_ELEMENT, ei);
     }
 }
 

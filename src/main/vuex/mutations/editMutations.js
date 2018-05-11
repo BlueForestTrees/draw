@@ -1,5 +1,5 @@
 import Do from "../../const/do";
-import {createFilm} from "../state/state";
+import {createFilm, createSelection} from "../state/state";
 import {getBBox, getTranslation, getTxTy, globalToLocal2, simplifyFilm} from "../../util/util";
 import _ from 'lodash';
 
@@ -10,7 +10,11 @@ export default {
     [Do.SET_FILMS]: (state, films) => {
         state.films = films;
     },
+    [Do.UNSELECT_ELEMENT]: (state, film) => {
+        Object.assign(film.f.selection, createSelection());
+    },
     [Do.SET_SELECTION_ELEMENT]: (state, {film, elementId}) => {
+        state.selectionHistory.push(elementId);
         film.f.selection.elementId = elementId;
     },
     [Do.SET_SELECTION_BOX]: (state, {elementId, film, domRef}) => {

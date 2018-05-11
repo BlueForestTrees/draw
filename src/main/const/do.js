@@ -18,7 +18,6 @@ export default {
     PICK_PEN: 'PICK_PEN',
     PLAY: 'play',
     REWIND: 'rewind',
-    SELECT_ELEMENT: 'selectElement',
     SELECT_FILM: 'selectFilm',
     SELECT_PEN: 'selectPen',
     SET_MENU_VISIBILITY: 'setMenuVisibility',

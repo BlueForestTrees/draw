@@ -123,5 +123,6 @@ export default {
     pens: createPens(),
     activePen: null,
     panels: createModes(),
-    shortcuts: createShortcuts()
+    shortcuts: createShortcuts(),
+    selectionHistory: []
 };

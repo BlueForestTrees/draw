@@ -19,12 +19,6 @@ export default {
     [Do.SELECT_PEN]: (state, pen) => {
         state.activePen = pen;
     },
-    [Do.SELECT_ELEMENT]: (state, ei) => {
-        Vue.nextTick(() => state.activeFilm.f.selection.elementId = ei._id);
-    },
-    [Do.UNSELECT_ELEMENT]: (state, film) => {
-        Object.assign(film.f.selection, createSelection());
-    },
     [Do.SET_MODE]: (state, mode) => {
         state.activeFilm.f.config.activeModeIdx = findIndex(state.panels, {name: mode});
     }
