@@ -3,6 +3,7 @@ import On from "../../const/on";
 import modes from "../../const/modes";
 import {cloneDeep, isNil} from 'lodash';
 import ObjectID from "bson-objectid";
+import Do from "../../const/do";
 
 export const createConfig = () => ({
     showPhantom: true,
@@ -113,7 +114,9 @@ export const createSelection = () => ({
 
 const createShortcuts = () => ({
     32: ({dispatch, state}) => dispatch(On.PLAY, state.activeFilm),
-    46: ({dispatch}) => dispatch(On.DELETE_SELECTION)
+    46: ({dispatch}) => dispatch(On.DELETE_SELECTION),
+    37: ({commit, state}) => commit(Do.PREV, state.activeFilm),
+    39: ({commit, state}) => commit(Do.NEXT, state.activeFilm)
 });
 
 export default {

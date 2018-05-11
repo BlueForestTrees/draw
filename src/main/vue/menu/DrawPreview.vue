@@ -23,7 +23,6 @@
         },
         watch: {
             activated: function (v) {
-                console.log("avtivated", v);
                 if (v) {
                     window.addEventListener("mousemove", this.onmousemove);
                 } else {
