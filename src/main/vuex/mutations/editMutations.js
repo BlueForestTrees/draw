@@ -17,7 +17,7 @@ export default {
         const element = domRef.svg.getElementById(elementId);
         film.f.selection.box = {
             ...getBBox(element),
-            ...getTranslation(element,domRef)
+            ...getTranslation(element, domRef)
         };
     },
     [Do.ACTIVATE_FIRST_PEN]: state => {
@@ -29,6 +29,9 @@ export default {
     },
     [Do.CLEAR_FILM]: ({}, film) => {
         Object.assign(film.f, createFilm());
+    },
+    [Do.CUT_END]: ({}, film) => {
+        film.f.imageCount = film.f.ftz;
     },
     [Do.DELETE_ELEMENT]: ({}, {ei, film}) => {
         film.f.elements.splice(

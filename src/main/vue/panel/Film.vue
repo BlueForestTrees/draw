@@ -28,7 +28,7 @@
         <v-switch label="Phantom" v-model="film.f.config.showPhantom"/>
 
         <v-btn><v-icon>content_cut</v-icon><v-icon>trending_flat</v-icon></v-btn>
-        <v-btn><v-icon>trending_flat</v-icon><v-icon>content_cut</v-icon></v-btn>
+        <v-btn @click="cutEnd(film)"><v-icon>trending_flat</v-icon><v-icon>content_cut</v-icon></v-btn>
 
         <film-dialog :film="film"/>
     </span>
@@ -61,7 +61,7 @@
         },
         methods: {
             save: async function () {
-                await this.saveAs({film:this.film, name:this.newName});
+                await this.saveAs({film: this.film, name: this.newName});
                 this.newName = null;
                 this.saving = false;
             },
@@ -80,7 +80,8 @@
             ...mapMutations({
                 addFilm: Do.ADD_FILM,
                 clearFilm: Do.CLEAR_FILM,
-                updateDuration: Do.UPDATE_DURATION
+                updateDuration: Do.UPDATE_DURATION,
+                cutEnd: Do.CUT_END
             }),
             openFilmDialog: function () {
                 this.nav.rawEditFilmDialogVisible = true;

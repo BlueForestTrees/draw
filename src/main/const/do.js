@@ -7,6 +7,7 @@ export default {
     UPDATE_DURATION: 'updateDuration',
     ADD_ELEMENT_INSTANCE: 'addElementInstance',
     CLEAR_FILM: 'clearFilm',
+    CUT_END: 'cutEnd',
     DELETE_ELEMENT: 'deleteElement',
     INSTANTIATE: 'instantiate',
     KEEP: 'keep',
