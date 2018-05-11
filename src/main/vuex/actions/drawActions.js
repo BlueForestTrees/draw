@@ -1,9 +1,9 @@
 import On from "../../const/on";
 import {createElement, createElementInstance} from "../state/state";
-import {globalToLocal} from "../../util/geo";
+import {globalToLocal} from "../../util/util";
 import _ from 'lodash';
-import {navTo} from "../mutations/playerMutations";
 import Do from "../../const/do";
+import {navTo} from "../../util/playerControl";
 
 export default {
     [On.START_DRAW]: ({commit, getters, state}, {evt, film, domRef, pen}) => {

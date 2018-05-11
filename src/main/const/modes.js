@@ -5,4 +5,5 @@ export default {
     MASK: 'Masque',
     SELECT: 'Selection',
     ZOOM: 'Zoom',
+    VIEWBOX: 'Viewbox'
 }

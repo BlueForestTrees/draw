@@ -1,19 +1,23 @@
 import Do from "../../const/do";
 import {createFilm} from "../state/state";
-import {getBBox, getTxTy, simplifyFilm} from "../../util/geo";
+import {getBBox, getTranslation, getTxTy, globalToLocal2, simplifyFilm} from "../../util/util";
 import _ from 'lodash';
 
 export default {
     [Do.SET_FILM]: (state, film) => {
         state.film = film;
     },
+    [Do.SET_FILMS]: (state, films) => {
+        state.films = films;
+    },
     [Do.SET_SELECTION_ELEMENT]: (state, {film, elementId}) => {
         film.f.selection.elementId = elementId;
     },
     [Do.SET_SELECTION_BOX]: (state, {elementId, film, domRef}) => {
+        const element = domRef.svg.getElementById(elementId);
         film.f.selection.box = {
-            ...getBBox(domRef.svg, elementId),
-            ...getTxTy(domRef.svg, elementId)
+            ...getBBox(element),
+            ...getTranslation(element,domRef)
         };
     },
     [Do.ACTIVATE_FIRST_PEN]: state => {
@@ -22,9 +26,6 @@ export default {
         } else {
             console.error("state.pens vide")
         }
-    },
-    [Do.CLEAR_FILM]: ({}, film) => {
-        Object.assign(film.f, createFilm());
     },
     [Do.CLEAR_FILM]: ({}, film) => {
         Object.assign(film.f, createFilm());

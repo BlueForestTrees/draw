@@ -9,16 +9,16 @@
                 </v-btn-toggle>
                 {{activeMode.name}}
                 <span v-if="modeIs(modes.BRUSH)">
-                    <brush/>
+                    <brush :film="film" :selection="selection" :noSelection="noSelection"/>
                 </span>
                 <span v-if="modeIs(modes.SELECT)">
-                    <selection :selection="selection"/>
+                    <selection :selection="selection" :film="film" :noSelection="noSelection"/>
                 </span>
                 <span v-if="modeIs(modes.FILM)">
                     <film :film="film" :films="films"/>
                 </span>
-                <span v-if="modeIs(modes.MASK)">
-                    <masking :film="film" :selection="selection" :noSelection="noSelection"/>
+                <span v-if="modeIs(modes.ZOOM)">
+                    <zoom :film="film" />
                 </span>
                 <span v-if="modeIs(modes.IMPORT)">
                    <import/>
@@ -36,18 +36,18 @@
     import modes from "../../const/modes";
     import Import from "../panel/Import";
     import PenEdit from "./PenEdit";
-    import Masking from "../panel/Masking";
     import Film from "../panel/Film";
     import Selection from "../panel/Selection";
     import Brush from "../panel/Brush";
+    import Zoom from "../panel/Zoom";
 
     export default {
         name: 'left-menu',
         components: {
+            Zoom,
             Brush,
             Selection,
             Film,
-            Masking,
             PenEdit,
             Import,
             PenPreview

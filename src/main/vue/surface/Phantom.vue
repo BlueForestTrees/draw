@@ -28,7 +28,7 @@
 </template>
 
 <script>
-    import {path, style} from "../../util/geo";
+    import {path, style} from "../../util/playerSurface";
     import {mapGetters} from "vuex";
 
     export default {
@@ -37,7 +37,7 @@
         methods: {
             path, style,
             phantomStyle: function (ei) {
-                return this.style(ei.e.pen, ei) + "opacity:0.1";
+                return this.style(ei.e.pen, ei) + "opacity:0.1;stroke-opacity:0.1";
             }
         },
         computed: {

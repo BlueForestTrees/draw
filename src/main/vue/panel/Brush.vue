@@ -30,7 +30,7 @@
     </span>
 </template>
 <script>
-    import {mapActions, mapGetters, mapMutations, mapState} from "vuex";
+    import {mapMutations, mapState} from "vuex";
     import Do from "../../const/do";
     import PenPreview from "../menu/PenPreview";
     import PenEdit from "../menu/PenEdit";
@@ -38,16 +38,15 @@
     export default {
         name: "brush",
         components: {PenEdit, PenPreview},
+        props: ['selection', 'film'],
         computed: {
-            ...mapState({film: 'activeFilm', pens: 'pens', activePen: 'activePen'}),
-            ...mapGetters(['selection']),
+            ...mapState({pens: 'pens', activePen: 'activePen'})
         },
         methods: {
             ...mapMutations({
                 applySimplification: Do.APPLY_SIMPLIFICATION,
                 selectPen: Do.SELECT_PEN,
             }),
-            ...mapActions({}),
             merge: function () {
                 const parent = this.films[0];
                 const child = this.films[1];
