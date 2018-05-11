@@ -12,7 +12,7 @@ export const filmTemplate = "<!DOCTYPE html>\n" +
     "    <meta name='theme-color' content='#ffffff'>\n" +
     "    <meta name='viewport' content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui'>\n" +
     "    <script src='https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js'></script>\n" +
-    "    <script type='application/javascript' src='https://unpkg.com/trees-draw-play@1.0.10/dist/play.min.js'></script>\n\n"+
+    "    <script type='application/javascript' src='https://unpkg.com/trees-draw-play@1.0.11/dist/play.min.js'></script>\n\n"+
     "    <script>\n" +
     "        const film = filmContentHere;\n" +
     "        window.onload = function () {\n" +
