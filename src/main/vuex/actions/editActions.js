@@ -22,7 +22,7 @@ export default {
             } else {
                 console.log("format d'import non reconnu (ni d, ni points");
             }
-        }else{
+        } else {
             throw new Error("rien à importer");
         }
     },
@@ -32,7 +32,11 @@ export default {
         commit(Do.SELECT_ELEMENT, clonedEI);
         commit(Do.SET_MODE, modes.SELECT);
     },
+    [On.DELETE_SELECTION]: ({dispatch, state, getters}) => {
+        dispatch(On.DELETE_ELEMENT, {ei: getters.selection, film: state.activeFilm})
+    },
     [On.DELETE_ELEMENT]: ({commit}, {ei, film}) => {
+        if (!ei) return;
         commit(Do.DELETE_ELEMENT, {ei, film});
         commit(Do.UNSELECT_ELEMENT, film);
         commit(Do.NAV, {film, i: ei.tz});

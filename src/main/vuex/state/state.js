@@ -112,7 +112,8 @@ export const createSelection = () => ({
 });
 
 const createShortcuts = () => ({
-    32: ({dispatch, commit, state}) => dispatch(On.PLAY, state.activeFilm)
+    32: ({dispatch, state}) => dispatch(On.PLAY, state.activeFilm),
+    46: ({dispatch}) => dispatch(On.DELETE_SELECTION)
 });
 
 export default {

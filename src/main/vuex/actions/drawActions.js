@@ -8,13 +8,14 @@ import {navTo} from "../../util/playerControl";
 export default {
     [On.START_DRAW]: ({commit, getters, state}, {evt, film, domRef, pen}) => {
         const ctx = {
-            e: createElement({pen:{...pen, mask:getters.activeMaskId}, points: [], anim: true}),
+            e: createElement({pen: {...pen, mask: getters.activeMaskId}, points: [], anim: true}),
             startMoment: _.now(),
             film,
             domRef
         };
 
-        commit(Do.ADD_ELEMENT_INSTANCE, {ei: createElementInstance(ctx.e, film), film});
+        const ei = createElementInstance(ctx.e, film);
+        commit(Do.ADD_ELEMENT_INSTANCE, {ei, film});
 
         ctx.onmousemove = drawMove.bind(null, ctx);
         ctx.onmouseup = drawUp.bind(null, ctx);
@@ -23,6 +24,7 @@ export default {
 
         window.addEventListener("mousemove", ctx.onmousemove);
         window.addEventListener("mouseup", ctx.onmouseup);
+        commit(Do.SELECT_ELEMENT, ei);
     }
 }
 

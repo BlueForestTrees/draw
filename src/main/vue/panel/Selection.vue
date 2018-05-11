@@ -8,6 +8,7 @@
                     <v-icon>group_work</v-icon>
                 </v-btn>
             <v-btn flat icon @click="clone({ei:selection, film})"><v-icon>toll</v-icon></v-btn>
+            <v-btn flat icon @click="del({ei:selection, film})"><v-icon>delete</v-icon></v-btn>
             <pen-edit :pen="selection.e.pen"/>
             <v-btn @click="pickPen(selection)" :disabled="noSelection"><v-icon>trending_flat</v-icon><v-icon>brush</v-icon></v-btn>
         </span>
@@ -26,6 +27,7 @@
             ...mapActions({
                 pickPen: On.PICK_PEN,
                 clone: On.CLONE,
+                del: On.DELETE_ELEMENT,
                 maskConvert: On.MASK_CONVERT
             })
         }

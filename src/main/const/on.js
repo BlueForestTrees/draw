@@ -6,6 +6,7 @@ export default {
     DELETE_FILM: 'deleteFilm',
     CLONE: 'clone',
     DELETE_ELEMENT: 'deleteElement',
+    DELETE_SELECTION: 'deleteSelection',
     IMPORT: 'import',
     MASK_CONVERT: 'maskConvert',
     MOUNT_APP: 'mountApp',
