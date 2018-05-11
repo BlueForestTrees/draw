@@ -5,6 +5,7 @@
         <elements :film="film"/>
         <draw-preview :domRef="domRef"/>
         <selection :film="film"/>
+        <camera :camera="film.camera"/>
     </svg>
 </template>
 
@@ -17,9 +18,11 @@
     import Masks from "./Masks";
     import Vue from 'vue';
     import DrawPreview from "../menu/DrawPreview";
+    import Camera from "./Camera";
 
     export default {
         components: {
+            Camera,
             DrawPreview,
             Masks,
             Elements,

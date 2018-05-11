@@ -1,6 +1,6 @@
 <template>
     <v-app id="app" light>
-        <left-menu v-if="activeFilm" :film="activeFilm"/>
+        <palette v-if="activeFilm" :film="activeFilm"/>
         <v-content v-if="activeFilm">
             <v-container fluid fill-height>
                 <v-layout align-center justify-center>
@@ -18,15 +18,15 @@
 
 <script>
     import Surface from "./surface/Surface";
-    import LeftMenu from "./menu/LeftMenu";
     import Player from "./player/Player";
     import {mapState} from "vuex";
     import On from "../const/on";
+    import Palette from "./menu/Palette";
 
     export default {
         components: {
+            Palette,
             Player,
-            LeftMenu,
             Surface
         },
         computed: {

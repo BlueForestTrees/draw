@@ -18,5 +18,5 @@ export default {
     START_ZOOM: 'startZoom',
     TOGGLE_PLAY: 'togglePlay',
     UPDATE_FILM: 'updateFilm',
-    START_VIEWBOX: 'startViewbox'
+    START_CAMERA: 'startCamera'
 };

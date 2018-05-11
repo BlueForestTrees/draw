@@ -18,10 +18,13 @@
                     <film :film="film" :films="films"/>
                 </span>
                 <span v-if="modeIs(modes.ZOOM)">
-                    <zoom :film="film" />
+                    <zoom :film="film"/>
                 </span>
                 <span v-if="modeIs(modes.IMPORT)">
                    <import/>
+                </span>
+                <span v-if="modeIs(modes.CAMERA)">
+                   <camera :camera="film.camera"/>
                 </span>
             </v-layout>
         </v-container>
@@ -40,18 +43,11 @@
     import Selection from "../panel/Selection";
     import Brush from "../panel/Brush";
     import Zoom from "../panel/Zoom";
+    import Camera from "../panel/Camera";
 
     export default {
-        name: 'left-menu',
-        components: {
-            Zoom,
-            Brush,
-            Selection,
-            Film,
-            PenEdit,
-            Import,
-            PenPreview
-        },
+        name: 'palette',
+        components: {Camera, Zoom, Brush, Selection, Film, PenEdit, Import, PenPreview},
         computed: {
             ...mapState({nav: 'nav', film: 'activeFilm', films: 'films', pens: 'pens', panels: 'panels', activePen: 'activePen'}),
             ...mapGetters(['activeMode', 'selection', 'noSelection', 'modeIs', 'visibleMasks', 'totalSec']),

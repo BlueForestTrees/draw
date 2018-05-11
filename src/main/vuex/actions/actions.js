@@ -8,6 +8,7 @@ import Do from "../../const/do";
 import zoomActions from "./zoomActions";
 import test from "../../const/test";
 import appActions from "./appActions";
+import cameraActions from "./cameraActions";
 
 export default {
     ...appActions,
@@ -16,5 +17,6 @@ export default {
     ...drawActions,
     ...selectActions,
     ...maskActions,
-    ...zoomActions
+    ...zoomActions,
+    ...cameraActions
 }
