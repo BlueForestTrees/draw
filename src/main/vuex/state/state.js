@@ -85,7 +85,8 @@ export const createNav = () => ({
     menuVisible: true,
     rawEditFilmDialogVisible: false,
     zoomSide: 0,
-    cameraTjrsVisible: false
+    cameraTjrsVisible: false,
+    autoreturn: false
 });
 export const createPens = () => ([
     createPen({color: '#1155cc', size: 50}),

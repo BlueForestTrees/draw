@@ -2,9 +2,9 @@
     <g style="pointer-events: none">
 
         <template v-for="mi in visibleMasks">
-            <path v-if="mi.e.d" :key="mi._id"
-                  :d="mi.e.d"
-                  style="fill:black;fill-opacity:0.1"
+            <path v-if="mi.e.d"
+                  :key="mi._id" :d="mi.e.d"
+                  style="fill:red;fill-opacity:0.04"
                   :transform="`translate(${mi.tx} ${mi.ty})`"
             />
         </template>
@@ -37,7 +37,7 @@
         methods: {
             path, style,
             phantomStyle: function (ei) {
-                return this.style(ei.e.pen, ei) + "opacity:0.1;stroke-opacity:0.1";
+                return this.style(ei.e.pen, ei) + "opacity:0.2;stroke-opacity:0.2";
             }
         },
         computed: {

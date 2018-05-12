@@ -3,6 +3,7 @@
         <v-layout>
             <v-flex xs12 sm6 class="py-2">
                 <v-switch v-model="pen.stroke" label="Fil de fer"></v-switch>
+                <v-switch v-model="nav.autoreturn" label="Rembobinage auto."></v-switch>
             </v-flex>
         </v-layout>
         <swatches v-model="pen.color" colors="text-advanced" popover-to="left"/>
@@ -13,12 +14,16 @@
 </template>
 <script>
     import Swatches from 'vue-swatches';
+    import {mapState} from "vuex";
 
     export default {
         name: "pen-edit",
         props: ['pen', 'disabled'],
         components: {
             Swatches
+        },
+        computed: {
+            ...mapState(['nav'])
         }
     }
 </script>
