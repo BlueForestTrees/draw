@@ -49,6 +49,7 @@ export const createFilm = () => ({
     masks: [],
     children: [],
     imageCount: 0,
+    start:0,
     ftz: 0,
     keptImage: 0,
     player: createPlayer(),

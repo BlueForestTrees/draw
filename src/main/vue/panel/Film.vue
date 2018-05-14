@@ -27,7 +27,7 @@
 
         <v-switch label="Phantom" v-model="film.f.config.showPhantom"/>
 
-        <v-btn><v-icon>content_cut</v-icon><v-icon>trending_flat</v-icon></v-btn>
+        <v-btn @click="cutStart(film)"><v-icon>content_cut</v-icon><v-icon>trending_flat</v-icon></v-btn>
         <v-btn @click="cutEnd(film)"><v-icon>trending_flat</v-icon><v-icon>content_cut</v-icon></v-btn>
 
         <film-dialog :film="film"/>
@@ -81,7 +81,8 @@
                 addFilm: Do.ADD_FILM,
                 clearFilm: Do.CLEAR_FILM,
                 updateDuration: Do.UPDATE_DURATION,
-                cutEnd: Do.CUT_END
+                cutEnd: Do.CUT_END,
+                cutStart: Do.CUT_START
             }),
             openFilmDialog: function () {
                 this.nav.rawEditFilmDialogVisible = true;

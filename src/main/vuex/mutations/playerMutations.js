@@ -10,7 +10,7 @@ export default {
         navTo(film, i);
     },
     [Do.PREV]: ({}, film) => {
-        navTo(film, Math.max(0, film.f.ftz - 1));
+        navTo(film, Math.max(film.f.start, film.f.ftz - 1));
     },
     [Do.NEXT]: ({}, film) => {
         navTo(film, film.f.ftz + 1);

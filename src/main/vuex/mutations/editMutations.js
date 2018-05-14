@@ -37,6 +37,9 @@ export default {
     [Do.CUT_END]: ({}, film) => {
         film.f.imageCount = film.f.ftz;
     },
+    [Do.CUT_START]: ({}, film) => {
+        film.f.start = film.f.ftz;
+    },
     [Do.DELETE_ELEMENT]: ({}, {ei, film}) => {
         film.f.elements.splice(
             _.findIndex(

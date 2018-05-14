@@ -28,7 +28,7 @@ const nextImage = (film) => {
     navTo(film, itz);
 };
 
-export const rewind = film => navTo(film, 0);
+export const rewind = film => navTo(film, film.f.start);
 export const navTo = (film, to) => {
     film.f.ftz = to;
 };

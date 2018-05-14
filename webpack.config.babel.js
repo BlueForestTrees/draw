@@ -42,7 +42,7 @@ const conf = {
 if (conf.mode === "development") {
     conf.devServer = {
         port: 8078,
-        host: "0.0.0.0",
+        host: "localhost",
         proxy: {
             "/api": "http://localhost:8080"
         }

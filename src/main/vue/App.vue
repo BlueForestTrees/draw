@@ -1,13 +1,13 @@
 <template>
     <v-app id="app" light>
-        <palette v-if="activeFilm" :film="activeFilm"/>
+        <palette v-if="activeFilm" :film="activeFilm" class="noselect"/>
         <v-content v-if="activeFilm">
             <v-container fluid fill-height>
                 <v-layout align-center justify-center>
                     <v-flex style="height:900px">
                         <v-card class="elevation-12" style="height:900px">
                             <surface :film="activeFilm" :pen="activePen"/>
-                            <player :film="activeFilm"/>
+                            <player :film="activeFilm" class="noselect"/>
                         </v-card>
                     </v-flex>
                 </v-layout>

@@ -8,6 +8,7 @@ export default {
     ADD_ELEMENT_INSTANCE: 'addElementInstance',
     CLEAR_FILM: 'clearFilm',
     CUT_END: 'cutEnd',
+    CUT_START: 'cutStart',
     DELETE_ELEMENT: 'deleteElement',
     INSTANTIATE: 'instantiate',
     KEEP: 'keep',
