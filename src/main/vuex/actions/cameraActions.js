@@ -5,13 +5,13 @@ export default {
     [On.START_CAMERA]: ({commit, getters, state}, {evt, film, domRef, pen}) => {
         const ctx = {commit, film, domRef, mouseDown: globalToLocal(evt, domRef)};
 
-        ctx.onmousemove = cameraMove.bind(null, ctx);
-        ctx.onmouseup = cameraUp.bind(null, ctx);
+        ctx.onmove = cameraMove.bind(null, ctx);
+        ctx.onup = cameraUp.bind(null, ctx);
 
         cameraMove(ctx, evt);
 
-        window.addEventListener("mousemove", ctx.onmousemove);
-        window.addEventListener("mouseup", ctx.onmouseup);
+        window.addEventListener("mousemove", ctx.onmove);
+        window.addEventListener("mouseup", ctx.onup);
     }
 }
 
@@ -24,6 +24,6 @@ const cameraMove = ({commit, film, domRef, mouseDown}, evt) => {
 };
 
 const cameraUp = ctx => {
-    window.removeEventListener("mousemove", ctx.onmousemove);
-    window.removeEventListener("mouseup", ctx.onmouseup);
+    window.removeEventListener("mousemove", ctx.onmove);
+    window.removeEventListener("mouseup", ctx.onup);
 };

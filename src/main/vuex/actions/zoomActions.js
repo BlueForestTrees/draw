@@ -12,11 +12,11 @@ export default {
             state,
             downMouse: globalToLocal(evt, domRef),
         };
-        ctx.onmouseup = zoomUp.bind(null, ctx);
-        ctx.onmousemove = zoomMove.bind(null, ctx);
+        ctx.onup = zoomUp.bind(null, ctx);
+        ctx.onmove = zoomMove.bind(null, ctx);
 
-        window.addEventListener("mousemove", ctx.onmousemove);
-        window.addEventListener("mouseup", ctx.onmouseup);
+        window.addEventListener("mousemove", ctx.onmove);
+        window.addEventListener("mouseup", ctx.onup);
     }
 }
 
@@ -43,6 +43,6 @@ const zoomUp = (ctx, evt) => {
             }
         }
     }
-    window.removeEventListener("mousemove", ctx.onmousemove);
-    window.removeEventListener("mouseup", ctx.onmouseup);
+    window.removeEventListener("mousemove", ctx.onmove);
+    window.removeEventListener("mouseup", ctx.onup);
 };

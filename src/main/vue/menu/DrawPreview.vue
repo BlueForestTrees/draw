@@ -24,14 +24,14 @@
         watch: {
             activated: function (v) {
                 if (v) {
-                    window.addEventListener("mousemove", this.onmousemove);
+                    window.addEventListener("mousemove", this.onmove);
                 } else {
-                    window.removeEventListener("mousemove", this.onmousemove);
+                    window.removeEventListener("mousemove", this.onmove);
                 }
             }
         },
         methods: {
-            onmousemove: function (evt) {
+            onmove: function (evt) {
                 this.pos = globalToLocal(evt, this.domRef);
             }
         }

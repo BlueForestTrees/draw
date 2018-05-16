@@ -1,6 +1,5 @@
 import On from "../../const/on";
 import {getTranslation, globalToLocal, minus} from "../../util/util";
-import Vue from 'vue';
 import {createSelection} from "../state/state";
 import Do from "../../const/do";
 import modes from "../../const/modes";
@@ -17,15 +16,13 @@ export default {
                 initialTxy: getTranslation(domRef.svg.getElementById(currentElementSvg.id), domRef),
                 downMouse: globalToLocal(evt, domRef),
             };
-            ctx.onmousemove = selectMove.bind(null, ctx);
-            ctx.onmouseup = selectUp.bind(null, ctx);
+            ctx.onmove = selectMove.bind(null, ctx);
+            ctx.onup = selectUp.bind(null, ctx);
 
             commit(Do.SET_SELECTION_ELEMENT, {film, elementId: currentElementSvg.id});
 
-            Vue.nextTick(() => {
-                window.addEventListener("mousemove", ctx.onmousemove);
-                window.addEventListener("mouseup", ctx.onmouseup);
-            });
+            window.addEventListener("mousemove", ctx.onmove);
+            window.addEventListener("mouseup", ctx.onup);
         } else {
             film.f.selection = createSelection();
         }
@@ -43,7 +40,7 @@ const selectMove = ({selection, element, domRef, downMouse, initialTxy}, e) => {
 };
 
 const selectUp = (ctx) => {
-    window.removeEventListener("mousemove", ctx.onmousemove);
-    window.removeEventListener("mouseup", ctx.onmouseup);
+    window.removeEventListener("mousemove", ctx.onmove);
+    window.removeEventListener("mouseup", ctx.onup);
 };
 

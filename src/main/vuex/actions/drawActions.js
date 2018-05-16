@@ -14,13 +14,13 @@ export default {
         commit(Do.ADD_ELEMENT_INSTANCE, {ei: ctx.ei, film});
         commit(Do.SET_SELECTION_ELEMENT, {film, elementId: ctx.ei._id});
 
-        ctx.onmousemove = drawMove.bind(null, ctx);
-        ctx.onmouseup = drawUp.bind(null, ctx);
+        ctx.onmove = drawMove.bind(null, ctx);
+        ctx.onup = drawUp.bind(null, ctx);
 
         drawMove(ctx, evt);
 
-        window.addEventListener("mousemove", ctx.onmousemove);
-        window.addEventListener("mouseup", ctx.onmouseup);
+        window.addEventListener("mousemove", ctx.onmove);
+        window.addEventListener("mouseup", ctx.onup);
     }
 }
 
@@ -32,8 +32,8 @@ const drawMove = (ctx, evt) => {
 };
 
 const drawUp = ctx => {
-    window.removeEventListener("mousemove", ctx.onmousemove);
-    window.removeEventListener("mouseup", ctx.onmouseup);
+    window.removeEventListener("mousemove", ctx.onmove);
+    window.removeEventListener("mouseup", ctx.onup);
     if (ctx.state.nav.autoreturn) {
         navTo(ctx.film, ctx.ei.tz);
     }

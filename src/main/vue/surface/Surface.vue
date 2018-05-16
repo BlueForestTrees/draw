@@ -1,5 +1,5 @@
 <template>
-    <svg @mousedown="svgMouseDown" id="surface" width="100%" height="100%" class="surface" ref="surface" :viewBox="viewBox">
+    <svg id="surface" width="100%" height="100%" class="surface" ref="surface" :viewBox="viewBox">
         <masks :film="film"/>
         <phantom v-if="film.f.config.showPhantom" :film="film"/>
         <elements :film="film"/>
@@ -19,6 +19,7 @@
     import Vue from 'vue';
     import DrawPreview from "../menu/DrawPreview";
     import Camera from "./Camera";
+    import Hammer from 'hammerjs';
 
     export default {
         components: {
@@ -47,7 +48,7 @@
             }
         },
         methods: {
-            svgMouseDown: function (evt) {
+            svgDown: function (evt) {
                 if (this.activeMode.surfaceAction) {
                     this.$store.dispatch(this.activeMode.surfaceAction, {evt, film: this.film, domRef: this.domRef, pen: this.pen});
                 }
@@ -68,6 +69,14 @@
                 svg: document.getElementById("surface"),
                 svgPoint: document.getElementById("surface").createSVGPoint()
             };
+
+            this.domRef.svg.addEventListener("mousedown", this.svgDown);
+            // const touchScreen = new Hammer(this.domRef.svg);
+            // touchScreen.get('pan').set({direction: Hammer.DIRECTION_ALL});
+            // touchScreen.on("panstart", this.svgDown);
+
+            // touchScreen.on("panmove", panmove);
+            // touchScreen.on("panend", panend);
         }
     }
 </script>
