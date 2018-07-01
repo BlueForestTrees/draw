@@ -1,5 +1,5 @@
 <template>
-    <v-navigation-drawer fixed app v-model="visible">
+    <v-navigation-drawer permanent>
         <v-container fluid>
             <v-layout column>
                 <v-btn-toggle mandatory v-model="film.f.config.activeModeIdx">
@@ -51,14 +51,6 @@
         computed: {
             ...mapState({nav: 'nav', film: 'activeFilm', films: 'films', pens: 'pens', panels: 'panels', activePen: 'activePen'}),
             ...mapGetters(['activeMode', 'selection', 'noSelection', 'modeIs', 'visibleMasks', 'totalSec']),
-            visible: {
-                get: function () {
-                    return this.nav.menuVisible;
-                },
-                set: function (val) {
-                    this.setVisible(val);
-                }
-            }
         },
         methods: {
             ...mapMutations({

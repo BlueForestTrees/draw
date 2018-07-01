@@ -1,10 +1,5 @@
 <template>
     <v-toolbar dense>
-
-        <v-toolbar-title>
-            <v-toolbar-side-icon @click.stop="toggleMenu"/>
-        </v-toolbar-title>
-
         <v-toolbar-items>
             <v-btn icon @click="rewind(film)">
                 <v-icon>skip_previous</v-icon>
@@ -54,7 +49,6 @@
         },
         methods: {
             ...mapMutations({
-                toggleMenu: Do.TOGGLE_MENU_VISIBILITY,
                 rewind: Do.REWIND,
                 prev: Do.PREV,
                 next: Do.NEXT,

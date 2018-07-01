@@ -6,7 +6,7 @@ import modes from "../../const/modes";
 import {getElement} from "../../util/common";
 
 export default {
-    [On.START_SELECT]: ({commit}, {evt, film, domRef}) => {
+    [On.START_SELECT]: ({commit}, {evt, film, domRef, touch}) => {
         const currentElementSvg = evt.target;
         if (currentElementSvg.id && currentElementSvg.id !== "surface") {
             const ctx = {
@@ -15,14 +15,15 @@ export default {
                 element: getElement(film, currentElementSvg.id),
                 initialTxy: getTranslation(domRef.svg.getElementById(currentElementSvg.id), domRef),
                 downMouse: globalToLocal(evt, domRef),
+                touch
             };
             ctx.onmove = selectMove.bind(null, ctx);
             ctx.onup = selectUp.bind(null, ctx);
 
             commit(Do.SET_SELECTION_ELEMENT, {film, elementId: currentElementSvg.id});
 
-            window.addEventListener("mousemove", ctx.onmove);
-            window.addEventListener("mouseup", ctx.onup);
+            touch.on("panmove", ctx.onmove);
+            touch.on("panend", ctx.onup);
         } else {
             film.f.selection = createSelection();
         }
@@ -39,8 +40,8 @@ const selectMove = ({selection, element, domRef, downMouse, initialTxy}, e) => {
     selection.box.ty = element.ty = initialTxy.ty + move.y;
 };
 
-const selectUp = (ctx) => {
-    window.removeEventListener("mousemove", ctx.onmove);
-    window.removeEventListener("mouseup", ctx.onup);
+const selectUp = ({touch, onmove, onup}) => {
+    touch.off("panmove", onmove);
+    touch.off("panend", onup);
 };
 

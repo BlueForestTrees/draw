@@ -5,10 +5,10 @@ import Do from "../../const/do";
 import {navTo} from "../../util/playerControl";
 
 export default {
-    [On.START_DRAW]: ({commit, getters, state}, {evt, film, domRef, pen}) => {
+    [On.START_DRAW]: ({commit, getters, state}, {evt, film, domRef, pen, touch}) => {
         const ctx = {
             ei: createElementInstance(createElement({pen: {...pen, mask: getters.activeMaskId}, points: [], anim: true}), film),
-            film, domRef, state
+            film, domRef, state, touch
         };
 
         commit(Do.ADD_ELEMENT_INSTANCE, {ei: ctx.ei, film});
@@ -19,8 +19,8 @@ export default {
 
         drawMove(ctx, evt);
 
-        window.addEventListener("mousemove", ctx.onmove);
-        window.addEventListener("mouseup", ctx.onup);
+        touch.on("panmove", ctx.onmove);
+        touch.on("panend", ctx.onup);
     }
 }
 
@@ -31,10 +31,10 @@ const drawMove = (ctx, evt) => {
     navTo(ctx.film, newImage);
 };
 
-const drawUp = ctx => {
-    window.removeEventListener("mousemove", ctx.onmove);
-    window.removeEventListener("mouseup", ctx.onup);
-    if (ctx.state.nav.autoreturn) {
-        navTo(ctx.film, ctx.ei.tz);
+const drawUp = ({touch, state, onmove, onup, ei, film}) => {
+    touch.off("panmove", onmove);
+    touch.off("panend", onup);
+    if (state.nav.autoreturn) {
+        navTo(film, ei.tz);
     }
 };

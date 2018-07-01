@@ -4,12 +4,6 @@ import {findIndex} from 'lodash';
 import Vue from 'vue';
 
 export default {
-    [Do.TOGGLE_MENU_VISIBILITY]: (state) => {
-        state.nav.menuVisible = !state.nav.menuVisible;
-    },
-    [Do.SET_MENU_VISIBILITY]: (state, visible) => {
-        state.nav.menuVisible = !!visible;
-    },
     [Do.ADD_FILM]: (state, film) => {
         state.films.push(film);
     },

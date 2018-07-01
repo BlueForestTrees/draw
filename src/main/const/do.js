@@ -21,13 +21,11 @@ export default {
     REWIND: 'rewind',
     SELECT_FILM: 'selectFilm',
     SELECT_PEN: 'selectPen',
-    SET_MENU_VISIBILITY: 'setMenuVisibility',
     SET_MODE: 'setMode',
     SET_FILM: 'setFilm',
     SET_FILMS: 'setFilms',
     SET_SELECTION_ELEMENT: 'setSelectionElement',
     SET_SELECTION_BOX: 'setSelectionBox',
-    TOGGLE_MENU_VISIBILITY: 'toggleMenuVisibility',
     UNKEEP: 'unkeep',
     UNSELECT_ELEMENT: 'unselectElement',
 };

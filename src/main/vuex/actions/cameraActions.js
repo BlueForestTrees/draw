@@ -2,16 +2,16 @@ import On from "../../const/on";
 import {globalToLocal} from "../../util/util";
 
 export default {
-    [On.START_CAMERA]: ({commit, getters, state}, {evt, film, domRef, pen}) => {
-        const ctx = {commit, film, domRef, mouseDown: globalToLocal(evt, domRef)};
+    [On.START_CAMERA]: ({commit, getters, state}, {evt, film, domRef, pen, touch}) => {
+        const ctx = {commit, film, domRef, mouseDown: globalToLocal(evt, domRef), touch};
 
         ctx.onmove = cameraMove.bind(null, ctx);
         ctx.onup = cameraUp.bind(null, ctx);
 
         cameraMove(ctx, evt);
 
-        window.addEventListener("mousemove", ctx.onmove);
-        window.addEventListener("mouseup", ctx.onup);
+        touch.on("panmove", ctx.onmove);
+        touch.on("panend", ctx.onup);
     }
 }
 
@@ -24,6 +24,6 @@ const cameraMove = ({commit, film, domRef, mouseDown}, evt) => {
 };
 
 const cameraUp = ctx => {
-    window.removeEventListener("mousemove", ctx.onmove);
-    window.removeEventListener("mouseup", ctx.onup);
+    ctx.touch.off("panmove", ctx.onmove);
+    ctx.touch.off("panend", ctx.onpanup);
 };

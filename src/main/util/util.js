@@ -3,8 +3,8 @@ import {simplify} from "simplify-polyline";
 import {find, forEach, map} from 'lodash';
 
 export const globalToLocal = (e, {svgPoint, svg}) => {
-    svgPoint.x = e.clientX;
-    svgPoint.y = e.clientY;
+    svgPoint.x = e.center ? e.center.x : e.clientX;
+    svgPoint.y = e.center ? e.center.y : e.clientY;
     const p = svgPoint.matrixTransform(svg.getScreenCTM().inverse());
     return {x: p.x, y: p.y};
 };

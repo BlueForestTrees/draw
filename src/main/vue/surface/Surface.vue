@@ -1,11 +1,12 @@
 <template>
-    <svg id="surface" width="100%" height="100%" class="surface" ref="surface" :viewBox="viewBox">
+    <svg id="surface" class="surface" ref="surface" :viewBox="viewBox">
         <masks :film="film"/>
         <phantom v-if="film.f.config.showPhantom" :film="film"/>
         <elements :film="film"/>
         <draw-preview :domRef="domRef"/>
         <selection :film="film"/>
         <camera :camera="film.camera"/>
+        <!--<rect x="-2000" :y="-2000" width="4000" height="4000" style="fill:rgb(0,0,255);"/>-->
     </svg>
 </template>
 
@@ -35,7 +36,8 @@
         data: function () {
             return {
                 domRef: null,
-                size: 4000
+                size: 4000,
+                touch: null
             }
         },
         computed: {
@@ -50,7 +52,7 @@
         methods: {
             svgDown: function (evt) {
                 if (this.activeMode.surfaceAction) {
-                    this.$store.dispatch(this.activeMode.surfaceAction, {evt, film: this.film, domRef: this.domRef, pen: this.pen});
+                    this.$store.dispatch(this.activeMode.surfaceAction, {evt, film: this.film, domRef: this.domRef, pen: this.pen, touch: this.touch});
                 }
             },
             ...mapMutations({
@@ -70,13 +72,10 @@
                 svgPoint: document.getElementById("surface").createSVGPoint()
             };
 
-            this.domRef.svg.addEventListener("mousedown", this.svgDown);
-            // const touchScreen = new Hammer(this.domRef.svg);
-            // touchScreen.get('pan').set({direction: Hammer.DIRECTION_ALL});
-            // touchScreen.on("panstart", this.svgDown);
+            this.touch = new Hammer(this.domRef.svg);
+            this.touch.get('pan').set({direction: Hammer.DIRECTION_ALL});
+            this.touch.on("panstart", this.svgDown);
 
-            // touchScreen.on("panmove", panmove);
-            // touchScreen.on("panend", panend);
         }
     }
 </script>

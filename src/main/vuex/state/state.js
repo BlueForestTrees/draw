@@ -83,7 +83,6 @@ export const createModes = () => ([
 ]);
 export const createName = () => reduced(ObjectID());
 export const createNav = () => ({
-    menuVisible: true,
     rawEditFilmDialogVisible: false,
     zoomSide: 0,
     cameraTjrsVisible: false,

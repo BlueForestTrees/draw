@@ -1,15 +1,17 @@
 <template>
     <v-app id="app" light>
-        <palette v-if="activeFilm" :film="activeFilm" class="noselect"/>
         <v-content v-if="activeFilm">
             <v-container fluid fill-height>
-                <v-layout align-center justify-center>
-                    <v-flex style="height:900px">
-                        <v-card class="elevation-12" style="height:900px">
-                            <surface :film="activeFilm" :pen="activePen"/>
-                            <player :film="activeFilm" class="noselect"/>
-                        </v-card>
-                    </v-flex>
+                <v-layout row class="elevation-8">
+                    <palette :film="activeFilm" class="noselect" />
+                    <v-layout align-center justify-center>
+                        <v-flex>
+                            <v-card>
+                                <surface :film="activeFilm" :pen="activePen"/>
+                                <player :film="activeFilm" class="noselect"/>
+                            </v-card>
+                        </v-flex>
+                    </v-layout>
                 </v-layout>
             </v-container>
         </v-content>
