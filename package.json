@@ -6,7 +6,7 @@
   "author": "slim",
   "license": "MIT",
   "scripts": {
-    "start": "cross-env NODE_ENV=development webpack-dev-server --port 8069 --inline --hot",
+    "DRAW-START": "cross-env NODE_ENV=development webpack-dev-server --port 8069 --inline --hot",
     "build": "rimraf dist && cross-env NODE_ENV=production webpack --display-error-details --progress",
     "test": "NODE_ENV=test mocha --exit $(find src/test -name '*.js') --require babel-register"
   },

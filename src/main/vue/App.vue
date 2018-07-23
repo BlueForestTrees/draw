@@ -1,8 +1,4 @@
 <template>
-    <span>
-    <svg viewbox="-50 -50 100 100">
-        <circle cx="0" cy="0" r="40" stroke="black" stroke-width="3" fill="red" />
-    </svg>
     <v-app id="app" light>
         <v-content v-if="activeFilm">
             <v-container fluid fill-height>
@@ -20,7 +16,6 @@
             </v-container>
         </v-content>
     </v-app>
-    </span>
 </template>
 
 <script>
