@@ -1,5 +1,5 @@
 import Do from "../../const/do";
-import {createFilm} from "../state/state";
+import {createFilm, createSelection} from "../state/state";
 import {getBBox, getTranslation, getTxTy, globalToLocal2, simplifyFilm} from "../../util/util";
 import _ from 'lodash';
 
@@ -10,14 +10,18 @@ export default {
     [Do.SET_FILMS]: (state, films) => {
         state.films = films;
     },
+    [Do.UNSELECT_ELEMENT]: (state, film) => {
+        Object.assign(film.f.selection, createSelection());
+    },
     [Do.SET_SELECTION_ELEMENT]: (state, {film, elementId}) => {
+        state.selectionHistory.push(elementId);
         film.f.selection.elementId = elementId;
     },
     [Do.SET_SELECTION_BOX]: (state, {elementId, film, domRef}) => {
         const element = domRef.svg.getElementById(elementId);
         film.f.selection.box = {
             ...getBBox(element),
-            ...getTranslation(element,domRef)
+            ...getTranslation(element, domRef)
         };
     },
     [Do.ACTIVATE_FIRST_PEN]: state => {
@@ -29,6 +33,12 @@ export default {
     },
     [Do.CLEAR_FILM]: ({}, film) => {
         Object.assign(film.f, createFilm());
+    },
+    [Do.CUT_END]: ({}, film) => {
+        film.f.imageCount = film.f.ftz;
+    },
+    [Do.CUT_START]: ({}, film) => {
+        film.f.start = film.f.ftz;
     },
     [Do.DELETE_ELEMENT]: ({}, {ei, film}) => {
         film.f.elements.splice(

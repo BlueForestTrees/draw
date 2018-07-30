@@ -34,7 +34,7 @@
 
     const filmAsString = film => {
         const temp = film.f.ftz;
-        film.f.ftz = 0;
+        film.f.ftz = film.f.start;
         const filmString = JSON.stringify(film);
         film.f.ftz = temp;
         return filmString;

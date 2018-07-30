@@ -2,7 +2,7 @@ import On from "../../const/on";
 import {globalToLocal, minus} from "../../util/util";
 
 export default {
-    [On.START_ZOOM]: ({commit, state}, {evt, film, domRef, pen}) => {
+    [On.START_ZOOM]: ({commit, state}, {evt, film, domRef, pen, touch}) => {
         const ctx = {
             evt,
             film,
@@ -10,39 +10,50 @@ export default {
             pen,
             moved: 0,
             state,
-            downMouse: globalToLocal(evt, domRef),
+            initialMouse: globalToLocal(evt, domRef),
+            touch
         };
-        ctx.onmouseup = zoomUp.bind(null, ctx);
-        ctx.onmousemove = zoomMove.bind(null, ctx);
+        ctx.onup = zoomUp.bind(null, ctx);
+        ctx.onpanup = zoomPanUp.bind(null, ctx);
+        ctx.onmove = zoomMove.bind(null, ctx);
 
-        window.addEventListener("mousemove", ctx.onmousemove);
-        window.addEventListener("mouseup", ctx.onmouseup);
+        start(ctx);
     }
 }
 
 const zoomMove = (ctx, e) => {
-    ctx.moved++;
-    const move = minus(globalToLocal(e, ctx.domRef), ctx.downMouse);
+    const move = minus(globalToLocal(e, ctx.domRef), ctx.initialMouse);
     ctx.film.f.panx -= move.x;
     ctx.film.f.pany -= move.y;
 };
 
+const zoomPanUp = (ctx) => {
+    stop(ctx);
+};
 const zoomUp = (ctx, evt) => {
-    if (ctx.moved < 3) {
-        if (ctx.state.nav.zoomSide) {
-            if (evt.altKey) {
-                ctx.film.f.zoom /= 1.15;
-            } else {
-                ctx.film.f.zoom *= 1.15;
-            }
+    if (ctx.state.nav.zoomSide) {
+        if (evt.altKey) {
+            ctx.film.f.zoom /= 1.15;
         } else {
-            if (evt.altKey) {
-                ctx.film.f.zoom *= 1.15;
-            } else {
-                ctx.film.f.zoom /= 1.15;
-            }
+            ctx.film.f.zoom *= 1.15;
+        }
+    } else {
+        if (evt.altKey) {
+            ctx.film.f.zoom *= 1.15;
+        } else {
+            ctx.film.f.zoom /= 1.15;
         }
     }
-    window.removeEventListener("mousemove", ctx.onmousemove);
-    window.removeEventListener("mouseup", ctx.onmouseup);
+    stop(ctx);
+};
+
+const start = ctx => {
+    ctx.touch.on("panmove", ctx.onmove);
+    ctx.touch.on("panend", ctx.onpanup);
+    window.addEventListener("mouseup", ctx.onup);
+};
+const stop = ctx => {
+    ctx.touch.off("panmove", ctx.onmove);
+    ctx.touch.off("panend", ctx.onpanup);
+    window.removeEventListener("mouseup", ctx.onup);
 };

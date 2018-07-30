@@ -1,10 +1,12 @@
 <template>
-    <svg @mousedown="svgMouseDown" id="surface" width="100%" height="100%" class="surface" ref="surface" :viewBox="viewBox">
+    <svg id="surface" class="surface" ref="surface" :viewBox="viewBox">
         <masks :film="film"/>
         <phantom v-if="film.f.config.showPhantom" :film="film"/>
         <elements :film="film"/>
-        <circle cx="0" cy="0" r="10" stroke="black" stroke-width="3" fill="red"/>
+        <draw-preview :domRef="domRef"/>
         <selection :film="film"/>
+        <camera :camera="film.camera"/>
+        <!--<rect x="-2000" :y="-2000" width="4000" height="4000" style="fill:rgb(0,0,255);"/>-->
     </svg>
 </template>
 
@@ -16,9 +18,14 @@
     import Elements from "./Elements";
     import Masks from "./Masks";
     import Vue from 'vue';
+    import DrawPreview from "../menu/DrawPreview";
+    import Camera from "./Camera";
+    import Hammer from 'hammerjs';
 
     export default {
         components: {
+            Camera,
+            DrawPreview,
             Masks,
             Elements,
             Phantom,
@@ -29,7 +36,8 @@
         data: function () {
             return {
                 domRef: null,
-                size: 4000
+                size: 4000,
+                touch: null
             }
         },
         computed: {
@@ -42,9 +50,9 @@
             }
         },
         methods: {
-            svgMouseDown: function (evt) {
+            svgDown: function (evt) {
                 if (this.activeMode.surfaceAction) {
-                    this.$store.dispatch(this.activeMode.surfaceAction, {evt, film: this.film, domRef: this.domRef, pen: this.pen});
+                    this.$store.dispatch(this.activeMode.surfaceAction, {evt, film: this.film, domRef: this.domRef, pen: this.pen, touch: this.touch});
                 }
             },
             ...mapMutations({
@@ -63,6 +71,11 @@
                 svg: document.getElementById("surface"),
                 svgPoint: document.getElementById("surface").createSVGPoint()
             };
+
+            this.touch = new Hammer(this.domRef.svg);
+            this.touch.get('pan').set({direction: Hammer.DIRECTION_ALL});
+            this.touch.on("panstart", this.svgDown);
+
         }
     }
 </script>

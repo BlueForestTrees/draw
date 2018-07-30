@@ -3,6 +3,7 @@ import On from "../../const/on";
 import modes from "../../const/modes";
 import {cloneDeep, isNil} from 'lodash';
 import ObjectID from "bson-objectid";
+import Do from "../../const/do";
 
 export const createConfig = () => ({
     showPhantom: true,
@@ -48,6 +49,7 @@ export const createFilm = () => ({
     masks: [],
     children: [],
     imageCount: 0,
+    start:0,
     ftz: 0,
     keptImage: 0,
     player: createPlayer(),
@@ -67,11 +69,9 @@ export const cloneFilm = (film, newName) => {
 export const createFilmInstance = () => ({
     f: createFilm(),
     _id: createId(),
-    tx: 0,
-    ty: 0,
-    tw: 640,
-    th: 480
+    camera: createCamera()
 });
+export const createCamera = () => ({x: -1500, y: -1500, w: 3000, h: 3000});
 export const createId = () => Math.random() + "";
 export const createModes = () => ([
     {name: modes.FILM, icon: "map"},
@@ -79,13 +79,14 @@ export const createModes = () => ([
     {name: modes.SELECT, icon: "select_all", surfaceAction: On.START_SELECT},
     {name: modes.ZOOM, icon: "search", surfaceAction: On.START_ZOOM},
     {name: modes.IMPORT, icon: "get_app"},
-    {name: modes.VIEWBOX, icon: "videocam", surfaceAction: On.START_VIEWBOX},
+    {name: modes.CAMERA, icon: "videocam", surfaceAction: On.START_CAMERA},
 ]);
 export const createName = () => reduced(ObjectID());
 export const createNav = () => ({
-    menuVisible: true,
     rawEditFilmDialogVisible: false,
-    zoomSide: 0
+    zoomSide: 0,
+    cameraTjrsVisible: false,
+    autoreturn: false
 });
 export const createPens = () => ([
     createPen({color: '#1155cc', size: 50}),
@@ -110,11 +111,12 @@ export const createSelection = () => ({
     elementId: null,
     box: null
 });
-
-const createShortcuts = () => ({
-    32: ({dispatch, commit, state}) => dispatch(On.PLAY, state.activeFilm)
+export const createShortcuts = () => ({
+    32: ({dispatch, state}) => dispatch(On.TOGGLE_PLAY, state.activeFilm),
+    46: ({dispatch}) => dispatch(On.DELETE_SELECTION),
+    37: ({commit, state}) => commit(Do.PREV, state.activeFilm),
+    39: ({commit, state}) => commit(Do.NEXT, state.activeFilm)
 });
-
 export default {
     nav: createNav(),
     films: createFilms(),
@@ -122,5 +124,6 @@ export default {
     pens: createPens(),
     activePen: null,
     panels: createModes(),
-    shortcuts: createShortcuts()
+    shortcuts: createShortcuts(),
+    selectionHistory: []
 };

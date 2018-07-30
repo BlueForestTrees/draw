@@ -1,39 +1,40 @@
 import On from "../../const/on";
 import {createElement, createElementInstance} from "../state/state";
 import {globalToLocal} from "../../util/util";
-import _ from 'lodash';
 import Do from "../../const/do";
 import {navTo} from "../../util/playerControl";
 
 export default {
-    [On.START_DRAW]: ({commit, getters, state}, {evt, film, domRef, pen}) => {
+    [On.START_DRAW]: ({commit, getters, state}, {evt, film, domRef, pen, touch}) => {
         const ctx = {
-            e: createElement({pen:{...pen, mask:getters.activeMaskId}, points: [], anim: true}),
-            startMoment: _.now(),
-            film,
-            domRef
+            ei: createElementInstance(createElement({pen: {...pen, mask: getters.activeMaskId}, points: [], anim: true}), film),
+            film, domRef, state, touch
         };
 
-        commit(Do.ADD_ELEMENT_INSTANCE, {ei: createElementInstance(ctx.e, film), film});
+        commit(Do.ADD_ELEMENT_INSTANCE, {ei: ctx.ei, film});
+        commit(Do.SET_SELECTION_ELEMENT, {film, elementId: ctx.ei._id});
 
-        ctx.onmousemove = drawMove.bind(null, ctx);
-        ctx.onmouseup = drawUp.bind(null, ctx);
+        ctx.onmove = drawMove.bind(null, ctx);
+        ctx.onup = drawUp.bind(null, ctx);
 
         drawMove(ctx, evt);
 
-        window.addEventListener("mousemove", ctx.onmousemove);
-        window.addEventListener("mouseup", ctx.onmouseup);
+        touch.on("panmove", ctx.onmove);
+        touch.on("panend", ctx.onup);
     }
 }
 
 const drawMove = (ctx, evt) => {
     const newImage = ctx.film.f.ftz + 1;
-    ctx.e.points.push(globalToLocal(evt, ctx.domRef));
+    ctx.ei.e.points.push(globalToLocal(evt, ctx.domRef));
     ctx.film.f.imageCount = Math.max(ctx.film.f.imageCount, newImage);
     navTo(ctx.film, newImage);
 };
 
-const drawUp = ctx => {
-    window.removeEventListener("mousemove", ctx.onmousemove);
-    window.removeEventListener("mouseup", ctx.onmouseup);
+const drawUp = ({touch, state, onmove, onup, ei, film}) => {
+    touch.off("panmove", onmove);
+    touch.off("panend", onup);
+    if (state.nav.autoreturn) {
+        navTo(film, ei.tz);
+    }
 };

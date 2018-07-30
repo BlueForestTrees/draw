@@ -6,6 +6,7 @@ export default {
     DELETE_FILM: 'deleteFilm',
     CLONE: 'clone',
     DELETE_ELEMENT: 'deleteElement',
+    DELETE_SELECTION: 'deleteSelection',
     IMPORT: 'import',
     MASK_CONVERT: 'maskConvert',
     MOUNT_APP: 'mountApp',
@@ -15,6 +16,7 @@ export default {
     START_DRAW: 'startDraw',
     START_SELECT: 'startSelect',
     START_ZOOM: 'startZoom',
+    TOGGLE_PLAY: 'togglePlay',
     UPDATE_FILM: 'updateFilm',
-    START_VIEWBOX: 'startViewbox'
+    START_CAMERA: 'startCamera'
 };

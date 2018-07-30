@@ -17,25 +17,35 @@ export default {
             if (e.d || e.points) {
                 const ei = createElementInstance(e, state.activeFilm);
                 commit(Do.ADD_ELEMENT_INSTANCE, {ei, film: state.activeFilm});
-                commit(Do.SELECT_ELEMENT, ei);
+                commit(Do.SET_SELECTION_ELEMENT, {film: state.activeFilm, elementId: ei._id});
                 commit(Do.SET_MODE, modes.SELECT);
             } else {
                 console.log("format d'import non reconnu (ni d, ni points");
             }
-        }else{
+        } else {
             throw new Error("rien à importer");
         }
     },
     [On.CLONE]: ({commit}, {ei, film}) => {
         const clonedEI = cloneElementInstance(ei);
         commit(Do.ADD_ELEMENT_INSTANCE, {ei: clonedEI, film});
-        commit(Do.SELECT_ELEMENT, clonedEI);
+        commit(Do.SET_SELECTION_ELEMENT, {film, elementId: clonedEI._id});
         commit(Do.SET_MODE, modes.SELECT);
     },
-    [On.DELETE_ELEMENT]: ({commit}, {ei, film}) => {
+    [On.DELETE_SELECTION]: ({dispatch, state, getters}) => {
+        dispatch(On.DELETE_ELEMENT, {ei: getters.selection, film: state.activeFilm})
+    },
+    [On.DELETE_ELEMENT]: ({commit, getters, state, dispatch}, {ei, film}) => {
+        if (!ei) return;
         commit(Do.DELETE_ELEMENT, {ei, film});
         commit(Do.UNSELECT_ELEMENT, film);
         commit(Do.NAV, {film, i: ei.tz});
+
+        if (state.selectionHistory.length > 0) {
+            const deleted = state.selectionHistory.splice(-1, 1);
+            const newLast = state.selectionHistory.splice(-1, 1)[0];
+            commit(Do.SET_SELECTION_ELEMENT, {film, elementId: newLast});
+        }
     },
     [On.UPDATE_FILM]: ({commit}, rawFilm) => {
         const film = JSON.parse(rawFilm);

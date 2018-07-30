@@ -42,18 +42,19 @@ const conf = {
 if (conf.mode === "development") {
     conf.devServer = {
         port: 8078,
-        host: "0.0.0.0",
+        host: "localhost",
         proxy: {
             "/api": "http://localhost:8080"
         }
     }
 }
 if (conf.mode === "production") {
-    conf.plugins.push(new Visualizer({filename: '../visualizer/statistics.html'}));
+    conf.plugins.push(new Visualizer({filename: '../../visualizer/statistics.html'}));
     conf.output = {
         filename: 'draw.js',
-        path: path.resolve(__dirname, 'dist/draw.blueforest.org')
+        path: path.resolve(__dirname, 'dist/draw.blueforest.org/static')
     };
+    conf.plugins.push(new CopyWebpackPlugin([{from: 'nginx.conf', to: '../nginx/'}]));
 }
 
 module.exports = conf;

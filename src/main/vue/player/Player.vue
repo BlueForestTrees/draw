@@ -1,10 +1,5 @@
 <template>
     <v-toolbar dense>
-
-        <v-toolbar-title>
-            <v-toolbar-side-icon @click.stop="toggleMenu"/>
-        </v-toolbar-title>
-
         <v-toolbar-items>
             <v-btn icon @click="rewind(film)">
                 <v-icon>skip_previous</v-icon>
@@ -24,10 +19,10 @@
             <span class="airText">{{`${currentSec}/${totalSec}s`}}</span>
         </v-toolbar-items>
 
-        <v-slider class="slider" v-model="film.f.ftz" step="1" :max="film.f.imageCount" thumb-label/>
+        <v-slider class="slider" v-model="film.f.ftz" step="1" :min="film.f.start" :max="film.f.imageCount" thumb-label/>
 
         <v-toolbar-items>
-            <span class="airText">{{`${film.f.ftz}/${film.f.imageCount}`}}</span>
+            <span class="airText">{{`${film.f.ftz - film.f.start}/${film.f.imageCount}`}}</span>
             <v-btn icon @click="keep(film)">
                 <v-icon>system_update_alt</v-icon>
             </v-btn>
@@ -54,7 +49,6 @@
         },
         methods: {
             ...mapMutations({
-                toggleMenu: Do.TOGGLE_MENU_VISIBILITY,
                 rewind: Do.REWIND,
                 prev: Do.PREV,
                 next: Do.NEXT,
