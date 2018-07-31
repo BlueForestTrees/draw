@@ -46,7 +46,6 @@ export default {
     },
     [On.BIND_GLOBAL_KEYS]: async ({dispatch, commit, state}) => {
         const keydown = event => {
-            // console.log(event.keyCode);
             if (state.shortcuts && state.shortcuts.hasOwnProperty(event.keyCode)) {
                 state.shortcuts[event.keyCode]({dispatch, commit, state});
             }
