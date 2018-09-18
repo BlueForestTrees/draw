@@ -1,21 +1,12 @@
 <template>
-    <v-navigation-drawer permanent>
-        <v-container fluid>
+    <v-navigation-drawer permanent app>
+        <v-container fluid class="palette">
             <v-layout column>
-                <v-btn-toggle mandatory v-model="film.f.config.activeModeIdx">
-                    <v-btn flat v-for="panel in panels" :key="panel.name">
-                        <v-icon>{{panel.icon}}</v-icon>
-                    </v-btn>
-                </v-btn-toggle>
-                {{activeMode.name}}
                 <span v-if="modeIs(modes.BRUSH)">
                     <brush :film="film" :selection="selection" :noSelection="noSelection"/>
                 </span>
                 <span v-if="modeIs(modes.SELECT)">
                     <selection :selection="selection" :film="film" :noSelection="noSelection"/>
-                </span>
-                <span v-if="modeIs(modes.FILM)">
-                    <film :film="film" :films="films"/>
                 </span>
                 <span v-if="modeIs(modes.ZOOM)">
                     <zoom :film="film"/>
@@ -50,7 +41,7 @@
         components: {Camera, Zoom, Brush, Selection, Film, PenEdit, Import, PenPreview},
         computed: {
             ...mapState({nav: 'nav', film: 'activeFilm', films: 'films', pens: 'pens', panels: 'panels', activePen: 'activePen'}),
-            ...mapGetters(['activeMode', 'selection', 'noSelection', 'modeIs', 'visibleMasks', 'totalSec']),
+            ...mapGetters(['selection', 'noSelection', 'modeIs', 'visibleMasks', 'totalSec']),
         },
         methods: {
             ...mapMutations({

@@ -1,12 +1,11 @@
 <template>
-    <svg id="surface" class="surface" ref="surface" :viewBox="viewBox">
+    <svg id="surface" ref="surface" class="surface" :viewBox="viewBox" style="pointer-events: all">
         <masks :film="film"/>
         <phantom v-if="film.f.config.showPhantom" :film="film"/>
         <elements :film="film"/>
         <draw-preview :domRef="domRef"/>
         <selection :film="film"/>
         <camera :camera="film.camera"/>
-        <!--<rect x="-2000" :y="-2000" width="4000" height="4000" style="fill:rgb(0,0,255);"/>-->
     </svg>
 </template>
 
@@ -79,9 +78,3 @@
         }
     }
 </script>
-
-<style>
-    .surface {
-        pointer-events: all;
-    }
-</style>

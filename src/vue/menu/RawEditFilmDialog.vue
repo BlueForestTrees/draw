@@ -20,7 +20,7 @@
                 </v-toolbar-items>
             </v-toolbar>
             <v-card-text>
-                <v-text-field auto-grow multi-line v-model="dialogContent"/>
+                <v-textarea auto-grow v-model="dialogContent"/>
             </v-card-text>
 
             <div style="flex: 1 1 auto;"></div>

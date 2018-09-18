@@ -1,5 +1,5 @@
 import chai from 'chai';
-import {xor} from "../../../main/util/common";
+import {xor} from "../../../src/util/common";
 
 chai.should();
 

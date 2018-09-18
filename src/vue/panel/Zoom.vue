@@ -1,11 +1,9 @@
 <template>
-    <span>
-        <v-btn-toggle v-model="nav.zoomSide">
-            <v-btn flat><v-icon>zoom_in</v-icon></v-btn>
-            <v-btn flat><v-icon>zoom_out</v-icon></v-btn>
-            <v-btn flat>1 : 1</v-btn>
-        </v-btn-toggle>
-    </span>
+    <v-btn-toggle v-model="nav.zoomSide">
+        <v-btn flat><v-icon>zoom_in</v-icon></v-btn>
+        <v-btn flat><v-icon>zoom_out</v-icon></v-btn>
+        <v-btn flat>1 : 1</v-btn>
+    </v-btn-toggle>
 </template>
 
 <script>

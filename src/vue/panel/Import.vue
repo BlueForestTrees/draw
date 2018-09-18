@@ -1,6 +1,6 @@
 <template>
     <span>
-    <v-text-field multi-line placeholder="Coller ici le contenu de la balise 'd'" v-model="path"/>
+    <v-textarea placeholder="Coller ici le contenu de la balise 'd'" v-model="path"/>
     <v-btn block @click.native="dispatchImport(path)"><v-icon>done</v-icon></v-btn>
     </span>
 </template>
