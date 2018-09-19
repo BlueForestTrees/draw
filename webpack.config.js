@@ -48,6 +48,10 @@ if (conf.mode === "development") {
     conf.output = {
         publicPath: "/"
     }
+
+    const htmlWebpackPlugin = conf.plugins[0]
+    htmlWebpackPlugin.options.min = ".min"
+    htmlWebpackPlugin.options.versionVuetify = versions.vuetify
 }
 if (conf.mode === "production") {
     conf.output = {

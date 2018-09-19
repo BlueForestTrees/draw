@@ -40,7 +40,6 @@ export const cloneElementInstance = ei => ({
     tx: ei.tx,
     ty: ei.ty
 })
-export const createFilms = () => ([])
 export const createFilm = () => ({
     name: createName(),
     elements: [],
@@ -115,7 +114,7 @@ export default {
         {name: modes.ZOOM, icon: "search", surfaceAction: On.START_ZOOM},
         {name: modes.CAMERA, icon: "videocam", surfaceAction: On.START_CAMERA},
     ],
-    films: createFilms(),
+    films: [],
     activeFilm: null,
     pens: createPens(),
     activePen: null,

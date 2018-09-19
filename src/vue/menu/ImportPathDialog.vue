@@ -1,6 +1,6 @@
 <template>
     <v-dialog v-model="nav.importPathDialogVisible" max-width="500">
-        <v-toolbar>Ouvrir un film</v-toolbar>
+        <v-toolbar>Importer un tracé</v-toolbar>
         <v-card tile>
             <v-container>
                 <v-textarea placeholder="Coller ici le contenu de la balise 'd'" v-model="path"/>

@@ -21,6 +21,7 @@ export default {
         }
     },
     [On.LOAD_FILM]: async ({commit}, film) => {
+        console.log(film)
         let f = film;
         if (needLoad(film)) {
             f = await getFilm(film._id);

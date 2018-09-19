@@ -8,7 +8,7 @@
                     <v-select
                             prepend-icon="folder_open" item-text="f.name"
                             :items="films" :value="film" :hint="`${film.f.name} - ${film.f.imageCount}i`"
-                            @change="selectFilm"
+                            @change="select" return-object
                     />
                 </v-layout>
             </v-container>
@@ -21,9 +21,9 @@
 
     export default {
         name: "film-list-dialog",
-        props: ['films', 'film'],
+        props: ['film'],
         computed: {
-            ...mapState(['nav'])
+            ...mapState(['nav','films'])
         },
         data: function () {
             return {
@@ -31,6 +31,10 @@
             }
         },
         methods: {
+            select(film){
+                this.selectFilm(film)
+                this.nav.filmListDialogVisible = false
+            },
             ...mapActions({
                 selectFilm: On.LOAD_FILM,
             }),

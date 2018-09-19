@@ -4,7 +4,7 @@
         <phantom v-if="film.f.config.showPhantom" :film="film"/>
         <elements :film="film"/>
         <draw-preview :domRef="domRef"/>
-        <selection :film="film"/>
+        <!--<selection :film="film"/>-->
         <camera :camera="film.camera"/>
     </svg>
 </template>
