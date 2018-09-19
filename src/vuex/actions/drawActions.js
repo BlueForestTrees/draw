@@ -21,6 +21,7 @@ export default {
 
         touch.on("panmove", ctx.onmove);
         touch.on("panend", ctx.onup);
+        touch.on("pressup", ctx.onup);
     }
 }
 
@@ -34,6 +35,7 @@ const drawMove = (ctx, evt) => {
 const drawUp = ({touch, state, onmove, onup, ei, film}) => {
     touch.off("panmove", onmove);
     touch.off("panend", onup);
+    touch.off("pressup", onup);
     if (state.nav.autoreturn) {
         navTo(film, ei.tz);
     }

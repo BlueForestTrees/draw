@@ -1,5 +1,5 @@
 <template>
-    <rect v-if="nav.cameraTjrsVisible || modeIs(CAMERA) && camera"
+    <rect v-if="modeIs(CAMERA) && camera"
           :x="camera.x" :y="camera.y"
           :width="camera.w" :height="camera.h"
           style="fill:none;stroke:black;stroke-width:3px;stroke-opacity:0.9;pointer-events: none;"

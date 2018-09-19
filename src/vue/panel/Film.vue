@@ -5,6 +5,7 @@
             <v-btn flat icon @click="addNewFilm"><v-icon>add_box</v-icon></v-btn>
             <v-btn flat icon @click="openFilmDialog"><v-icon>share</v-icon></v-btn>
             <v-btn flat icon @click="deleteFilm(film)"><v-icon>delete_forever</v-icon></v-btn>
+            <v-btn flat icon @click="nav.importPathDialogVisible = true"><v-icon>get_app</v-icon></v-btn>
         </v-layout>
 
         <v-layout row>

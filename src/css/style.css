@@ -33,7 +33,15 @@ html{
     bottom:0em;
 }
 
-.palette {
+.left-menu {
     overflow-y:hidden;
     overflow-x:hidden;
+}
+
+.svgicon{
+    padding: 0.2em
+}
+
+.hand {
+    cursor: pointer
 }

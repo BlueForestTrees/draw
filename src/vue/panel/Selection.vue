@@ -4,13 +4,10 @@
             <v-btn flat v-for="(mask, id) in film.f.masks" :key="id">M{{id}}</v-btn>
         </v-btn-toggle>
         <span v-if="selection">
-                <v-btn flat icon @click="maskConvert({ei:selection, film})">
-                    <v-icon>group_work</v-icon>
-                </v-btn>
+            <v-btn flat icon @click="maskConvert({ei:selection, film})"><v-icon>group_work</v-icon></v-btn>
             <v-btn flat icon @click="clone({ei:selection, film})"><v-icon>toll</v-icon></v-btn>
             <v-btn flat icon @click="del({ei:selection, film})"><v-icon>delete</v-icon></v-btn>
-            <pen-edit :pen="selection.e.pen"/>
-            <v-btn @click="pickPen(selection)" :disabled="noSelection"><v-icon>trending_flat</v-icon><v-icon>brush</v-icon></v-btn>
+            <v-btn flat icon @click="pickPen(selection)"><v-icon small>trending_flat</v-icon><v-icon small>brush</v-icon></v-btn>
         </span>
     </span>
 </template>
@@ -18,11 +15,12 @@
     import PenEdit from "../menu/PenEdit";
     import On from "../../const/on";
     import {mapActions} from "vuex";
+    import ColorPanel from "../menu/ColorPanel"
 
     export default {
         name: 'selection',
-        components: {PenEdit},
-        props: ['selection', 'film', 'noSelection'],
+        components: {ColorPanel, PenEdit},
+        props: ['selection', 'film'],
         methods: {
             ...mapActions({
                 pickPen: On.PICK_PEN,

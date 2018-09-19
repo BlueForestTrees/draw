@@ -19,6 +19,7 @@ export default {
     PICK_PEN: 'PICK_PEN',
     PLAY: 'play',
     REWIND: 'rewind',
+    SET_COLORS: 'setColors',
     SELECT_FILM: 'selectFilm',
     SELECT_PEN: 'selectPen',
     SET_MODE: 'setMode',

@@ -10,16 +10,16 @@
 </template>
 
 <script>
-    import {mapGetters, mapMutations} from 'vuex';
-    import Do from "../../const/do";
-    import Selection from "./Selection";
-    import Phantom from "./Phantom";
-    import Elements from "./Elements";
-    import Masks from "./Masks";
-    import Vue from 'vue';
-    import DrawPreview from "../menu/DrawPreview";
-    import Camera from "./Camera";
-    import Hammer from 'hammerjs';
+    import {mapGetters, mapMutations} from 'vuex'
+    import Do from "../const/do"
+    import Selection from "./surface/Selection"
+    import Phantom from "./surface/Phantom"
+    import Elements from "./surface/Elements"
+    import Masks from "./surface/Masks"
+    import Vue from 'vue'
+    import DrawPreview from "./menu/DrawPreview"
+    import Camera from "./surface/Camera"
+    import Hammer from 'hammerjs'
 
     export default {
         components: {
@@ -42,16 +42,16 @@
         computed: {
             ...mapGetters(['activeMode']),
             viewBox: function () {
-                const zize = this.film.f.zoom * this.size;
-                const panx = this.film.f.panx;
-                const pany = this.film.f.pany;
-                return `${panx + -0.5 * zize} ${pany + -0.5 * zize} ${zize} ${zize}`;
+                const zize = this.film.f.zoom * this.size
+                const panx = this.film.f.panx
+                const pany = this.film.f.pany
+                return `${panx + -0.5 * zize} ${pany + -0.5 * zize} ${zize} ${zize}`
             }
         },
         methods: {
             svgDown: function (evt) {
                 if (this.activeMode.surfaceAction) {
-                    this.$store.dispatch(this.activeMode.surfaceAction, {evt, film: this.film, domRef: this.domRef, pen: this.pen, touch: this.touch});
+                    this.$store.dispatch(this.activeMode.surfaceAction, {evt, film: this.film, domRef: this.domRef, pen: this.pen, touch: this.touch})
                 }
             },
             ...mapMutations({
@@ -60,20 +60,22 @@
         },
         watch: {
             "film.f.selection.elementId": function (eid) {
-                if (!eid) return;
+                if (!eid) return
                 //le nextTick sécurise le cas de l'import de film.
-                Vue.nextTick(() => this.commitSelect({elementId: eid, film: this.film, domRef: this.domRef}));
+                Vue.nextTick(() => this.commitSelect({elementId: eid, film: this.film, domRef: this.domRef}))
             }
         },
         mounted: function () {
             this.domRef = {
                 svg: document.getElementById("surface"),
                 svgPoint: document.getElementById("surface").createSVGPoint()
-            };
+            }
 
-            this.touch = new Hammer(this.domRef.svg);
-            this.touch.get('pan').set({direction: Hammer.DIRECTION_ALL});
-            this.touch.on("panstart", this.svgDown);
+            this.touch = new Hammer(this.domRef.svg)
+            this.touch.add(new Hammer.Pan({direction: Hammer.DIRECTION_ALL, threshold: 0}))
+            this.touch.add(new Hammer.Press({time: 0}))
+            this.touch.on("press", this.svgDown)
+
 
         }
     }

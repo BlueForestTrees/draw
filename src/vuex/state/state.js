@@ -6,15 +6,13 @@ import ObjectID from "bson-objectid"
 import Do from "../../const/do"
 
 export const createConfig = () => ({
-    showPhantom: true,
+    showPhantom: false,
     imageDuration: 15,
     durationCoef: 1,
-    activeModeIdx: 1,
+    activeModeIdx: 0,
     activeMaskIdx: null,
 
-    smooth: true,
-    smoothing: 0.2,
-    flattening: 0,
+    smooth: false,
 
     simplify: false,
     simpleMode: "visvalingam",
@@ -107,15 +105,14 @@ export default {
     nav: {
         rawEditFilmDialogVisible: false,
         filmListDialogVisible: false,
+        importPathDialogVisible: false,
         zoomSide: 0,
-        cameraTjrsVisible: false,
         autoreturn: false
     },
     panels: [
         {name: modes.BRUSH, icon: "brush", surfaceAction: On.START_DRAW},
-        {name: modes.SELECT, icon: "select_all", surfaceAction: On.START_SELECT},
+        {name: modes.SELECT, icon: "layers", surfaceAction: On.START_SELECT},
         {name: modes.ZOOM, icon: "search", surfaceAction: On.START_ZOOM},
-        {name: modes.IMPORT, icon: "get_app"},
         {name: modes.CAMERA, icon: "videocam", surfaceAction: On.START_CAMERA},
     ],
     films: createFilms(),
@@ -123,5 +120,8 @@ export default {
     pens: createPens(),
     activePen: null,
     shortcuts: createShortcuts(),
-    selectionHistory: []
+    selectionHistory: [],
+    colorPanel: {
+        rows: 7, cols: 7, colors: null
+    }
 }

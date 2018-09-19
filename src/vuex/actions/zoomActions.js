@@ -16,7 +16,6 @@ export default {
         ctx.onup = zoomUp.bind(null, ctx);
         ctx.onpanup = zoomPanUp.bind(null, ctx);
         ctx.onmove = zoomMove.bind(null, ctx);
-
         start(ctx);
     }
 }

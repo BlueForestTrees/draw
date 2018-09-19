@@ -1,7 +1,5 @@
 import Do from "../../const/do";
-import {createSelection} from "../state/state";
 import {findIndex} from 'lodash';
-import Vue from 'vue';
 
 export default {
     [Do.ADD_FILM]: (state, film) => {

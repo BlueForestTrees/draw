@@ -63,9 +63,9 @@ const controlPoint = (current, previous, next, reverse, config) => {
     const p = previous || current
     const n = next || current
     const o = line(p, n)
-    const flat = mapPoint(Math.cos(o.angle) * config.flattening, 0, 1, 1, 0)
+    const flat = mapPoint(0, 0, 1, 1, 0)
     const angle = o.angle * flat + (reverse ? Math.PI : 0)
-    const length = o.length * config.smoothing
+    const length = o.length * 0.15
     const x = current.x + Math.cos(angle) * length
     const y = current.y + Math.sin(angle) * length
     return {x, y}

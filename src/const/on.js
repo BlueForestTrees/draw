@@ -12,6 +12,7 @@ export default {
     MOUNT_APP: 'mountApp',
     PICK_PEN: 'PICK_PEN',
     PLAY: 'play',
+    RENEW_COLORS: 'renewColors',
     SAVE_FILM_AS: 'saveFilmAs',
     START_DRAW: 'startDraw',
     START_SELECT: 'startSelect',

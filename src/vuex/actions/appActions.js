@@ -11,6 +11,7 @@ export default {
         await dispatch(On.LOAD_FILMS);
         await dispatch(On.ACTIVATE_NEW_FILM);
         await dispatch(On.BIND_GLOBAL_KEYS);
+        await dispatch(On.RENEW_COLORS);
     },
     [On.LOAD_FILMS]: async ({commit}) => {
         try {
