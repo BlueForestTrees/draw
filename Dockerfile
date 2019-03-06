@@ -2,8 +2,8 @@ FROM node AS build
 
 WORKDIR /app
 COPY . .
-RUN yarn install
-RUN yarn build
+RUN yarn --ignore-engines install
+RUN yarn --ignore-engines build
 
 FROM nginx:alpine
 COPY --from=build /app/dist/www/ /var/www
