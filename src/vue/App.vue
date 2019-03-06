@@ -8,15 +8,17 @@
 </template>
 
 <script>
-    const Surface = () => import(/* webpackChunkName: "Surface"*/ "./Surface")
-    const Bar = () => import(/* webpackChunkName: "Bar"*/ "./Bar")
+    // const Surface = () => import(/* webpackChunkName: "Surface"*/ "./Surface")
+    // const Bar = () => import(/* webpackChunkName: "Bar"*/ "./Bar")
+
     import {mapState} from "vuex"
     import On from "../const/on"
+    import Surface from "./Surface"
+    import Bar from "./Bar"
 
     export default {
         components: {
-            Bar,
-            Surface
+            Surface, Bar
         },
         computed: {
             ...mapState(["activeFilm", "films", "activePen"])
