@@ -8,8 +8,7 @@
   "scripts": {
     "dev": "cross-env NODE_ENV=development webpack-serve --port 8069 --config webpack.config.js",
     "build": "rimraf dist && cross-env NODE_ENV=production webpack",
-    "test": "NODE_ENV=test mocha --exit $(find src/test -name '*.js') --require babel-register",
-    "deploy": "yarn run build && scp -r dist/var/www/draw.blueforest.org pi@blueforest.org:/var/www"
+    "test": "NODE_ENV=test mocha --exit $(find src/test -name '*.js') --require babel-register"
   },
   "devDependencies": {
     "@babel/core": "7.0.0",
