@@ -1,0 +1,8 @@
+{
+  "prod": [
+    {"path":"/api/film", "host": "https://draw.blueforest.org"}
+  ],
+  "dev": [
+    {"path":"/api/film", "host":"http://localhost:8089"}
+  ]
+}
