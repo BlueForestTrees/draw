@@ -8,8 +8,10 @@ import appActions from "./appActions";
 import cameraActions from "./cameraActions";
 import userActions from "./userActions"
 import snackbarActions from "./snackbarActions"
+import navActions from "./navActions"
 
 export default {
+    ...navActions,
     ...snackbarActions,
     ...userActions,
     ...appActions,

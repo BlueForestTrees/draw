@@ -10,7 +10,7 @@ const mapValidationErrors = ({message, errors}) =>
 const toSnack = ex =>
     ex.status === 404 && {text: "L'élément n'a pas été trouvé. Il n'existe pas ou il est en préparation.", color: "orange"}
     ||
-    ex.status === 403 && {text: "Interdit: cet élément n'est pas à vous.", icon: "pan_tool", color: "orange"}
+    ex.status === 403 && {text: "Interdit.", icon: "pan_tool", color: "orange"}
     ||
     ex.status === 401 && {text: "Connectez-vous pour faire cette action.", icon: "power_off", color: "orange", action: On.GO_LOGIN}
     ||

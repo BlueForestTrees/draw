@@ -17,12 +17,6 @@
         components: {Bar, Surface},
         computed: {
             ...mapState(["activeFilm", "activePen"])
-        },
-        methods:{
-            ...mapActions({checkAuth: On.CHECK_AUTH})
-        },
-        created(){
-            this.checkAuth()
         }
     }
 </script>

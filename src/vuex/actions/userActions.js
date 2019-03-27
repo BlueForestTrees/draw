@@ -11,7 +11,6 @@ export default {
     [On.LOGOUT]: async ({commit}) => {
         forage.clearAccessToken()
         commit(Do.SET_TOKEN, null)
-        commit(Do.SHOW_DIALOG, {dialog:Dial.CONNECT_TO_CONTINUE})
     },
 
     [On.WANT_SUSCRIBE]: ({}, {mail}) => postSuscription({mail}),
