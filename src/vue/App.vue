@@ -15,8 +15,8 @@
     import {Dial} from "../const/dial"
 
     const ConnectToContinueDialog = () => import(/* webpackChunkName: "CTCDialog"*/ "./dialog/ConnectToContinueDialog")
-    const Snack = () => import(/* webpackChunkName: "CTCDialog"*/ "./dialog/Snack")
-    const LoggedIn = () => import(/* webpackChunkName: "CTCDialog"*/ "./user/LoggedIn")
+    const Snack = () => import(/* webpackChunkName: "Snack"*/ "./dialog/Snack")
+    const LoggedIn = () => import(/* webpackChunkName: "LoggedIn"*/ "./user/LoggedIn")
 
     import {mapState} from "vuex"
     import On from "../const/on"

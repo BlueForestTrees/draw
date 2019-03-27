@@ -11,7 +11,6 @@
 
 <script>
     import {mapGetters, mapMutations} from 'vuex'
-    import Vue from 'vue'
     import Hammer from 'hammerjs'
     import Phantom from "../surface/Phantom"
     import Masks from "../surface/Masks"

@@ -191,16 +191,19 @@
     import Do from "../../const/do"
     import On from "../../const/on"
     import modes from "../../const/modes"
-    import Film from "../panel/Film"
+
     import Fantome from "../icons/fantome"
-    import PenEdit from "../menu/PenEdit"
-    import ColorPanel from "../menu/ColorPanel"
+
+    import Film from "../panel/Film"
     import Simplify from "../panel/Simplify"
     import Selection from "../panel/Selection"
+    import Zoom from "../panel/Zoom"
+
+    import PenEdit from "../menu/PenEdit"
+    import ColorPanel from "../menu/ColorPanel"
     import FilmDialog from "../menu/RawEditFilmDialog"
     import ImportPathDialog from "../menu/ImportPathDialog"
     import FilmListDialog from "../menu/FilmsListDialog"
-    import Zoom from "../panel/Zoom"
 
 
     export default {

@@ -6,11 +6,10 @@
 </template>
 
 <script>
-    import {mapState, mapActions} from "vuex"
-    import On from "../../const/on"
+    import {mapState} from "vuex"
+    import Surface from "./Surface"
+    import Bar from "./Bar"
 
-    const Surface = () => import(/* webpackChunkName: "Surface"*/ "./Surface")
-    const Bar = () => import(/* webpackChunkName: "Bar"*/ "./Bar")
 
     export default {
         name: "Draw",
