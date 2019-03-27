@@ -1225,7 +1225,7 @@ cacache@^10.0.4:
     unique-filename "^1.1.0"
     y18n "^4.0.0"
 
-cacache@^11.0.2:
+cacache@^11.0.2, cacache@^11.2.0:
   version "11.3.2"
   resolved "https://registry.yarnpkg.com/cacache/-/cacache-11.3.2.tgz#2d81e308e3d258ca38125b676b98b2ac9ce69bfa"
   integrity sha512-E0zP4EPGDOaT2chM08Als91eYnf8Z+eH1awwwVsngUmgppfM5jjJ8l3z5vO5p5w/I3LsiXawb1sW0VY65pQABg==
@@ -1572,6 +1572,18 @@ commoner@^0.10.1:
 component-emitter@^1.2.1:
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/component-emitter/-/component-emitter-1.2.1.tgz#137918d6d78283f7df7a6b7c5a63e140e69425e6"
+
+compression-webpack-plugin@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/compression-webpack-plugin/-/compression-webpack-plugin-2.0.0.tgz#46476350c1eb27f783dccc79ac2f709baa2cffbc"
+  integrity sha512-bDgd7oTUZC8EkRx8j0sjyCfeiO+e5sFcfgaFcjVhfQf5lLya7oY2BczxcJ7IUuVjz5m6fy8IECFmVFew3xLk8Q==
+  dependencies:
+    cacache "^11.2.0"
+    find-cache-dir "^2.0.0"
+    neo-async "^2.5.0"
+    schema-utils "^1.0.0"
+    serialize-javascript "^1.4.0"
+    webpack-sources "^1.0.1"
 
 concat-map@0.0.1:
   version "0.0.1"
@@ -3351,7 +3363,7 @@ jstransform@^11.0.3:
     object-assign "^2.0.0"
     source-map "^0.4.2"
 
-jwt-decode@^2.2.0:
+jwt-decode@2.2.0:
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/jwt-decode/-/jwt-decode-2.2.0.tgz#7d86bd56679f58ce6a84704a657dd392bba81a79"
   integrity sha1-fYa9VmefWM5qhHBKZX3TkruoGnk=
@@ -6261,17 +6273,17 @@ webpack-serve@2.0.2:
     v8-compile-cache "^2.0.0"
     webpack-log "^1.1.2"
 
-webpack-sources@^1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/webpack-sources/-/webpack-sources-1.1.0.tgz#a101ebae59d6507354d71d8013950a3a8b7a5a54"
+webpack-sources@^1.0.1, webpack-sources@^1.3.0:
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/webpack-sources/-/webpack-sources-1.3.0.tgz#2a28dcb9f1f45fe960d8f1493252b5ee6530fa85"
+  integrity sha512-OiVgSrbGu7NEnEvQJJgdSFPl2qWKkWq5lHMhgiToIiN9w34EBnjYzSYs+VbL5KoYiLNtFFa7BZIKxRED3I32pA==
   dependencies:
     source-list-map "^2.0.0"
     source-map "~0.6.1"
 
-webpack-sources@^1.3.0:
-  version "1.3.0"
-  resolved "https://registry.yarnpkg.com/webpack-sources/-/webpack-sources-1.3.0.tgz#2a28dcb9f1f45fe960d8f1493252b5ee6530fa85"
-  integrity sha512-OiVgSrbGu7NEnEvQJJgdSFPl2qWKkWq5lHMhgiToIiN9w34EBnjYzSYs+VbL5KoYiLNtFFa7BZIKxRED3I32pA==
+webpack-sources@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/webpack-sources/-/webpack-sources-1.1.0.tgz#a101ebae59d6507354d71d8013950a3a8b7a5a54"
   dependencies:
     source-list-map "^2.0.0"
     source-map "~0.6.1"
@@ -6352,7 +6364,7 @@ widest-line@^2.0.0:
   dependencies:
     string-width "^2.1.1"
 
-window-or-global@^1.0.1:
+window-or-global@1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/window-or-global/-/window-or-global-1.0.1.tgz#dbe45ba2a291aabc56d62cf66c45b7fa322946de"
   integrity sha1-2+RboqKRqrxW1iz2bEW3+jIpRt4=

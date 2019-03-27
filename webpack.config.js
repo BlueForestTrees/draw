@@ -6,6 +6,7 @@ var LodashModuleReplacementPlugin = require('lodash-webpack-plugin')
 var VueLoaderPlugin = require('vue-loader').VueLoaderPlugin
 var versions = require('./package.json').dependencies
 var NODE_ENV = process.env.NODE_ENV
+const CompressionPlugin = require("compression-webpack-plugin");
 
 console.log("NODE_ENV === ", NODE_ENV)
 

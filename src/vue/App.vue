@@ -14,19 +14,19 @@
 <script>
     import {Dial} from "../const/dial"
 
-    const ConnectToContinueDialog = () => import(/* webpackChunkName: "CTCDialog"*/ "./dialog/ConnectToContinueDialog")
-    const Snack = () => import(/* webpackChunkName: "Snack"*/ "./dialog/Snack")
-    const LoggedIn = () => import(/* webpackChunkName: "LoggedIn"*/ "./user/LoggedIn")
 
     import {mapState} from "vuex"
     import On from "../const/on"
+    import LoggedIn from "./user/LoggedIn"
+    import Snack from "./dialog/Snack"
+    import ConnectToContinueDialog from "./dialog/ConnectToContinueDialog"
 
     export default {
         data: () => ({Dial}),
         components: {
-            LoggedIn,
+            ConnectToContinueDialog,
             Snack,
-            ConnectToContinueDialog
+            LoggedIn
         },
         computed: {
             ...mapState(["dialogs", "snack"])
