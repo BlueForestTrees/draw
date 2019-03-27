@@ -1,25 +1,35 @@
 <template>
     <v-app id="app" light>
         <v-content>
-            <surface v-if="activeFilm" :film="activeFilm" :pen="activePen"/>
-            <bar v-if="activeFilm" :film="activeFilm" class="noselect"/>
+            <transition name="slide-fade" mode="out-in">
+                <router-view></router-view>
+            </transition>
+            <connect-to-continue-dialog v-if="dialogs[Dial.CONNECT_TO_CONTINUE].visible"/>
+            <snack :snack="snack" v-if="snack.visible"/>
+            <logged-in class="top-right"/>
         </v-content>
     </v-app>
 </template>
 
 <script>
-    const Surface = () => import(/* webpackChunkName: "Surface"*/ "./Surface")
-    const Bar = () => import(/* webpackChunkName: "Bar"*/ "./Bar")
+    import {Dial} from "../const/dial"
+
+    const ConnectToContinueDialog = () => import(/* webpackChunkName: "CTCDialog"*/ "./dialog/ConnectToContinueDialog")
+    const Snack = () => import(/* webpackChunkName: "CTCDialog"*/ "./dialog/Snack")
+    const LoggedIn = () => import(/* webpackChunkName: "CTCDialog"*/ "./user/LoggedIn")
 
     import {mapState} from "vuex"
     import On from "../const/on"
 
     export default {
+        data: () => ({Dial}),
         components: {
-            Surface, Bar
+            LoggedIn,
+            Snack,
+            ConnectToContinueDialog
         },
         computed: {
-            ...mapState(["activeFilm", "films", "activePen"])
+            ...mapState(["dialogs", "snack"])
         },
         mounted: async function () {
             await this.$store.dispatch(On.MOUNT_APP)

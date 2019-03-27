@@ -45,3 +45,24 @@ html{
 .hand {
     cursor: pointer
 }
+
+
+.slide-fade-enter-active {
+    transition: all .2s ease;
+}
+
+.slide-fade-leave-active {
+    transition: all .2s ease;
+}
+
+.slide-fade-enter {
+    transform: translateY(-10px);
+    opacity: 0;
+}
+
+
+.top-right {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+}

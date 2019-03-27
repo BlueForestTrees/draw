@@ -1,18 +1,22 @@
 <template>
-    <svg :viewBox="viewBox" v-if="colors" class="hand">
-        <template v-for="x in rows">
-            <template v-for="y in cols">
-                <rect :x="(x-1)*rw" :y="(y-1)*rh" :width="rw" :height="rh"
-                      :style="`fill:${colors[x-1][y-1]};`"
-                      @click="select(x,y)"
-                      :opacity="pen.opacity"
-                ></rect>
+    <div>
+        <svg :viewBox="viewBox" v-if="colors" class="hand">
+            <template v-for="x in rows">
+                <template v-for="y in cols">
+                    <rect :x="(x-1)*rw" :y="(y-1)*rh" :width="rw" :height="rh"
+                          :style="`fill:${colors[x-1][y-1]};`"
+                          @click="select(x,y)"
+                          :opacity="pen.opacity"
+                    ></rect>
+                </template>
             </template>
-        </template>
-        <rect v-if="selX && selY" :x="(selX-1)*rw" :y="(selY-1)*rh" :width="rw" :height="rh"
-              style="fill:none;stroke-width: 3;stroke-dasharray:5,5"
-        ></rect>
-    </svg>
+            <rect v-if="selX && selY" :x="(selX-1)*rw" :y="(selY-1)*rh" :width="rw" :height="rh"
+                  style="fill:none;stroke-width: 3;stroke-dasharray:5,5"
+            ></rect>
+
+        </svg>
+        <v-text-field @input="setHex"></v-text-field>
+    </div>
 </template>
 
 <script>
@@ -52,10 +56,13 @@
             }
         },
         methods: {
+            setHex(value) {
+                this.$emit("input", value)
+            },
             select(x, y) {
                 this.selX = x
                 this.selY = y
-                this.$emit("input", this.colors[x-1][y-1])
+                this.$emit("input", this.colors[x - 1][y - 1])
             }
         }
     }

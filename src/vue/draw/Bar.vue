@@ -71,7 +71,6 @@
 
         <zoom v-if="modeIs(modes.ZOOM)" :film="film"/>
 
-
         <v-menu top offset-y v-if="modeIs(modes.SELECT) && selection" :close-on-content-click="false">
             <v-btn-toggle slot="activator">
                 <v-btn flat><v-icon small>layers</v-icon><v-icon :style="`color:${selection.e.pen.color}`" small>color_lens</v-icon></v-btn>
@@ -188,25 +187,25 @@
 
 <script>
 
-    import Do from "../const/do"
     import {mapActions, mapGetters, mapMutations, mapState} from 'vuex'
-    import On from "../const/on"
-    import Film from "./panel/Film"
-    import FilmDialog from "./menu/RawEditFilmDialog"
-    import FilmListDialog from "./menu/FilmsListDialog"
-    import modes from "../const/modes"
-    import ImportPathDialog from "./menu/ImportPathDialog"
-    import Zoom from "./panel/Zoom"
-    import ColorPanel from "./menu/ColorPanel"
-    import Phantom from "./surface/Phantom"
-    import Fantome from "./icons/fantome"
-    import PenEdit from "./menu/PenEdit"
-    import Simplify from "./panel/Simplify"
-    import Selection from "./panel/Selection"
+    import Do from "../../const/do"
+    import On from "../../const/on"
+    import modes from "../../const/modes"
+    import Film from "../panel/Film"
+    import Fantome from "../icons/fantome"
+    import PenEdit from "../menu/PenEdit"
+    import ColorPanel from "../menu/ColorPanel"
+    import Simplify from "../panel/Simplify"
+    import Selection from "../panel/Selection"
+    import FilmDialog from "../menu/RawEditFilmDialog"
+    import ImportPathDialog from "../menu/ImportPathDialog"
+    import FilmListDialog from "../menu/FilmsListDialog"
+    import Zoom from "../panel/Zoom"
+
 
     export default {
-        name: 'player',
-        components: {Selection, Simplify, PenEdit, Fantome, Phantom, ColorPanel, Zoom, ImportPathDialog, FilmListDialog, FilmDialog, Film},
+        name: 'bar',
+        components: {Zoom, FilmListDialog, ImportPathDialog, FilmDialog, Selection, Simplify, ColorPanel, PenEdit, Fantome, Film},
         props: ['film'],
         data() {
             return {anim: 0, phantom: null, penreturn: null, smooth: null, modes}

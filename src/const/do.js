@@ -29,4 +29,11 @@ export default {
     SET_SELECTION_BOX: 'setSelectionBox',
     UNKEEP: 'unkeep',
     UNSELECT_ELEMENT: 'unselectElement',
-};
+
+    SHOW_DIALOG: "showDialog",
+    SET_TOKEN: "setToken",
+    UPDATE_DIALOG_VISIBILITY: "updateDialogVisibility",
+    UPDATE_DIALOG_DATA: "updateDialogData",
+    CLEAR_DIALOG_DATA: "clearDialogData",
+    UPDATE_SNACKBAR: "updateSnack"
+}

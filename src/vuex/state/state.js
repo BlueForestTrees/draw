@@ -4,6 +4,8 @@ import modes from "../../const/modes"
 import {cloneDeep, isNil} from 'lodash'
 import ObjectID from "bson-objectid"
 import Do from "../../const/do"
+import {dialogs} from "./dialogState"
+import {snack} from "./snackState"
 
 export const createConfig = () => ({
     showPhantom: false,
@@ -100,6 +102,7 @@ export const createShortcuts = () => ({
     37: ({commit, state}) => commit(Do.PREV, state.activeFilm),
     39: ({commit, state}) => commit(Do.NEXT, state.activeFilm)
 })
+
 export default {
     nav: {
         rawEditFilmDialogVisible: false,
@@ -122,5 +125,9 @@ export default {
     selectionHistory: [],
     colorPanel: {
         rows: 7, cols: 7, colors: null
-    }
+    },
+
+    user: null,
+    dialogs: dialogs(),
+    snack: snack(),
 }

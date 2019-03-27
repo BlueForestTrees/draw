@@ -1,6 +1,6 @@
 import Do from "../../const/do"
 import {createFilm, createSelection} from "../state/state"
-import {getBBox, getTranslation, getTxTy, globalToLocal2, simplifyFilm} from "../../util/util"
+import {getBBox, getTranslation, simplifyFilm} from "../../util/util"
 import _ from 'lodash'
 
 export default {

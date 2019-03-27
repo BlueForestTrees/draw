@@ -6,8 +6,12 @@ import maskActions from "./maskActions";
 import zoomActions from "./zoomActions";
 import appActions from "./appActions";
 import cameraActions from "./cameraActions";
+import userActions from "./userActions"
+import snackbarActions from "./snackbarActions"
 
 export default {
+    ...snackbarActions,
+    ...userActions,
     ...appActions,
     ...surfaceActions,
     ...playerActions,

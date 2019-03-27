@@ -11,22 +11,21 @@
 
 <script>
     import {mapGetters, mapMutations} from 'vuex'
-    import Do from "../const/do"
-    import Selection from "./surface/Selection"
-    import Phantom from "./surface/Phantom"
-    import Elements from "./surface/Elements"
-    import Masks from "./surface/Masks"
     import Vue from 'vue'
-    import DrawPreview from "./menu/DrawPreview"
-    import Camera from "./surface/Camera"
     import Hammer from 'hammerjs'
+    import Phantom from "../surface/Phantom"
+    import Masks from "../surface/Masks"
+    import Elements from "../surface/Elements"
+    import DrawPreview from "../menu/DrawPreview"
+    import Camera from "../surface/Camera"
+    import Do from "../../const/do"
 
     export default {
         components: {
             Camera,
             DrawPreview,
-            Masks,
             Elements,
+            Masks,
             Phantom,
             Selection
         },
@@ -62,7 +61,7 @@
             "film.f.selection.elementId": function (eid) {
                 if (!eid) return
                 //le nextTick sécurise le cas de l'import de film.
-                Vue.nextTick(() => this.commitSelect({elementId: eid, film: this.film, domRef: this.domRef}))
+                //Vue.nextTick(() => this.commitSelect({elementId: eid, film: this.film, domRef: this.domRef}))
             }
         },
         mounted: function () {

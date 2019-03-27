@@ -1,8 +1,10 @@
 {
   "prod": [
-    {"path":"/api/film", "host": "https://draw.blueforest.org"}
+    {"path":"/api/film", "host": "https://draw.blueforest.org"},
+    {"path":"/api/user", "host": "https://draw.blueforest.org"}
   ],
   "dev": [
-    {"path":"/api/film", "host":"http://localhost:8089"}
+    {"path":"/api/film", "host":"http://localhost:8095"},
+    {"path":"/api/user", "host":"http://localhost:8084"}
   ]
 }
