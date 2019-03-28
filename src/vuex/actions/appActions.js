@@ -16,7 +16,12 @@ export default {
     },
     [On.LOAD_FILMS]: async ({commit}) => {
         try {
-            commit(Do.SET_FILMS, await getFilms())
+            const films = await getFilms()
+            if (Array.isArray(films)) {
+                commit(Do.SET_FILMS, films)
+            } else {
+                console.warn("all films is not an array!")
+            }
         } catch (e) {
             console.error("impossible de récupérer les films", e)
         }

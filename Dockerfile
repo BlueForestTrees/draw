@@ -2,8 +2,8 @@ FROM node:11 AS build
 
 WORKDIR /app
 COPY . .
-RUN npm install
-RUN npm run build
+RUN yarn install
+RUN yarn build
 
 FROM nginx:alpine
 COPY --from=build /app/dist/www/ /var/www

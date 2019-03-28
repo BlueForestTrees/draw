@@ -1,14 +1,16 @@
-import Vue from 'vue';
+import Vue from 'vue'
 import App from './vue/App'
-import './css/style.css';
-import Vue2TouchEvents from 'vue2-touch-events'
-
 import Vuetify from 'vuetify'
-import store from "./vuex/store";
+import store from "./vuex/store"
 import router from "./vrouter/router"
+import css from './css/style.css'
 
-Vue.use(Vue2TouchEvents);
-Vue.use(Vuetify);
+Vue.config.productionTip = false
+Vue.use(Vuetify)
+
+
+
+
 
 new Vue({
     el: '#app',
@@ -16,4 +18,4 @@ new Vue({
     store,
     components: {App},
     template: '<App/>'
-});
+})
