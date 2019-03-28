@@ -1,11 +1,12 @@
 import {GO} from "../const/go"
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Draw from "../vue/draw/Draw"
-import Login from "../vue/user/Login"
-import Inscription from "../vue/user/Inscription"
-import Confirmation from "../vue/user/Confirmation"
-import NotFound from "../vue/dialog/NotFound"
+
+const NotFound = () => import(/* webpackChunkName: "NotFound" */ '../vue/dialog/NotFound')
+const Draw = () => import(/* webpackChunkName: "Draw" */ '../vue/draw/Draw')
+const Confirmation = () => import(/* webpackChunkName: "Confirmation" */ '../vue/user/Confirmation')
+const Inscription = () => import(/* webpackChunkName: "Inscription" */ '../vue/user/Inscription')
+const Login = () => import(/* webpackChunkName: "Login" */ '../vue/user/Login')
 
 Vue.use(VueRouter)
 

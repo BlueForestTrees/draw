@@ -1,6 +1,6 @@
 {
   "env": "web",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "videodraw for trees",
   "main": "index.js",
   "author": "slim",
