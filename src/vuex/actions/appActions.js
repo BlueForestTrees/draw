@@ -37,7 +37,7 @@ export default {
     [On.DELETE_FILM]: async ({commit}, film) => {
         await deleteFilm(film._id)
     },
-    [On.SAVE_FILM_AS]: async ({dispatch, commit}, {film, name}) => {
+    [On.SAVE_FILM_AS]: async ({dispatch, commit}, {film, name, publish}) => {
         let filmToSave = film
         const nameChanged = name && filmToSave.f.name !== name
         if (nameChanged) {
@@ -45,6 +45,7 @@ export default {
             filmToSave.f.name = name
             filmToSave._id = createId()
         }
+        filmToSave.show = publish ? 1 : 0
         await saveFilm(filmToSave)
         if (nameChanged) {
             commit(Do.ADD_FILM, filmToSave)
