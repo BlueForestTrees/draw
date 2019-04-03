@@ -45,7 +45,6 @@ export default {
             filmToSave.f.name = name
             filmToSave._id = createId()
         }
-        filmToSave.show = publish ? 1 : 0
         await saveFilm(filmToSave)
         if (nameChanged) {
             commit(Do.ADD_FILM, filmToSave)

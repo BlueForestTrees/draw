@@ -21,7 +21,7 @@
         <v-text-field :value="film.f.name" @input="newName = $event"/>
 
         <v-layout row align-center>
-            <v-checkbox v-model="publish" label="publish"/>
+            <v-checkbox v-model="film.show" label="publish"/>
             <v-btn flat icon @click="save(film)">
                 <v-icon>save</v-icon>
             </v-btn>
@@ -41,8 +41,7 @@
         props: ['films'],
         data: function () {
             return {
-                newName: null,
-                publish: false
+                newName: null
             }
         },
         computed: {
@@ -57,7 +56,7 @@
         },
         methods: {
             save: async function () {
-                this.saveAs({film: this.film, name: this.newName, publish: this.publish})
+                this.saveAs({film: this.film, name: this.newName})
                     .then(() => this.newName = null)
                     .then(() => this.snack({text: "Enregistré"}))
                     .catch(this.snackerror)

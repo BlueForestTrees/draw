@@ -4,7 +4,7 @@ stages:
   - publishImageConfig:
       dockerfilePath: ./Dockerfile
       buildContext: .
-      tag: blueforest/draw:1.0.5
+      tag: blueforest/draw:1.0.6
       pushRemote: true
       registry: index.docker.io
 timeout: 60

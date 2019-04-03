@@ -57,7 +57,9 @@ export const createFilm = () => ({
 
     zoom: 1,
     panx: 0,
-    pany: 0
+    pany: 0,
+    
+    show: false
 })
 export const cloneFilm = (film, newName) => {
     const clonedFilm = cloneDeep(film)
